@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "skillsmp-lite": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "skillsmp-mcp-lite"
+      ],
+      "env": {
+        "SKILLSMP_API_KEY": "sk_live_skillsmp_nJloNpcQCqqRHB-9WV_RTYoxzO1afP9CZCv047rOHBk"
+      }
+    },
+    "brave": {
+      "url": "https://server.smithery.ai/brave/mcp",
+      "type": "http"
+    },
+    "fetch": {
+      "url": "https://server.smithery.ai/smithery-ai/fetch/mcp",
+      "type": "http"
+    }
+  }
+}
