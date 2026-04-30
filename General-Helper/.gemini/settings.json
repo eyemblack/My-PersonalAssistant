@@ -1,0 +1,10 @@
+{
+  "general": {
+    "sessionRetention": {
+      "enabled": true,
+      "maxAge": "7d",
+      "maxCount": 20,
+      "minRetention": "1d"
+    }
+  }
+}
