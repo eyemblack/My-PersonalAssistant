@@ -1,0 +1,19 @@
+# Ignore all subdirectories to focus on root-level sub-agent management
+*/
+
+# Common heavy directories (just in case they are not covered by the above or for clarity)
+node_modules/
+.next/
+.git/
+dist/
+build/
+
+# Specific large folders from sub-projects
+RawJournalLog/
+Vehicle-Logs/
+cway_knowledge/
+guides/
+southern-thailand-trip-2026/
+
+# System files
+.DS_Store
