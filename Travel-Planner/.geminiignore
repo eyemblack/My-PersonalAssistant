@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.*
+
+# Build outputs
+.next/
+out/
+build/
+dist/
+.vercel/
+
+# Logs and temporary files
+*.log
+.DS_Store
+.env*
+*.tsbuildinfo
+
+# Package manager locks (to keep context clean)
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+
+# Git
+.git/
