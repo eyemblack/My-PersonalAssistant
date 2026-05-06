@@ -25,6 +25,8 @@
 - **PTT LPG Kangaroo Gas Station:** https://www.google.com/maps/place/PTT+LPG+Kangaroo+Gas+Station/@9.9329277,99.0248644,13.04z/data=!4m6!3m5!1s0x30567a54da6eabc3:0x3206bf4052f3a62a!8m2!3d9.9134482!4d99.0605463!16s%2Fg%2F11b7yt73fd?entry=tts&g_ep=EgoyMDI2MDQyOS4wIPu8ASoASAFQAw%3D%3D&skid=4c242826-2267-4288-99c1-05d51494ed7d
 - **PT Gas Station Lamae 2 (Punthai, Max Mart):** https://www.google.com/maps/place/PT+Gas+Station+Lamae2+(Punthai+,+Max+Mart)/@9.7490474,99.0194137,13.05z/data=!4m6!3m5!1s0x305687dd8cb7b583:0xbad04a1a75efd992!8m2!3d9.776952!4d99.0784873!16s%2Fg%2F11j0b1vq6g?entry=tts&g_ep=EgoyMDI2MDQyOS4wIPu8ASoASAFQAw%3D%3D&skid=185c35b2-3753-406d-b6e9-794804f18e33
 - **PT gas station (Lamae) newly built:** https://www.google.com/maps/place/PT+gas+station+(Lamae)+newly+built/@9.7604499,99.0632571,14.95z/data=!4m6!3m5!1s0x30568752689fd5f9:0x56207ec474c513ef!8m2!3d9.7734097!4d99.0787401!16s%2Fg%2F11h7cvx8tb?entry=tts&g_ep=EgoyMDI2MDQyOS4wIPu8ASoASAFQAw%3D%3D&skid=f9c0ba3b-a432-4c88-845d-d3822a7bf9dc
+- **PTT Station ปตท. KPF (THE TIGER) หลังสวน:** เงียบสงบมาก (แนะนำสำหรับจอดนอน) แต่ **ไม่มีห้องน้ำและจุดอาบน้ำ**
+- **คำเตือน (Sleeping Note):** ปั๊ม PT ในโซนชุมพร/สายใต้ มักเป็นที่นิยมของรถขนส่งผลไม้และรถบรรทุก ทำให้มีเสียงเครื่องยนต์ดังตลอดคืน ไม่เหมาะสำหรับจอดนอนแบบต้องการความเงียบ
 
 
 ### ⛰️ โซนสุราษฎร์ธานี
