@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💤 คู่มือการนอนหลับเพื่อการฟื้นฟูร่างกาย (Sleep Guide)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Light theme variables */
+            --bg-color: #f8fafc;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(99, 102, 241, 0.12);
+            --accent-purple: #4f46e5;
+            --accent-blue: #2563eb;
+            --accent-teal: #0d9488;
+            --accent-yellow: #ca8a04;
+            --accent-red: #dc2626;
+            --radial-1: rgba(99, 102, 241, 0.06);
+            --radial-2: rgba(168, 85, 247, 0.04);
+            --highlight-bg: rgba(99, 102, 241, 0.04);
+            --highlight-text: #1e1b4b;
+            --grid-bg: rgba(0, 0, 0, 0.015);
+            --grid-border: rgba(0, 0, 0, 0.03);
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.01);
+            --shadow-hover: 0 15px 30px rgba(99, 102, 241, 0.08);
+            --h1-gradient: linear-gradient(135deg, #4f46e5 0%, #9333ea 100%);
+        }
+
+        body.dark-mode {
+            /* Dark theme variables */
+            --bg-color: #0b0f19;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --card-border: rgba(99, 102, 241, 0.15);
+            --accent-purple: #818cf8;
+            --accent-blue: #60a5fa;
+            --accent-teal: #2dd4bf;
+            --accent-yellow: #fbbf24;
+            --accent-red: #ef4444;
+            --radial-1: rgba(99, 102, 241, 0.15);
+            --radial-2: rgba(168, 85, 247, 0.1);
+            --highlight-bg: rgba(99, 102, 241, 0.08);
+            --highlight-text: #f8fafc;
+            --grid-bg: rgba(255, 255, 255, 0.02);
+            --grid-border: rgba(255, 255, 255, 0.05);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --shadow-hover: 0 10px 30px rgba(99, 102, 241, 0.1);
+            --h1-gradient: linear-gradient(135deg, #a5b4fc 0%, #e879f9 100%);
+        }
+
+        body {
+            font-family: 'Prompt', 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-image: 
+                radial-gradient(at 0% 0%, var(--radial-1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, var(--radial-2) 0px, transparent 50%);
+            background-attachment: fixed;
+            transition: background-color 0.3s ease, color 0.3s ease, background-image 0.3s ease;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            background: var(--h1-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-top: 5px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            backdrop-filter: blur(12px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+            box-shadow: var(--shadow);
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            color: var(--accent-purple);
+            margin-top: 0;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        .highlight-box {
+            background: var(--highlight-bg);
+            border-left: 4px solid var(--accent-purple);
+            padding: 15px;
+            border-radius: 4px 8px 8px 4px;
+            margin: 15px 0;
+            color: var(--highlight-text);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .grid-item {
+            background: var(--grid-bg);
+            border: 1px solid var(--grid-border);
+            padding: 15px;
+            border-radius: 10px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .grid-item h4 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            color: var(--accent-blue);
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(13, 148, 136, 0.1);
+            color: var(--accent-teal);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .checklist-icon {
+            color: var(--accent-teal);
+            font-size: 1.1rem;
+            line-height: 1;
+        }
+
+        /* Floating Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 10px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            font-family: 'Prompt', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            border-color: var(--accent-purple);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card:nth-child(2) { animation-delay: 0.15s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.45s; }
+    </style>
+</head>
+<body>
+
+    <button class="theme-toggle" id="themeToggle">
+        <span id="themeIcon">☀️</span> <span id="themeText">Light Mode</span>
+    </button>
+
+    <div class="container">
+        <header>
+            <h1>💤 คู่มือการนอนเพื่อฟื้นฟูร่างกายและลดพุง</h1>
+            <p class="subtitle">หัวใจหลักในการกู้คืนร่างกายของโปรแกรมออกกำลังกายและเตรียมตัวเดินป่า</p>
+        </header>
+
+        <!-- Section 1 -->
+        <div class="card">
+            <h3 class="card-title">⏰ เวลาที่เหมาะสม: 7 - 8.5 ชั่วโมงต่อคืน</h3>
+            <p>การนอนหลับเป็นช่วงเวลาที่สำคัญที่สุดที่ร่างกายใช้ในการทำกระบวนการซ่อมแซมตัวเอง การนอนให้ครบตามเกณฑ์จะส่งผลโดยตรงต่อเป้าหมายของคุณดังนี้:</p>
+            
+            <div class="grid">
+                <div class="grid-item">
+                    <h4>🛠️ การสร้างกล้ามเนื้อ</h4>
+                    <p style="font-size: 0.9rem; margin: 0; color: var(--text-muted);">
+                        โกรทฮอร์โมน (Growth Hormone) จะหลั่งมากที่สุดในช่วงหลับลึกเพื่อทำหน้าที่สังเคราะห์โปรตีนซ่อมแซมกล้ามเนื้อจากการยกบอดี้เวทใน Day 1 และ Day 3
+                    </p>
+                </div>
+                <div class="grid-item">
+                    <h4>🔥 การสลายไขมันสะสมที่พุง</h4>
+                    <p style="font-size: 0.9rem; margin: 0; color: var(--text-muted);">
+                        การนอนน้อยกระตุ้นฮอร์โมนคอร์ติซอล (ฮอร์โมนเครียด) ซึ่งทำหน้าที่บล็อกการเผาผลาญไขมันและเพิ่มการสะสมไขมันที่พุงเป็นสองเท่า
+                    </p>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <p>⚠️ <strong>ข้อมูลน่ารู้:</strong> การนอนไม่พอทำให้อัตราการเจ็บเสียวที่ข้อเท้าหรือเข่าขณะวิ่งสูงขึ้นถึง 1.7 เท่า และเพิ่มระดับความโหยน้ำตาล (อยากดื่มน้ำอัดลมปกติ) ในวันถัดไปจากความไม่สมดุลของฮอร์โมนควบคุมความหิว</p>
+            </div>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="card">
+            <h3 class="card-title">📱 การอ่านสถิติการนอนหลับในแอป Zepp (Amazfit)</h3>
+            <p>ใช้เซนเซอร์จากนาฬิกาของคุณให้เป็นประโยชน์ โดยเปิดดูค่าสถิติต่อไปนี้หลังตื่นนอน:</p>
+            
+            <ul style="color: var(--text-muted); list-style-type: none; padding-left: 0;">
+                <li class="checklist-item">
+                    <span class="checklist-icon">✓</span>
+                    <div>
+                        <strong style="color: var(--text-main);">คะแนนการนอนหลับ (Sleep Score):</strong> 
+                        พยายามรักษาระดับให้อยู่ที่ <strong>80 คะแนนขึ้นไป</strong> เป็นเกณฑ์ที่บอกว่านอนได้มีประสิทธิภาพ
+                    </div>
+                </li>
+                <li class="checklist-item">
+                    <span class="checklist-icon">✓</span>
+                    <div>
+                        <strong style="color: var(--text-main);">สัดส่วนการหลับลึก (Deep Sleep):</strong> 
+                        ควรอยู่ที่ <strong>15% - 25% ของเวลานอนทั้งหมด</strong> (ประมาณ 1.5 - 2 ชั่วโมงต่อคืน) ซึ่งเป็นคีย์สำคัญที่สุดของการหลั่งโกรทฮอร์โมน
+                    </div>
+                </li>
+                <li class="checklist-item">
+                    <span class="checklist-icon">✓</span>
+                    <div>
+                        <strong style="color: var(--text-main);">อัตราการเต้นของหัวใจขณะพักหลับ (Resting HR):</strong> 
+                        หากการซ้อมและพักผ่อนสมดุลดี ค่าหัวใจเฉลี่ยตอนนอนควรจะค่อยๆ ต่ำลง (ปกติควรอยู่ต่ำกว่า 60-65 bpm ขึ้นอยู่กับบุคคล) หากเช้าไหนค่านี้สูงกว่าปกติมาก แปลว่าร่างกายยังฟื้นตัวไม่เต็มที่
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Section 3 -->
+        <div class="card">
+            <h3 class="card-title">🌙 กฎ 5 ข้อเพื่อสุขอนามัยการนอนที่ดี (Sleep Hygiene)</h3>
+            <p>เพื่อช่วยให้คุณหลับได้ง่าย หลับลึกขึ้น และไม่ตื่นกลางดึก:</p>
+            
+            <ul style="color: var(--text-muted); list-style-type: none; padding-left: 0;">
+                <li class="checklist-item">
+                    <span class="checklist-icon">🕒</span>
+                    <div>
+                        <strong style="color: var(--text-main);">1. นอนและตื่นเวลาเดิมเสมอ</strong> 
+                        เพื่อรักษาจังหวะนาฬิกาชีวิต (Circadian Rhythm) ทำให้ร่างกายหลั่งเมลาโทนินเพื่อเตรียมหลับได้เองตามเวลา
+                    </div>
+                </li>
+                <li class="checklist-item">
+                    <span class="checklist-icon">☕</span>
+                    <div>
+                        <strong style="color: var(--text-main);">2. เลิกคาเฟอีนหลังบ่ายสอง (14:00 น.)</strong> 
+                        คาเฟอีนมีค่าครึ่งชีวิต (Half-life) นานถึง 6 ชั่วโมง การดื่มชากาแฟช่วงบ่ายแก่ๆ จะรบกวนคลื่นสมองช่วงหลับลึกโดยที่คุณไม่รู้ตัว
+                    </div>
+                </li>
+                <li class="checklist-item">
+                    <span class="checklist-icon">📵</span>
+                    <div>
+                        <strong style="color: var(--text-main);">3. หลีกเลี่ยงแสงสีฟ้าก่อนนอน 1 ชั่วโมง</strong> 
+                        แสงจากหน้าจอมือถือจะหลอกสมองว่ายังเป็นเวลากลางวัน ทำให้สมองยับยั้งการหลั่งเมลาโทนิน ส่งผลให้หลับยาก
+                    </div>
+                </li>
+                <li class="checklist-item">
+                    <span class="checklist-icon">🌡️</span>
+                    <div>
+                        <strong style="color: var(--text-main);">4. ปรับห้องนอนให้เย็น มืด และเงียบ</strong> 
+                        อุณหภูมิห้องที่เย็นพอเหมาะ (ประมาณ 23-25 องศาเซลเซียส) จะช่วยกระตุ้นการลดอุณหภูมิแกนกลางในร่างกายซึ่งเป็นสัญญาณทางชีวภาพเพื่อเข้าสู่การนอนหลับลึก
+                    </div>
+                </li>
+                <li class="checklist-item">
+                    <span class="checklist-icon">🍺</span>
+                    <div>
+                        <strong style="color: var(--text-main);">5. ไม่ทานมื้อหนักหรือแอลกอฮอล์ก่อนนอน 3 ชั่วโมง</strong> 
+                        การย่อยอาหารที่ยังทำงานอยู่ขณะนอนหลับจะดึงเลือดไปเลี้ยงกระเพาะอาหาร ทำให้หัวใจเต้นเร็วและรบกวนประสิทธิภาพการหลับลึก
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+        const body = document.body;
+
+        // Check for saved theme preference or default to light mode
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeIcon.textContent = '🌙';
+            themeText.textContent = 'Dark Mode';
+        } else {
+            body.classList.remove('dark-mode');
+            themeIcon.textContent = '☀️';
+            themeText.textContent = 'Light Mode';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            
+            if (isDark) {
+                localStorage.setItem('theme', 'dark');
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Dark Mode';
+            } else {
+                localStorage.setItem('theme', 'light');
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Light Mode';
+            }
+        });
+    </script>
+</body>
+</html>
