@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay Yourself First - ออมก่อนใช้ เคล็ดลับสร้างความมั่งคั่ง</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #090514 0%, #12092c 50%, #05020c 100%);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --glass-hover: rgba(255, 255, 255, 0.09);
+            
+            --primary: #ab47bc;
+            --primary-light: #df78ef;
+            --cyan: #00e5ff;
+            --green: #00e676;
+            --rose: #ff1744;
+            --yellow: #ffd600;
+            --text-main: #f3f4f6;
+            --text-muted: #a1a1aa;
+            --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', 'Sarabun', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Background blur glows */
+        .ambient-glow-1 {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(171, 71, 188, 0.15) 0%, rgba(0,0,0,0) 70%);
+            top: -200px;
+            left: -200px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .ambient-glow-2 {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 229, 255, 0.12) 0%, rgba(0,0,0,0) 70%);
+            bottom: -100px;
+            right: -100px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #ffffff, var(--primary-light), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.8rem;
+            letter-spacing: -0.02em;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Glassmorphic Card */
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 2.5rem;
+            box-shadow: var(--card-shadow);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            margin-bottom: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        /* Concept comparison grid */
+        .comp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .comp-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .comp-box {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255,255,255,0.02);
+            border-radius: 20px;
+            padding: 1.8rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .comp-box.negative {
+            border-left: 5px solid var(--rose);
+        }
+
+        .comp-box.positive {
+            border-left: 5px solid var(--green);
+            background: rgba(0, 230, 118, 0.01);
+        }
+
+        .comp-header {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .comp-formula {
+            font-family: monospace;
+            font-size: 1.3rem;
+            padding: 0.6rem 1rem;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 8px;
+            margin-bottom: 1.2rem;
+            display: inline-block;
+            font-weight: 700;
+        }
+
+        .comp-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* 3 Steps section */
+        .step-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.01);
+            border: 1px solid rgba(255,255,255,0.02);
+            border-radius: 20px;
+            transition: all 0.2s;
+        }
+
+        .step-item:hover {
+            background: var(--glass-hover);
+            transform: translateX(5px);
+        }
+
+        .step-num {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            box-shadow: 0 0 15px rgba(171, 71, 188, 0.4);
+        }
+
+        .step-text h4 {
+            font-size: 1.1rem;
+            color: white;
+            margin-bottom: 0.3rem;
+        }
+
+        .step-text p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Interactive Calculator */
+        .calc-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .calc-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .input-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrap input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            color: white;
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            font-size: 1.15rem;
+            font-weight: 600;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .input-wrap input:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 15px rgba(171, 71, 188, 0.2);
+        }
+
+        .input-suffix {
+            position: absolute;
+            right: 1.2rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .formula-btns {
+            display: flex;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--glass-border);
+            padding: 0.3rem;
+            border-radius: 12px;
+            gap: 0.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .formula-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.7rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .formula-btn.active {
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .calc-result-card {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 1.8rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(255,255,255,0.02);
+        }
+
+        .result-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .result-label {
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+        }
+
+        .result-name {
+            font-weight: 600;
+            font-size: 1rem;
+            color: white;
+        }
+
+        .result-sub {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .result-val {
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .result-val.green { color: var(--green); }
+        .result-val.rose { color: var(--rose); }
+        .result-val.cyan { color: var(--cyan); }
+
+        .progress-bar-bg {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 50px;
+            overflow: hidden;
+            margin-top: 0.4rem;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 50px;
+            width: 0%;
+            transition: width 0.5s ease-out;
+        }
+
+        /* Banner quote */
+        .quote-banner {
+            background: linear-gradient(135deg, rgba(171, 71, 188, 0.15) 0%, rgba(0, 229, 255, 0.1) 100%);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2.2rem;
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .quote-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+
+        .quote-author {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: auto;
+            padding: 2.5rem 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--glass-border);
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-glow-1"></div>
+    <div class="ambient-glow-2"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>Pay Yourself First</h1>
+            <p>ออมก่อนใช้ - กุญแจหลักในการสร้างความมั่งคั่งและอิสรภาพชีวิต โดยไม่ต้องปวดหัวกับการจดบัญชีรายรับ-รายจ่ายรายวัน</p>
+        </header>
+
+        <!-- Card 1: What is it? -->
+        <div class="card">
+            <h2 class="card-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary-light)" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                เปรียบเทียบแนวคิด: ออมก่อนใช้ vs ใช้ก่อนออม
+            </h2>
+            <p style="line-height: 1.6; color: #d1d5db; font-size: 1rem;">
+                คนส่วนใหญ่มักล้มเหลวกับการเก็บออมเงิน เพราะมักมองว่าการออมคือ "เงินที่เหลือหลังจากใช้จ่ายหมดแล้ว" แต่ในความเป็นจริง เรามักจะมีเรื่องให้ต้องจ่ายจนเงินไม่เคยเหลือ วิธีคิดแบบใหม่จึงเปลี่ยนลำดับสมการการเงินให้การออมกลายเป็นภารกิจแรกทันทีที่ได้รับเงินมาครับ
+            </p>
+
+            <div class="comp-grid">
+                <div class="comp-box negative">
+                    <div class="comp-header" style="color: var(--rose);">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                        แบบเดิม: ใช้ก่อนออม
+                    </div>
+                    <div class="comp-formula" style="color: var(--rose);">รายได้ - รายจ่าย = เงินออม?</div>
+                    <p class="comp-desc">
+                        ใช้จ่ายตามความต้องการก่อนในแต่ละวัน เหลือเท่าไหร่ค่อยเอาไปเก็บออมตอนสิ้นเดือน ผลลัพธ์ส่วนใหญ่คือ <strong>"ไม่เหลือเงินเก็บเลย"</strong> เพราะสมองจะหาเรื่องให้เราใช้เงินจนหมดบัญชีเสมอ
+                    </p>
+                </div>
+
+                <div class="comp-box positive">
+                    <div class="comp-header" style="color: var(--green);">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        แบบใหม่: ออมก่อนใช้
+                    </div>
+                    <div class="comp-formula" style="color: var(--green);">รายได้ - เงินออม = รายจ่าย!</div>
+                    <p class="comp-desc">
+                        หักเงินออมและหลักประกันออกไปทันทีที่เงินเดือนเข้าบัญชี เงินส่วนที่เหลืออยู่ในบัญชีคือเงินที่เราสามารถใช้จ่ายเล่นได้อย่างอิสระโดยไม่ต้องรู้สึกผิด และไม่ต้องเสียเวลาจดรายรับรายจ่ายรายวัน
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2: 3 Simple Steps -->
+        <div class="card">
+            <h2 class="card-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+                3 ขั้นตอนปฏิบัติจริงเพื่อตั้งระบบการเงินอัตโนมัติ
+            </h2>
+            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; margin-bottom: 1.5rem;">
+                การจัดทัพกระเป๋าเงิน (Envelopes / Pockets) โดยแยกบัญชีเงินฝากออกตามหน้าที่อย่างชัดเจน เช่น บัญชีใช้จ่ายจำเป็น, บัญชีเงินเก็บฉุกเฉิน, บัญชีค่าประกัน และบัญชีกินเที่ยว
+            </p>
+
+            <div class="step-list">
+                <div class="step-item">
+                    <div class="step-num">1</div>
+                    <div class="step-text">
+                        <h4>หักเงินออมและหลักประกันทันที (Pay Yourself First)</h4>
+                        <p>เมื่อเงินเข้าบัญชีหลัก ให้ตั้งโอนอัตโนมัติหรือโอนทันทีไปเก็บยังบัญชีออมทรัพย์ที่ถอนยาก เช่น บัญชีเงินฉุกเฉิน (เป้าหมาย 3-6 เท่าของรายจ่าย) บัญชีเก็บค่าประกันรายปีหารเฉลี่ยรายเดือน หรือส่งเข้ากองทุนลงทุนระยะยาว</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">2</div>
+                    <div class="step-text">
+                        <h4>จ่ายค่างวดและรายจ่ายจำเป็นหลัก (Pay Your Obligations)</h4>
+                        <p>จ่ายค่าเช่าบ้าน ค่าน้ำไฟ ค่าเน็ต ค่างวดผ่อนรถ หรือหนี้สินต่างๆ ที่ถึงรอบชำระให้เรียบร้อย เพื่อป้องกันปัญหามีดอกเบี้ยปรับหรือการผิดนัดชำระ</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">3</div>
+                    <div class="step-text">
+                        <h4>กักเงินกินเที่ยวไว้ในกระเป๋าเฉพาะ (Set Discretionary Envelope)</h4>
+                        <p>เงินก้อนสุดท้ายที่เหลือคืองบสำหรับใช้ชีวิต กินเที่ยว ช็อปปิ้ง ให้โอนไปเก็บไว้ในบัญชีเฉพาะ (เช่น บัญชีกิน/เที่ยว) จากนั้นรูดใช้จากกระเป๋าใบนี้ได้แบบไร้กังวล <strong>หมดเมื่อไหร่ก็แค่หยุดเที่ยว</strong> โดยไม่กระทบเงินออมหลักเลยครับ</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 3: Interactive Calculator -->
+        <div class="card">
+            <h2 class="card-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="2.5"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="9" y1="22" x2="9" y2="16"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="22"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M16 10h.01"/></svg>
+                เครื่องมือทดลองจัดสัดส่วนเงินออมก่อนใช้
+            </h2>
+            <div class="calc-container">
+                <div>
+                    <div class="input-group">
+                        <label>ระบุรายได้สุทธิต่อเดือนของคุณ</label>
+                        <div class="input-wrap">
+                            <input type="number" id="calc-income" value="51539" oninput="calculateBudget()">
+                            <span class="input-suffix">บาท</span>
+                        </div>
+                    </div>
+
+                    <label class="input-group"><span style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 0.5rem;">เลือกสูตรการจัดสรรเงิน</span></label>
+                    <div class="formula-btns">
+                        <button class="formula-btn active" id="btn-standard" onclick="selectFormula('standard')">50/30/20 (ปกติ)</button>
+                        <button class="formula-btn" id="btn-defensive" onclick="selectFormula('defensive')">ตั้งรับฉุกเฉิน (Defensive)</button>
+                        <button class="formula-btn" id="btn-custom" onclick="selectFormula('custom')">กำหนดเอง</button>
+                    </div>
+
+                    <div id="custom-inputs-wrap" style="display: none; border-top: 1px solid var(--glass-border); padding-top: 1.2rem; margin-top: 0.5rem;">
+                        <div class="form-row" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;">
+                            <div class="input-group">
+                                <label style="font-size: 0.65rem;">Needs (%)</label>
+                                <input type="number" id="custom-needs" value="50" style="background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); border-radius: 8px; color: white; padding: 0.5rem; text-align: center; font-weight: 600;" oninput="calculateBudget()">
+                            </div>
+                            <div class="input-group">
+                                <label style="font-size: 0.65rem;">Wants (%)</label>
+                                <input type="number" id="custom-wants" value="30" style="background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); border-radius: 8px; color: white; padding: 0.5rem; text-align: center; font-weight: 600;" oninput="calculateBudget()">
+                            </div>
+                            <div class="input-group">
+                                <label style="font-size: 0.65rem;">Savings (%)</label>
+                                <input type="number" id="custom-savings" value="20" style="background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); border-radius: 8px; color: white; padding: 0.5rem; text-align: center; font-weight: 600;" oninput="calculateBudget()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="calc-result-card">
+                        <div class="result-row">
+                            <div class="result-label">
+                                <span class="result-name">รายจ่ายจำเป็น (Needs)</span>
+                                <span class="result-sub" id="needs-pct">คิดเป็น 50% ของรายได้</span>
+                            </div>
+                            <div>
+                                <span class="result-val rose" id="needs-val">25,769.50 บาท</span>
+                                <div class="progress-bar-bg"><div class="progress-bar-fill" id="needs-bar" style="background: var(--rose);"></div></div>
+                            </div>
+                        </div>
+                        <div class="result-row">
+                            <div class="result-label">
+                                <span class="result-name">รายจ่ายกินเที่ยว (Wants)</span>
+                                <span class="result-sub" id="wants-pct">คิดเป็น 30% ของรายได้</span>
+                            </div>
+                            <div>
+                                <span class="result-val yellow" id="wants-val">15,461.70 บาท</span>
+                                <div class="progress-bar-bg"><div class="progress-bar-fill" id="wants-bar" style="background: var(--yellow);"></div></div>
+                            </div>
+                        </div>
+                        <div class="result-row">
+                            <div class="result-label">
+                                <span class="result-name">เงินออมและหลักประกัน (Savings)</span>
+                                <span class="result-sub" id="savings-pct">หักออมทันที 20%</span>
+                            </div>
+                            <div>
+                                <span class="result-val green" id="savings-val">10,307.80 บาท</span>
+                                <div class="progress-bar-bg"><div class="progress-bar-fill" id="savings-bar" style="background: var(--green);"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Banner Quote -->
+        <div class="quote-banner">
+            <p class="quote-text">"อย่าเก็บเงินที่เหลือจากการใช้จ่าย แต่จงใช้จ่ายเงินที่เหลือจากการเก็บออม"</p>
+            <p class="quote-author">Warren Buffett</p>
+        </div>
+
+        <footer>
+            <p>Pay Yourself First Guideline • ออกแบบโดยโค้ชการเงินส่วนตัวสำหรับแชร์และเรียนรู้ร่วมกัน 💜</p>
+        </footer>
+    </div>
+
+    <!-- Scripting -->
+    <script>
+        let currentFormula = 'standard';
+
+        function selectFormula(type) {
+            currentFormula = type;
+            
+            const btns = document.querySelectorAll('.formula-btn');
+            btns.forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(`btn-${type}`).classList.add('active');
+            
+            const customWrap = document.getElementById('custom-inputs-wrap');
+            if (type === 'custom') {
+                customWrap.style.display = 'block';
+            } else {
+                customWrap.style.display = 'none';
+            }
+            calculateBudget();
+        }
+
+        function calculateBudget() {
+            const income = parseFloat(document.getElementById('calc-income').value) || 0;
+            
+            let needsPct = 50;
+            let wantsPct = 30;
+            let savingsPct = 20;
+
+            if (currentFormula === 'defensive') {
+                // Defensive formula targeted at high saving, low wants
+                needsPct = 48.6; // Matches user necessary expenses baseline
+                wantsPct = 10;   // Slashed wants
+                savingsPct = 41.4; // 100 - 48.6 - 10
+            } else if (currentFormula === 'custom') {
+                needsPct = parseFloat(document.getElementById('custom-needs').value) || 0;
+                wantsPct = parseFloat(document.getElementById('custom-wants').value) || 0;
+                savingsPct = parseFloat(document.getElementById('custom-savings').value) || 0;
+            }
+
+            const needsVal = income * (needsPct / 100);
+            const wantsVal = income * (wantsPct / 100);
+            const savingsVal = income * (savingsPct / 100);
+
+            // Update Labels
+            document.getElementById('needs-pct').innerText = `คิดเป็น ${needsPct.toFixed(1)}% ของรายได้`;
+            document.getElementById('wants-pct').innerText = `คิดเป็น ${wantsPct.toFixed(1)}% ของรายได้`;
+            document.getElementById('savings-pct').innerText = `หักออมทันที ${savingsPct.toFixed(1)}%`;
+
+            // Update Values
+            document.getElementById('needs-val').innerText = needsVal.toLocaleString('th-TH', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' บาท';
+            document.getElementById('wants-val').innerText = wantsVal.toLocaleString('th-TH', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' บาท';
+            document.getElementById('savings-val').innerText = savingsVal.toLocaleString('th-TH', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' บาท';
+
+            // Update Bars
+            // Calculate relative ratios to prevent overflows if sum > 100
+            const totalPct = needsPct + wantsPct + savingsPct || 1;
+            document.getElementById('needs-bar').style.width = `${(needsPct / totalPct) * 100}%`;
+            document.getElementById('wants-bar').style.width = `${(wantsPct / totalPct) * 100}%`;
+            document.getElementById('savings-bar').style.width = `${(savingsPct / totalPct) * 100}%`;
+        }
+
+        // Init
+        window.onload = function() {
+            calculateBudget();
+        }
+    </script>
+</body>
+</html>
