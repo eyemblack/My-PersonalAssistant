@@ -13,32 +13,96 @@
     />
     <style>
       :root {
-          --bg-gradient: linear-gradient(135deg, #0f0c1b 0%, #15102a 50%, #0d0914 100%);
-          --glass-bg: rgba(255, 255, 255, 0.03);
-          --glass-border: rgba(255, 255, 255, 0.06);
-          --glass-hover: rgba(255, 255, 255, 0.07);
+          /* Harmonious HSL Palette */
+          --bg-dark: hsl(260, 30%, 4%);
+          --bg-card: hsla(260, 30%, 8%, 0.45);
+          --bg-card-hover: hsla(260, 30%, 12%, 0.6);
+          --border-glass: hsla(0, 0%, 100%, 0.08);
+          --border-glass-hover: hsla(0, 0%, 100%, 0.15);
 
-          --primary: #8a2be2;
-          --primary-light: #a855f7;
-          --cyan: #00f2fe;
-          --green: #00e676;
-          --yellow: #ffd600;
-          --rose: #ff2d55;
-          --text-main: #f3f4f6;
-          --text-muted: #9ca3af;
-          --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+          --primary: hsl(270, 75%, 65%);
+          --primary-light: hsl(270, 85%, 75%);
+          --cyan: hsl(190, 95%, 50%);
+          --green: hsl(145, 80%, 50%);
+          --yellow: hsl(45, 100%, 50%);
+          --rose: hsl(345, 90%, 55%);
+          
+          --text-main: hsl(210, 20%, 96%);
+          --text-muted: hsl(215, 15%, 70%);
+          --card-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.5);
+          --font-family: 'Outfit', 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
+          
+          /* Keep variables compatible with old elements */
+          --bg-gradient: linear-gradient(135deg, hsl(260, 30%, 4%) 0%, hsl(260, 25%, 8%) 50%, hsl(260, 35%, 2%) 100%);
+          --glass-bg: hsla(260, 30%, 8%, 0.45);
+          --glass-border: hsla(0, 0%, 100%, 0.08);
+          --glass-hover: hsla(260, 30%, 12%, 0.6);
+      }
+
+      /* Light Mode Override */
+      [data-theme="light"] {
+          --bg-dark: hsl(260, 25%, 96%);
+          --bg-card: hsla(260, 20%, 98%, 0.7);
+          --bg-card-hover: hsla(260, 20%, 100%, 0.9);
+          --border-glass: hsla(260, 15%, 10%, 0.08);
+          --border-glass-hover: hsla(260, 15%, 10%, 0.15);
+          
+          --text-main: hsl(260, 35%, 12%);
+          --text-muted: hsl(260, 15%, 45%);
+          --card-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.08);
+          
+          --bg-gradient: linear-gradient(135deg, hsl(260, 25%, 96%) 0%, hsl(260, 15%, 98%) 50%, hsl(260, 25%, 92%) 100%);
+          --glass-bg: hsla(260, 20%, 98%, 0.7);
+          --glass-border: hsla(260, 15%, 10%, 0.08);
+          --glass-hover: hsla(260, 20%, 100%, 0.9);
+
+          /* Contrast accent colors for light theme */
+          --cyan: hsl(190, 100%, 36%);
+          --green: hsl(145, 80%, 36%);
+          --yellow: hsl(40, 90%, 42%);
+          --rose: hsl(345, 90%, 48%);
+          --primary: hsl(270, 70%, 55%);
+          --primary-light: hsl(270, 75%, 65%);
       }
 
       * {
           box-sizing: border-box;
           margin: 0;
           padding: 0;
-          font-family: 'Outfit', 'Sarabun', sans-serif;
+          font-family: var(--font-family);
           -webkit-font-smoothing: antialiased;
+          transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+      }
+
+      .theme-toggle-btn {
+          background: var(--bg-card);
+          border: 1px solid var(--border-glass);
+          color: var(--text-main);
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          box-shadow: var(--card-shadow);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+      }
+
+      .theme-toggle-btn:hover {
+          border-color: var(--border-glass-hover);
+          transform: scale(1.08) rotate(15deg);
+          background: var(--bg-card-hover);
       }
 
       body {
-          background: var(--bg-gradient);
+          background-color: var(--bg-dark);
+          background-image: 
+              radial-gradient(at 0% 0%, hsla(270, 75%, 60%, 0.08) 0px, transparent 50%),
+              radial-gradient(at 100% 100%, hsla(190, 95%, 50%, 0.06) 0px, transparent 50%);
+          background-attachment: fixed;
           color: var(--text-main);
           min-height: 100vh;
           display: flex;
@@ -49,24 +113,44 @@
       /* Ambient glowing backgrounds */
       .ambient-glow-1 {
           position: absolute;
-          width: 400px;
-          height: 400px;
-          background: radial-gradient(circle, rgba(138, 43, 226, 0.15) 0%, rgba(0,0,0,0) 70%);
-          top: -100px;
-          left: -100px;
+          width: 500px;
+          height: 500px;
+          background: radial-gradient(circle, hsla(270, 75%, 65%, 0.1) 0%, rgba(0,0,0,0) 70%);
+          top: -150px;
+          left: -150px;
           z-index: -1;
           pointer-events: none;
+          filter: blur(40px);
       }
 
       .ambient-glow-2 {
           position: absolute;
-          width: 500px;
-          height: 500px;
-          background: radial-gradient(circle, rgba(0, 242, 254, 0.1) 0%, rgba(0,0,0,0) 70%);
-          bottom: 10%,
+          width: 600px;
+          height: 600px;
+          background: radial-gradient(circle, hsla(190, 95%, 50%, 0.08) 0%, rgba(0,0,0,0) 70%);
+          bottom: 10%;
           right: -100px;
           z-index: -1;
           pointer-events: none;
+          filter: blur(50px);
+      }
+
+      .level-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: hsla(270, 75%, 65%, 0.12);
+          border: 1px solid hsla(270, 75%, 65%, 0.35);
+          color: var(--primary-light);
+          padding: 0.4rem 1rem;
+          border-radius: 50px;
+          font-size: 0.8rem;
+          font-weight: 700;
+          margin-bottom: 0.8rem;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
       }
 
       /* Container Layout */
@@ -74,7 +158,7 @@
           max-width: 1400px;
           width: 100%;
           margin: 0 auto;
-          padding: 2rem 1.5rem;
+          padding: 2.5rem 1.5rem;
           position: relative;
       }
 
@@ -84,35 +168,38 @@
           align-items: center;
           margin-bottom: 2.5rem;
           padding-bottom: 1.5rem;
-          border-bottom: 1px solid var(--glass-border);
+          border-bottom: 1px solid var(--border-glass);
       }
 
       .header-title h1 {
-          font-size: 2.2rem;
+          font-size: 2.4rem;
           font-weight: 700;
-          background: linear-gradient(to right, #ffffff, #a855f7, #00f2fe);
+          background: linear-gradient(135deg, #ffffff 30%, var(--primary-light) 70%, var(--cyan) 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
-          margin-bottom: 0.3rem;
+          margin-bottom: 0.4rem;
+          letter-spacing: -0.02em;
       }
 
       .header-title p {
           color: var(--text-muted);
-          font-size: 0.95rem;
+          font-size: 1.05rem;
       }
 
       .badge-income {
-          background: rgba(0, 230, 118, 0.1);
-          border: 1px solid rgba(0, 230, 118, 0.3);
+          background: hsla(145, 80%, 50%, 0.12);
+          border: 1px solid hsla(145, 80%, 50%, 0.35);
           color: var(--green);
-          padding: 0.5rem 1.2rem;
+          padding: 0.6rem 1.4rem;
           border-radius: 50px;
-          font-weight: 600;
-          display: flex;
+          font-weight: 700;
+          display: inline-flex;
           align-items: center;
           gap: 0.5rem;
           font-size: 1.1rem;
-          box-shadow: 0 0 15px rgba(0, 230, 118, 0.1);
+          box-shadow: 0 4px 15px hsla(145, 80%, 50%, 0.15);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
       }
 
       /* Tab Navigation */
@@ -124,33 +211,42 @@
           padding-bottom: 0.5rem;
       }
 
+      /* Hide Scrollbars in Tabs */
+      .tabs::-webkit-scrollbar {
+          display: none;
+      }
+      .tabs {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+      }
+
       .tab-btn {
-          background: var(--glass-bg);
-          border: 1px solid var(--glass-border);
+          background: var(--bg-card);
+          border: 1px solid var(--border-glass);
           color: var(--text-muted);
           padding: 0.8rem 1.5rem;
-          border-radius: 12px;
+          border-radius: 14px;
           cursor: pointer;
           font-weight: 600;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
           white-space: nowrap;
           display: flex;
           align-items: center;
-          gap: 0.5rem;
+          gap: 0.6rem;
       }
 
       .tab-btn:hover {
-          background: var(--glass-hover);
+          background: var(--bg-card-hover);
           color: var(--text-main);
-          border-color: rgba(255, 255, 255, 0.2);
+          border-color: var(--border-glass-hover);
           transform: translateY(-2px);
       }
 
       .tab-btn.active {
           background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
           color: white;
-          border: none;
-          box-shadow: 0 4px 20px rgba(138, 43, 226, 0.3);
+          border: 1px solid hsla(270, 75%, 65%, 0.2);
+          box-shadow: 0 8px 25px hsla(270, 75%, 65%, 0.3);
       }
 
       /* Dashboard Grid Layout */
@@ -216,7 +312,7 @@
       .card-title {
           font-size: 1.2rem;
           font-weight: 700;
-          color: #ffffff;
+          color: var(--text-main);
           display: flex;
           align-items: center;
           gap: 0.5rem;
@@ -238,7 +334,7 @@
       .metric-value {
           font-size: 2rem;
           font-weight: 700;
-          color: #ffffff;
+          color: var(--text-main);
       }
 
       .metric-value.cyan { color: var(--cyan); }
@@ -392,7 +488,7 @@
 
       .scen-btn.active {
           background: rgba(255, 255, 255, 0.08);
-          color: white;
+          color: var(--text-main);
           box-shadow: 0 2px 10px rgba(0,0,0,0.1);
       }
 
@@ -412,7 +508,7 @@
           width: 100%;
           background: rgba(0, 0, 0, 0.2);
           border: 1px solid var(--glass-border);
-          color: white;
+          color: var(--text-main);
           padding: 1rem 1.2rem;
           border-radius: 12px;
           font-size: 1.1rem;
@@ -490,7 +586,7 @@
       .split-row select, .split-row input {
           background: rgba(0, 0, 0, 0.2);
           border: 1px solid var(--glass-border);
-          color: white;
+          color: var(--text-main);
           padding: 0.6rem 0.8rem;
           border-radius: 8px;
           outline: none;
@@ -637,6 +733,14 @@
     <div class="ambient-glow-1"></div>
     <div class="ambient-glow-2"></div>
 
+    <!-- Theme Toggle Floating Anchor -->
+    <div style="position: absolute; top: 1.5rem; right: 1.5rem; z-index: 100;">
+        <button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+            <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="sun-icon" style="display:none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+    </div>
+
     <div class="container">
       <!-- Header -->
       <header
@@ -660,6 +764,10 @@
           "
         >
           <div class="header-title">
+            <div class="level-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/></svg>
+              Level 1 & 2 Dashboard
+            </div>
             <h1>Wealth Dashboard</h1>
             <p>แดชบอร์ดแผนการเงินรายเดือน (อ้างอิงจากแผนการเงินของคุณ)</p>
           </div>
@@ -693,7 +801,7 @@
                 style="
                   font-weight: 700;
                   font-size: 0.95rem;
-                  color: white;
+                  color: var(--text-main);
                   display: flex;
                   align-items: center;
                   gap: 0.4rem;
@@ -740,7 +848,7 @@
               "
             >
               <span>เงินเดือนเต็ม (Gross):</span>
-              <span style="color: white; font-weight: 600">51,539.00 บาท</span>
+              <span style="color: var(--text-main); font-weight: 600">51,539.00 บาท</span>
             </div>
             <div
               style="
@@ -786,9 +894,7 @@
               <span style="color: var(--green)"
                 >เงินเดือนสุทธิ (Net Salary):</span
               >
-              <span style="color: var(--green); font-size: 1.15rem"
-                >47,793.22 บาท</span
-              >
+              <span style="color: var(--green); font-size: 1.15rem;">47,793.22 บาท</span>
             </div>
             <div
               style="
@@ -2561,7 +2667,7 @@
         }
 
         let responseHTML = `
-                <h4 style="margin-bottom: 0.8rem; color: white;">🔍 ผลวิเคราะห์หนี้บัตรเครดิตชุดนี้:</h4>
+                <h4 style="margin-bottom: 0.8rem; color: var(--text-main);">🔍 ผลวิเคราะห์หนี้บัตรเครดิตชุดนี้:</h4>
                 <p>จำนวนรายการแยกจำแนก: <strong>${itemCount} รายการ</strong></p>
                 <div style="margin: 1rem 0; padding-left: 1rem; border-left: 2px solid var(--primary-light); font-size: 0.9rem; display: flex; flex-direction: column; gap: 0.4rem;">
                     <div>🟢 <strong>ส่วนที่เป็นความจำเป็น (Needs):</strong> ${needsTotal.toLocaleString("th-TH", { minimumFractionDigits: 2 })} บาท (${((needsTotal / totalBill) * 100).toFixed(1)}%)</div>
@@ -2593,8 +2699,36 @@
         analysisContainer.innerHTML = responseHTML;
       }
 
+      // Theme switching logic
+      function initTheme() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        updateThemeButton(savedTheme);
+      }
+
+      function toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeButton(newTheme);
+      }
+
+      function updateThemeButton(theme) {
+        const moon = document.querySelector('.moon-icon');
+        const sun = document.querySelector('.sun-icon');
+        if (theme === 'light') {
+          if (moon) moon.style.display = 'none';
+          if (sun) sun.style.display = 'block';
+        } else {
+          if (moon) moon.style.display = 'block';
+          if (sun) sun.style.display = 'none';
+        }
+      }
+
       // Initialize elements on load
       window.onload = function () {
+        initTheme();
         calculateOT();
         initCCSplitter();
       };

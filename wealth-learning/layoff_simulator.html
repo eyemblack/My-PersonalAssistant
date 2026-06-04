@@ -1,1105 +1,1057 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="th">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Layoff Survival & Debt Runway Simulator</title>
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Sarabun:wght@300;400;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-      :root {
-        --bg-gradient: linear-gradient(
-          135deg,
-          #090615 0%,
-          #110e25 50%,
-          #05040b 100%
-        );
-        --glass-bg: rgba(255, 255, 255, 0.02);
-        --glass-border: rgba(255, 255, 255, 0.05);
-        --glass-hover: rgba(255, 255, 255, 0.08);
-
-        --primary: #9d4edd;
-        --primary-light: #c77dff;
-        --cyan: #00f2fe;
-        --green: #00e676;
-        --rose: #ff2d55;
-        --yellow: #ffd600;
-        --text-main: #f3f4f6;
-        --text-muted: #9ca3af;
-        --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-      }
-
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: "Outfit", "Sarabun", sans-serif;
-        -webkit-font-smoothing: antialiased;
-      }
-
-      body {
-        background: var(--bg-gradient);
-        color: var(--text-main);
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        overflow-x: hidden;
-        position: relative;
-      }
-
-      /* Ambient glowing circles */
-      .ambient-glow-1 {
-        position: absolute;
-        width: 500px;
-        height: 500px;
-        background: radial-gradient(
-          circle,
-          rgba(157, 78, 221, 0.12) 0%,
-          rgba(0, 0, 0, 0) 70%
-        );
-        top: -150px;
-        left: -150px;
-        z-index: -1;
-        pointer-events: none;
-      }
-
-      .ambient-glow-2 {
-        position: absolute;
-        width: 600px;
-        height: 600px;
-        background: radial-gradient(
-          circle,
-          rgba(255, 45, 85, 0.08) 0%,
-          rgba(0, 0, 0, 0) 70%
-        );
-        bottom: -150px;
-        right: -150px;
-        z-index: -1;
-        pointer-events: none;
-      }
-
-      .container {
-        max-width: 1400px;
-        width: 100%;
-        margin: 0 auto;
-        padding: 2.5rem 1.5rem;
-        position: relative;
-      }
-
-      header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 2.5rem;
-        padding-bottom: 1.5rem;
-        border-bottom: 1px solid var(--glass-border);
-        flex-wrap: wrap;
-        gap: 1.5rem;
-      }
-
-      .header-title h1 {
-        font-size: 2.3rem;
-        font-weight: 700;
-        background: linear-gradient(to right, #ffffff, #c77dff, #ff2d55);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 0.3rem;
-        display: flex;
-        align-items: center;
-        gap: 0.8rem;
-      }
-
-      .header-title p {
-        color: var(--text-muted);
-        font-size: 1rem;
-      }
-
-      .defensive-badge {
-        background: rgba(255, 45, 85, 0.1);
-        border: 1px solid rgba(255, 45, 85, 0.3);
-        color: var(--rose);
-        padding: 0.6rem 1.2rem;
-        border-radius: 50px;
-        font-weight: 700;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        box-shadow: 0 0 20px rgba(255, 45, 85, 0.15);
-        font-size: 1rem;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
-      }
-
-      /* Dashboard Grid Layout */
-      .dashboard-grid {
-        display: grid;
-        grid-template-columns: 1.1fr 0.9fr;
-        gap: 2rem;
-        margin-bottom: 2rem;
-      }
-
-      @media (max-width: 1100px) {
-        .dashboard-grid {
-          grid-template-columns: 1fr;
+        :root {
+            /* Default Dark Theme HSL Palette */
+            --bg-dark: hsl(260, 30%, 4%);
+            --bg-card: hsla(260, 30%, 8%, 0.45);
+            --bg-card-hover: hsla(260, 30%, 12%, 0.6);
+            --border-glass: hsla(0, 0%, 100%, 0.08);
+            --border-glass-hover: hsla(0, 0%, 100%, 0.15);
+            
+            --primary: hsl(270, 75%, 65%);
+            --primary-light: hsl(270, 85%, 75%);
+            --cyan: hsl(190, 95%, 50%);
+            --green: hsl(145, 80%, 50%);
+            --rose: hsl(345, 90%, 55%);
+            --yellow: hsl(45, 100%, 50%);
+            
+            --text-main: hsl(210, 20%, 96%);
+            --text-muted: hsl(215, 15%, 70%);
+            --card-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.5);
+            --font-family: 'Outfit', 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
+            --input-bg: rgba(0, 0, 0, 0.4);
+            --box-bg: rgba(0, 0, 0, 0.25);
+            --timeline-bg: rgba(0, 0, 0, 0.2);
+            --tag-bg: rgba(0, 0, 0, 0.25);
         }
-      }
 
-      .card {
-        background: var(--glass-bg);
-        border: 1px solid var(--glass-border);
-        border-radius: 24px;
-        padding: 2rem;
-        box-shadow: var(--card-shadow);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        position: relative;
-        overflow: hidden;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      }
+        /* Light Mode Variables Override */
+        [data-theme="light"] {
+            --bg-dark: hsl(260, 25%, 96%);
+            --bg-card: hsla(260, 20%, 98%, 0.7);
+            --bg-card-hover: hsla(260, 20%, 100%, 0.9);
+            --border-glass: hsla(260, 15%, 10%, 0.08);
+            --border-glass-hover: hsla(260, 15%, 10%, 0.15);
+            
+            --text-main: hsl(260, 35%, 12%);
+            --text-muted: hsl(260, 15%, 45%);
+            --card-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.08);
+            --input-bg: rgba(255, 255, 255, 0.8);
+            --box-bg: rgba(255, 255, 255, 0.5);
+            --timeline-bg: rgba(255, 255, 255, 0.5);
+            --tag-bg: rgba(255, 255, 255, 0.6);
 
-      .card:hover {
-        border-color: rgba(255, 255, 255, 0.1);
-        transform: translateY(-2px);
-      }
+            /* High Contrast Color overrides for readable Light mode text */
+            --cyan: hsl(190, 100%, 36%);
+            --green: hsl(145, 80%, 36%);
+            --yellow: hsl(40, 90%, 42%);
+            --rose: hsl(345, 90%, 48%);
+            --primary: hsl(270, 70%, 55%);
+            --primary-light: hsl(270, 75%, 65%);
+        }
 
-      .card-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1.8rem;
-      }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-family);
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
 
-      .card-title {
-        font-size: 1.3rem;
-        font-weight: 700;
-        color: #ffffff;
-        display: flex;
-        align-items: center;
-        gap: 0.6rem;
-      }
+        body {
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(270, 75%, 60%, 0.08) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, hsla(345, 90%, 55%, 0.06) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
 
-      .info-alert {
-        background: rgba(255, 45, 85, 0.05);
-        border-left: 4px solid var(--rose);
-        border-radius: 0 12px 12px 0;
-        padding: 1.2rem;
-        margin-bottom: 1.8rem;
-        font-size: 0.95rem;
-        line-height: 1.6;
-        color: #d1d5db;
-      }
+        /* Ambient Glow Blobs */
+        .ambient-glow-1 {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, hsla(270, 75%, 65%, 0.1) 0%, rgba(0,0,0,0) 70%);
+            top: -200px;
+            left: -200px;
+            z-index: -1;
+            pointer-events: none;
+            filter: blur(50px);
+        }
 
-      .info-alert.success {
-        background: rgba(0, 230, 118, 0.05);
-        border-color: var(--green);
-        color: #e5e7eb;
-      }
+        .ambient-glow-2 {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, hsla(345, 90%, 55%, 0.07) 0%, rgba(0,0,0,0) 70%);
+            bottom: -100px;
+            right: -100px;
+            z-index: -1;
+            pointer-events: none;
+            filter: blur(50px);
+        }
 
-      /* Form Controls */
-      .form-row {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1.2rem;
-        margin-bottom: 1.2rem;
-      }
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+            position: relative;
+        }
 
-      .input-group {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-      }
+        /* Header design */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-glass);
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
 
-      .input-group label {
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-      }
+        .header-title h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--text-main) 30%, var(--primary-light) 70%, var(--rose) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            letter-spacing: -0.02em;
+        }
 
-      .input-wrap {
-        position: relative;
-        display: flex;
-        align-items: center;
-      }
+        .header-title h1 svg {
+            filter: drop-shadow(0 0 8px var(--primary-light));
+        }
 
-      .input-wrap input {
-        width: 100%;
-        background: rgba(0, 0, 0, 0.3);
-        border: 1px solid var(--glass-border);
-        color: white;
-        padding: 0.9rem 1.2rem;
-        border-radius: 12px;
-        font-size: 1.05rem;
-        font-weight: 600;
-        outline: none;
-        transition: all 0.3s;
-      }
+        .header-title p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
 
-      .input-wrap input:focus {
-        border-color: var(--primary-light);
-        box-shadow: 0 0 15px rgba(199, 125, 255, 0.2);
-        background: rgba(0, 0, 0, 0.5);
-      }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: hsla(345, 90%, 55%, 0.12);
+            border: 1px solid hsla(345, 90%, 55%, 0.35);
+            color: var(--rose);
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            box-shadow: 0 4px 20px hsla(345, 90%, 55%, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
 
-      .input-suffix {
-        position: absolute;
-        right: 1.2rem;
-        color: var(--text-muted);
-        font-weight: 600;
-        font-size: 0.9rem;
-      }
+        /* Theme Toggle Button Style */
+        .theme-toggle-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            color: var(--text-main);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: var(--card-shadow);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .theme-toggle-btn:hover {
+            border-color: var(--border-glass-hover);
+            transform: scale(1.08) rotate(15deg);
+            background: var(--bg-card-hover);
+        }
 
-      /* Metric Grid inside Card */
-      .metrics-summary-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.2rem;
-        margin-bottom: 1.5rem;
-      }
+        /* 2-Column Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
 
-      .metric-mini-card {
-        background: rgba(0, 0, 0, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.03);
-        border-radius: 16px;
-        padding: 1.2rem;
-        display: flex;
-        flex-direction: column;
-        gap: 0.3rem;
-      }
+        @media (max-width: 1150px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
 
-      .metric-mini-card .val {
-        font-size: 1.6rem;
-        font-weight: 700;
-      }
+        /* Glassmorphic Card */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: 24px;
+            padding: 2.2rem;
+            box-shadow: var(--card-shadow);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            position: relative;
+        }
 
-      .metric-mini-card .lbl {
-        font-size: 0.8rem;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-      }
+        .card:hover {
+            border-color: var(--border-glass-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.3);
+            background: var(--bg-card-hover);
+        }
 
-      /* Dynamic Timeline Table */
-      .table-responsive {
-        overflow-x: auto;
-        border-radius: 16px;
-        border: 1px solid var(--glass-border);
-        background: rgba(0, 0, 0, 0.1);
-      }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.6rem;
+        }
 
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        text-align: left;
-      }
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
 
-      th {
-        padding: 1.2rem 1rem;
-        color: var(--text-muted);
-        font-size: 0.85rem;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        border-bottom: 1px solid var(--glass-border);
-        font-weight: 600;
-        background: rgba(255, 255, 255, 0.01);
-      }
+        .card-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.2rem;
+            display: block;
+        }
 
-      td {
-        padding: 1.2rem 1rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.02);
-        font-size: 0.95rem;
-      }
+        .level-card-badge {
+            background: hsla(270, 75%, 65%, 0.1);
+            border: 1px solid hsla(270, 75%, 65%, 0.3);
+            color: var(--primary-light);
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
 
-      tr.active-row td {
-        background: rgba(255, 255, 255, 0.01);
-      }
+        /* Custom Information Banners */
+        .info-alert {
+            background: var(--box-bg);
+            border: 1px solid var(--border-glass);
+            border-left: 4px solid var(--primary);
+            border-radius: 0 16px 16px 0;
+            padding: 1.2rem;
+            margin-bottom: 1.8rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
 
-      tr.warning-row td {
-        color: var(--rose);
-      }
+        .info-alert strong {
+            color: var(--text-main);
+        }
 
-      .event-badge {
-        background: rgba(157, 78, 221, 0.15);
-        border: 1px solid rgba(157, 78, 221, 0.3);
-        color: var(--primary-light);
-        padding: 0.25rem 0.6rem;
-        border-radius: 6px;
-        font-size: 0.8rem;
-        font-weight: 600;
-        display: inline-block;
-      }
+        .info-alert.danger {
+            border-left-color: var(--rose);
+            background: hsla(345, 90%, 55%, 0.03);
+        }
 
-      .event-badge.success {
-        background: rgba(0, 230, 118, 0.1);
-        border-color: rgba(0, 230, 118, 0.2);
-        color: var(--green);
-      }
+        .info-alert.success {
+            border-left-color: var(--green);
+            background: hsla(145, 80%, 50%, 0.03);
+        }
 
-      .event-badge.danger {
-        background: rgba(255, 45, 85, 0.1);
-        border-color: rgba(255, 45, 85, 0.2);
-        color: var(--rose);
-      }
+        .info-alert.warning {
+            border-left-color: var(--yellow);
+            background: hsla(45, 100%, 50%, 0.03);
+        }
 
-      /* Portfolio items design */
-      .portfolio-list {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-        gap: 1rem;
-        margin-top: 1rem;
-      }
+        /* Form Layout & Controls */
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 1.2rem;
+        }
 
-      .portfolio-tag {
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid var(--glass-border);
-        padding: 0.8rem 1rem;
-        border-radius: 12px;
-        text-align: center;
-        font-weight: 600;
-        transition: all 0.2s;
-      }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
 
-      .portfolio-tag:hover {
-        background: var(--glass-hover);
-        transform: translateY(-2px);
-        border-color: var(--primary-light);
-      }
+        .input-group label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
 
-      .portfolio-tag .ticker {
-        color: white;
-        font-size: 1.1rem;
-        display: block;
-        margin-bottom: 0.2rem;
-      }
+        .input-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
 
-      .portfolio-tag .type {
-        color: var(--text-muted);
-        font-size: 0.7rem;
-        text-transform: uppercase;
-      }
+        .input-wrap input {
+            width: 100%;
+            background: var(--input-bg);
+            border: 1px solid var(--border-glass);
+            color: var(--text-main);
+            padding: 0.9rem 1.2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            outline: none;
+            transition: all 0.3s;
+        }
 
-      /* Shield badge list */
-      .shield-list {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-      }
+        .input-wrap input:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 15px hsla(270, 75%, 65%, 0.2);
+        }
 
-      .shield-item {
-        background: rgba(0, 242, 254, 0.02);
-        border: 1px solid rgba(0, 242, 254, 0.1);
-        border-radius: 16px;
-        padding: 1.2rem;
-        display: flex;
-        gap: 1rem;
-        align-items: center;
-      }
+        /* Hide HTML5 Number Spinners */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
 
-      .shield-icon {
-        width: 48px;
-        height: 48px;
-        background: rgba(0, 242, 254, 0.1);
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--cyan);
-      }
+        .input-suffix {
+            position: absolute;
+            right: 1.2rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
 
-      .shield-text h4 {
-        font-size: 1rem;
-        color: white;
-        margin-bottom: 0.2rem;
-      }
+        /* Metric Highlights Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
 
-      .shield-text p {
-        font-size: 0.85rem;
-        color: var(--text-muted);
-      }
+        .metric-card {
+            background: var(--box-bg);
+            border: 1px solid var(--border-glass);
+            border-radius: 18px;
+            padding: 1.4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            transition: all 0.3s;
+        }
 
-      /* Footer */
-      footer {
-        margin-top: 3rem;
-        padding: 2rem 0;
-        text-align: center;
-        color: var(--text-muted);
-        font-size: 0.9rem;
-        border-top: 1px solid var(--glass-border);
-      }
+        .metric-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--border-glass-hover);
+        }
+
+        .metric-card .val {
+            font-size: 1.7rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            color: var(--text-main);
+        }
+
+        .metric-card .lbl {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-weight: 600;
+        }
+
+        /* Table Design */
+        .table-responsive {
+            overflow-x: auto;
+            border-radius: 16px;
+            border: 1px solid var(--border-glass);
+            background: var(--timeline-bg);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            padding: 1.1rem 1.2rem;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border-bottom: 1px solid var(--border-glass);
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        td {
+            padding: 1.1rem 1.2rem;
+            border-bottom: 1px solid var(--border-glass);
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        tr.warning-row td {
+            color: var(--rose);
+            background: hsla(345, 90%, 55%, 0.02);
+        }
+
+        .event-badge {
+            background: hsla(270, 75%, 65%, 0.15);
+            border: 1px solid hsla(270, 75%, 65%, 0.3);
+            color: var(--primary-light);
+            padding: 0.3rem 0.7rem;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.2rem;
+        }
+
+        .event-badge.success {
+            background: hsla(145, 80%, 50%, 0.12);
+            border-color: hsla(145, 80%, 50%, 0.3);
+            color: var(--green);
+        }
+
+        /* Portfolio Cards List */
+        .portfolio-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .portfolio-tag {
+            background: var(--tag-bg);
+            border: 1px solid var(--border-glass);
+            padding: 0.8rem 1rem;
+            border-radius: 14px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .portfolio-tag:hover {
+            background: hsla(270, 75%, 65%, 0.04);
+            border-color: var(--primary-light);
+            transform: translateY(-3px);
+        }
+
+        .portfolio-tag .ticker {
+            color: var(--text-main);
+            font-weight: 700;
+            font-size: 1.15rem;
+            display: block;
+            margin-bottom: 0.2rem;
+            letter-spacing: 0.02em;
+        }
+
+        .portfolio-tag .type {
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        /* Shield / Insurance List */
+        .shield-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .shield-item {
+            background: var(--box-bg);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 1.2rem;
+            display: flex;
+            gap: 1.1rem;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .shield-item:hover {
+            border-color: var(--border-glass-hover);
+            transform: translateX(4px);
+        }
+
+        .shield-icon {
+            width: 44px;
+            height: 44px;
+            background: hsla(190, 95%, 50%, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--cyan);
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 6px hsla(190, 95%, 50%, 0.15));
+        }
+
+        .shield-text h4 {
+            font-size: 1rem;
+            color: var(--text-main);
+            margin-bottom: 0.2rem;
+            font-weight: 600;
+        }
+
+        .shield-text p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Custom advice banner with instructions from skill.md */
+        .survival-mode-banner {
+            background: linear-gradient(135deg, hsla(345, 90%, 55%, 0.12) 0%, hsla(270, 75%, 65%, 0.05) 100%);
+            border: 1px solid hsla(345, 90%, 55%, 0.25);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1.2rem;
+            align-items: flex-start;
+        }
+
+        .survival-icon {
+            width: 48px;
+            height: 48px;
+            background: hsla(345, 90%, 55%, 0.15);
+            color: var(--rose);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px hsla(345, 90%, 55%, 0.25);
+        }
+
+        .survival-content h3 {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .survival-content ul {
+            list-style: none;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .survival-content ul li {
+            position: relative;
+            padding-left: 1.2rem;
+        }
+
+        .survival-content ul li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--rose);
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 3rem;
+            padding: 2.2rem 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-glass);
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="ambient-glow-1"></div>
     <div class="ambient-glow-2"></div>
 
-    <div class="container">
-      <!-- Header -->
-      <header>
-        <div class="header-title">
-          <h1>
-            <svg
-              width="28"
-              height="28"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            </svg>
-            Layoff Survival & Debt Runway Simulator
-          </h1>
-          <p>
-            ตัวจำลองแผนเผชิญเหตุกรณีเลิกจ้าง
-            และการคำนวณระยะเวลาอยู่รอดทางการเงิน
-          </p>
-        </div>
-        <div class="defensive-badge">
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.5"
-          >
-            <circle cx="12" cy="12" r="10" />
-            <line x1="12" y1="8" x2="12" y2="12" />
-            <line x1="12" y1="16" x2="12.01" y2="16" />
-          </svg>
-          <span>Defensive Mode Active</span>
-        </div>
-      </header>
-
-      <!-- Main Dashboard Content -->
-      <div class="dashboard-grid">
-        <!-- Left Side: Simulator Parameters & Timeline -->
-        <div style="display: flex; flex-direction: column; gap: 2rem">
-          <!-- Card 1: Interactive Variables -->
-          <div class="card">
-            <div class="card-header">
-              <span class="card-title">⚙️ ตั้งค่าจำลองข้อมูลส่วนบุคคล</span>
-            </div>
-
-            <div class="form-row">
-              <div class="input-group">
-                <label>เงินเดือน (Gross)</label>
-                <div class="input-wrap">
-                  <input
-                    type="number"
-                    id="param-salary"
-                    value="51539"
-                    oninput="runSimulation()"
-                  />
-                  <span class="input-suffix">บาท</span>
-                </div>
-              </div>
-              <div class="input-group">
-                <label>อายุงานปัจจุบัน</label>
-                <div class="input-wrap">
-                  <input
-                    type="number"
-                    id="param-tenure"
-                    value="5"
-                    oninput="runSimulation()"
-                  />
-                  <span class="input-suffix">ปี</span>
-                </div>
-              </div>
-              <div class="input-group">
-                <label>เงินสดเก็บสะสม (Kept+Dime)</label>
-                <div class="input-wrap">
-                  <input
-                    type="number"
-                    id="param-cash"
-                    value="119380"
-                    oninput="runSimulation()"
-                  />
-                  <span class="input-suffix">บาท</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="input-group">
-                <label>ค่าใช้จ่ายจำเป็น / เดือน</label>
-                <div class="input-wrap">
-                  <input
-                    type="number"
-                    id="param-expenses"
-                    value="13750"
-                    oninput="runSimulation()"
-                  />
-                  <span class="input-suffix font-thai">บาท/ด.</span>
-                </div>
-              </div>
-              <div class="input-group">
-                <label>ค่าประกันสุขภาพ / เดือน</label>
-                <div class="input-wrap">
-                  <input
-                    type="number"
-                    id="param-insurance"
-                    value="1718"
-                    oninput="runSimulation()"
-                  />
-                  <span class="input-suffix">บาท/ด.</span>
-                </div>
-              </div>
-              <div class="input-group">
-                <label>พอร์ต Webull (สินทรัพย์เสี่ยง)</label>
-                <div class="input-wrap">
-                  <input
-                    type="number"
-                    id="param-webull"
-                    value="130000"
-                    oninput="runSimulation()"
-                  />
-                  <span class="input-suffix">บาท</span>
-                </div>
-              </div>
-            </div>
-
-            <h4
-              style="
-                margin: 1.5rem 0 1rem 0;
-                font-size: 0.95rem;
-                color: var(--text-muted);
-                text-transform: uppercase;
-                letter-spacing: 0.05em;
-              "
-            >
-              หนี้สินผูกพันคงเหลือปัจจุบัน
-            </h4>
-
-            <div class="form-row">
-              <div class="input-group">
-                <label>งวดรถยนต์ (บาท/เดือน)</label>
-                <div class="input-wrap">
-                  <input
-                    type="number"
-                    id="debt-car-pay"
-                    value="8251"
-                    oninput="runSimulation()"
-                  />
-                </div>
-              </div>
-              <div class="input-group">
-                <label>งวดรถ (งวดคงเหลือ)</label>
-                <div class="input-wrap">
-                  <input
-                    type="number"
-                    id="debt-car-months"
-                    value="25"
-                    oninput="runSimulation()"
-                  />
-                  <span class="input-suffix">งวด</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="input-group">
-                <label>ผ่อนมือถือ IP (บาท/เดือน)</label>
-                <div class="input-wrap">
-                  <input
-                    type="number"
-                    id="debt-phone-pay"
-                    value="3880"
-                    oninput="runSimulation()"
-                  />
-                </div>
-              </div>
-              <div class="input-group">
-                <label>ผ่อนมือถือ (งวดคงเหลือ)</label>
-                <div class="input-wrap">
-                  <input
-                    type="number"
-                    id="debt-phone-months"
-                    value="6"
-                    oninput="runSimulation()"
-                  />
-                  <span class="input-suffix">งวด</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="input-group">
-                <label>ซ่อมรถช่วยแม่ (บาท/เดือน)</label>
-                <div class="input-wrap">
-                  <input
-                    type="number"
-                    id="debt-mom-pay"
-                    value="500"
-                    oninput="runSimulation()"
-                  />
-                </div>
-              </div>
-              <div class="input-group">
-                <label>ซ่อมรถช่วยแม่ (งวดคงเหลือ)</label>
-                <div class="input-wrap">
-                  <input
-                    type="number"
-                    id="debt-mom-months"
-                    value="9"
-                    oninput="runSimulation()"
-                  />
-                  <span class="input-suffix">งวด</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 2: Simulated Month-by-month Runway -->
-          <div class="card">
-            <div class="card-header">
-              <span class="card-title"
-                >⏱️ ตารางวิเคราะห์เส้นเวลาการอยู่รอดแบบเดือนต่อเดือน (Runway
-                Projection)</span
-              >
-            </div>
-
-            <div class="table-responsive">
-              <table>
-                <thead>
-                  <tr>
-                    <th>เดือน</th>
-                    <th>รายรับช่วย</th>
-                    <th>รายจ่ายรวม</th>
-                    <th>ส่วนต่างคงเหลือ</th>
-                    <th style="text-align: right">เงินสดคงเหลือสะสม</th>
-                    <th>เหตุการณ์สำคัญ</th>
-                  </tr>
-                </thead>
-                <tbody id="timeline-body">
-                  <!-- Populated by JS -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right Side: Calculated Buffers, Insurance Shield, and Webull restruct -->
-        <div style="display: flex; flex-direction: column; gap: 2rem">
-          <!-- Card 3: Calculations & Severance -->
-          <div class="card">
-            <div class="card-header">
-              <span class="card-title"
-                >📊 ผลลัพธ์และเบาะรองรับกรณีเกิดวิกฤต</span
-              >
-            </div>
-
-            <div class="metrics-summary-grid">
-              <div
-                class="metric-mini-card"
-                style="border-left: 4px solid var(--rose)"
-              >
-                <span class="lbl">เงินชดเชยตามกฎหมาย</span>
-                <span class="val rose" id="res-severance">206,156.00</span>
-                <span
-                  class="lbl"
-                  style="
-                    font-size: 0.65rem;
-                    text-transform: none;
-                    letter-spacing: 0;
-                  "
-                  id="res-severance-lbl"
-                  >สิทธิ์ 120 วัน (4 เดือน)</span
-                >
-              </div>
-              <div
-                class="metric-mini-card"
-                style="border-left: 4px solid var(--cyan)"
-              >
-                <span class="lbl">เงินช่วยประกันสังคม</span>
-                <span class="val cyan">45,000.00</span>
-                <span
-                  class="lbl"
-                  style="
-                    font-size: 0.65rem;
-                    text-transform: none;
-                    letter-spacing: 0;
-                  "
-                  >7,500 บาท × 6 เดือน (เลิกจ้าง)</span
-                >
-              </div>
-              <div
-                class="metric-mini-card"
-                style="
-                  border-left: 4px solid var(--yellow);
-                  grid-column: span 2;
-                "
-              >
-                <span class="lbl">ระยะเวลาเอาชีวิตรอดเฉลี่ย (Runway)</span>
-                <span class="val yellow" id="res-runway">14.4 เดือน</span>
-                <span
-                  class="lbl"
-                  style="
-                    font-size: 0.7rem;
-                    text-transform: none;
-                    letter-spacing: 0;
-                  "
-                  id="res-runway-extended"
-                  >รวมพอร์ต Webull จะช่วยเพิ่มระยะเวลาเป็น 20.0 เดือน</span
-                >
-              </div>
-            </div>
-
-            <div class="info-alert success" id="safety-message">
-              <!-- Populated by JS -->
-            </div>
-          </div>
-
-          <!-- Card 4: Insurance Shield Details -->
-          <div class="card">
-            <div class="card-header">
-              <span class="card-title"
-                >🛡️ ประกันสุขภาพส่วนตัว: เกราะชีวิตที่ไม่ติดกับบริษัท</span
-              >
-            </div>
-            <div
-              class="info-alert"
-              style="
-                background: rgba(0, 242, 254, 0.03);
-                border-color: var(--cyan);
-                margin-bottom: 1.5rem;
-              "
-            >
-              <strong>ข้อสำคัญ:</strong>
-              ประกันกลุ่มของบริษัทจะสิ้นสุดลงทันทีเมื่อคุณออกจากงาน
-              การมีกรมธรรม์เดี่ยวคุ้มครองโรคร้ายและสุขภาพคือทางเลือกที่ป้องกันเงินเก็บไม่ให้หมดไปกับการรักษาพยาบาลครับ
-            </div>
-
-            <div class="shield-list">
-              <div class="shield-item">
-                <div class="shield-icon">
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-                  </svg>
-                </div>
-                <div class="shield-text">
-                  <h4>ผู้ป่วยใน สุขภาพปลดล็อค ดับเบิล แคร์</h4>
-                  <p>
-                    คุ้มครองค่ารักษาพยาบาลหลัก (IPD)
-                    ด้วยวงเงินเหมาจ่ายระดับพรีเมียม (จ่ายเบี้ยปีละ 18,326 บาท)
-                  </p>
-                </div>
-              </div>
-              <div class="shield-item">
-                <div
-                  class="shield-icon"
-                  style="color: var(--rose); background: rgba(255, 45, 85, 0.1)"
-                >
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path
-                      d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
-                    />
-                  </svg>
-                </div>
-                <div class="shield-text">
-                  <h4>สัญญาเพิ่มเติมโรคร้ายแรง 48 บียอนด์</h4>
-                  <p>
-                    รับเงินก้อนคุ้มครองหากเจอกลุ่มโรคร้ายแรง 48 โรค
-                    (จ่ายเบี้ยปีละ 1,800 บาท)
-                  </p>
-                </div>
-              </div>
-              <div
-                class="shield-item"
-                style="
-                  border-color: rgba(255, 255, 255, 0.02);
-                  background: transparent;
-                "
-              >
-                <div
-                  class="shield-icon"
-                  style="
-                    color: var(--text-muted);
-                    background: rgba(255, 255, 255, 0.02);
-                  "
-                >
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                    <circle cx="12" cy="7" r="4" />
-                  </svg>
-                </div>
-                <div class="shield-text">
-                  <h4>กองทุนสะสมประกัน (ประกันรวม kept)</h4>
-                  <p>
-                    คุณเก็บสะสมเดือนละ 2,000 บาท (ปีละ 24,000 บาท)
-                    ครอบคลุมยอดเบี้ยจริงปีละ 20,616 บาทอย่างสมบูรณ์แบบ
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 5: Webull Portfolio Restructuring (Level 3 Preview) -->
-          <div class="card">
-            <div class="card-header">
-              <span class="card-title"
-                >📈 พอร์ตหุ้น Webull (130,000 บาท) และรายชื่อหลักทรัพย์</span
-              >
-            </div>
-            <div
-              class="info-alert"
-              style="
-                background: rgba(157, 78, 221, 0.03);
-                border-color: var(--primary-light);
-                margin-bottom: 1.5rem;
-              "
-            >
-              รายชื่อหุ้นในพอร์ตปัจจุบันของคุณประกอบด้วยหุ้นเทคโนโลยีเติบโตสูง,
-              หุ้นคุณค่า และ BDC ซึ่งเราจะมาพิจารณาปรับโครงสร้าง (Rebalancing)
-              เพื่อความปลอดภัยและการเติบโตหลังสถานการณ์เรื่องงานนิ่งขึ้นครับ
-            </div>
-
-            <div class="portfolio-list">
-              <div class="portfolio-tag">
-                <span class="ticker">MSFT</span>
-                <span class="type">Tech Giant</span>
-              </div>
-              <div class="portfolio-tag">
-                <span class="ticker">ORCL</span>
-                <span class="type">Cloud Tech</span>
-              </div>
-              <div class="portfolio-tag">
-                <span class="ticker">ISRG</span>
-                <span class="type">Medical Tech</span>
-              </div>
-              <div class="portfolio-tag">
-                <span class="ticker">AXON</span>
-                <span class="type">Defense Tech</span>
-              </div>
-              <div class="portfolio-tag">
-                <span class="ticker">OBDC</span>
-                <span class="type">BDC / High Div</span>
-              </div>
-              <div class="portfolio-tag">
-                <span class="ticker">MCD</span>
-                <span class="type">Consumer Value</span>
-              </div>
-              <div class="portfolio-tag">
-                <span class="ticker">GRAB</span>
-                <span class="type">Ride / Delivery</span>
-              </div>
-              <div class="portfolio-tag">
-                <span class="ticker">VST</span>
-                <span class="type">Biotech / Spec</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <footer>
-        <p>
-          Layoff Survival & Debt Runway Simulator •
-          ข้อมูลถูกคำนวณตามกฎหมายคุ้มครองแรงงานไทยและข้อมูลผู้ใช้ •
-          พัฒนาโดยคู่คิดการเงินส่วนตัวคุณ 💜
-        </p>
-      </footer>
+    <!-- Theme Toggle Floating Anchor -->
+    <div style="position: absolute; top: 1.5rem; right: 1.5rem; z-index: 100;">
+        <button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+            <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="sun-icon" style="display:none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
     </div>
 
-    <!-- Simulator logic script -->
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-title">
+                <h1>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    Layoff Survival & Debt Runway Simulator
+                </h1>
+                <p>ตัวจำลองแผนเผชิญเหตุกรณีเลิกจ้าง และการคำนวณระยะเวลากระแสเงินสดสำรองเพื่อการอยู่รอด</p>
+            </div>
+            <div class="status-badge">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span>Defensive Mode Active</span>
+            </div>
+        </header>
+
+        <!-- Defensive Survival Advice Banner from skill.md -->
+        <div class="survival-mode-banner">
+            <div class="survival-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <div class="survival-content">
+                <h3>คู่มือตั้งรับภัยวิกฤต (Defensive Survival Mode)</h3>
+                <ul>
+                    <li><strong>หยุดลงทุนในสินทรัพย์เสี่ยงทันที</strong> ชะลอการส่งเงินเข้าพอร์ตชั่วคราวและกอดเงินสดไว้ให้มั่นคงที่สุด (Cash is King)</li>
+                    <li><strong>จ่ายคืนหนี้สินดอกเบี้ยต่ำตามสิทธิ์ขั้นต่ำ</strong> (เช่น กยศ./กรอ.) ชะลอการจ่ายโปะเกินความจำเป็นเพื่อรักษาเงินสดสำรองสภาพคล่องสูงสุด</li>
+                    <li><strong>เน้นสะสมเงินสดไว้ในบัญชีดอกเบี้ยสูง</strong> เช่น บัญชี e-Savings/Kept เพื่อความปลอดภัยและความพร้อมสูงสุดในการดึงมาใช้จ่ายจำเป็น</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Dashboard Content -->
+        <div class="dashboard-grid">
+            <!-- Left Side: Simulator Parameters & Timeline -->
+            <div style="display: flex; flex-direction: column; gap: 2rem;">
+                
+                <!-- Card 1: Interactive Variables -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">⚙️ ตั้งค่าข้อมูลจำลองสถานการณ์การเงิน</span>
+                        <span class="level-card-badge">Level 1: Survival</span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label>เงินเดือนปัจจุบัน (Gross)</label>
+                            <div class="input-wrap">
+                                <input type="number" id="param-salary" value="47793" oninput="runSimulation()">
+                                <span class="input-suffix">บาท</span>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label>อายุงานของพนักงาน</label>
+                            <div class="input-wrap">
+                                <input type="number" id="param-tenure" value="5" oninput="runSimulation()">
+                                <span class="input-suffix">ปี</span>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label>เงินสดสะสม (Kept + e-Savings)</label>
+                            <div class="input-wrap">
+                                <input type="number" id="param-cash" value="119380" oninput="runSimulation()">
+                                <span class="input-suffix">บาท</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label>ค่าใช้จ่ายจำเป็นพื้นฐาน / เดือน</label>
+                            <div class="input-wrap">
+                                <input type="number" id="param-expenses" value="13750" oninput="runSimulation()">
+                                <span class="input-suffix">บาท</span>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label>ค่าเบี้ยประกันสุขภาพรายเดือน</label>
+                            <div class="input-wrap">
+                                <input type="number" id="param-insurance" value="1718" oninput="runSimulation()">
+                                <span class="input-suffix">บาท</span>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label>มูลค่าสินทรัพย์ลงทุนพอร์ต Webull</label>
+                            <div class="input-wrap">
+                                <input type="number" id="param-webull" value="130000" oninput="runSimulation()">
+                                <span class="input-suffix">บาท</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <span class="card-subtitle" style="margin-top: 1.2rem; margin-bottom: 0.8rem;">หนี้สินผูกพันคงเหลือรายเดือน</span>
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label>ค่างวดรถยนต์ (บาท/เดือน)</label>
+                            <div class="input-wrap">
+                                <input type="number" id="debt-car-pay" value="8251" oninput="runSimulation()">
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label>งวดรถคงเหลือสะสม</label>
+                            <div class="input-wrap">
+                                <input type="number" id="debt-car-months" value="25" oninput="runSimulation()">
+                                <span class="input-suffix">งวด</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label>ผ่อนชำระมือถือ (บาท/เดือน)</label>
+                            <div class="input-wrap">
+                                <input type="number" id="debt-phone-pay" value="3880" oninput="runSimulation()">
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label>จำนวนงวดผ่อนคงเหลือ</label>
+                            <div class="input-wrap">
+                                <input type="number" id="debt-phone-months" value="6" oninput="runSimulation()">
+                                <span class="input-suffix">งวด</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label>ค่าบำรุงซ่อมรถช่วยแม่ (บาท/เดือน)</label>
+                            <div class="input-wrap">
+                                <input type="number" id="debt-mom-pay" value="500" oninput="runSimulation()">
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label>จำนวนงวดคงเหลือ</label>
+                            <div class="input-wrap">
+                                <input type="number" id="debt-mom-months" value="9" oninput="runSimulation()">
+                                <span class="input-suffix">งวด</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Simulated Month-by-month Runway -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">⏱️ การประมาณการระยะเวลาอยู่รอดแบบเดือนต่อเดือน (Runway Projection)</span>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>เดือน</th>
+                                    <th>เงินช่วยเหลือเข้ามา</th>
+                                    <th>รายจ่ายรวมกระแสเงินออก</th>
+                                    <th>ส่วนต่างเดือน</th>
+                                    <th style="text-align: right;">เงินสดคงเหลือสะสม</th>
+                                    <th>เหตุการณ์สำคัญ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="timeline-body">
+                                <!-- Populated by Javascript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Calculated Buffers, Insurance Shield, and Webull Restructure -->
+            <div style="display: flex; flex-direction: column; gap: 2rem;">
+                
+                <!-- Card 3: Calculations & Severance -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">📊 ผลวิเคราะห์กันชนและเงินชดเชยวิกฤต</span>
+                    </div>
+
+                    <div class="metrics-grid">
+                        <div class="metric-card" style="border-left: 4px solid var(--rose);">
+                            <span class="lbl">เงินชดเชยตามกฎหมาย</span>
+                            <span class="val rose" id="res-severance">0.00</span>
+                            <span class="lbl" style="font-size: 0.65rem; text-transform: none; letter-spacing: 0;" id="res-severance-lbl">-</span>
+                        </div>
+                        <div class="metric-card" style="border-left: 4px solid var(--cyan);">
+                            <span class="lbl">สิทธิ์เงินช่วยประกันสังคม</span>
+                            <span class="val cyan">45,000.00</span>
+                            <span class="lbl" style="font-size: 0.65rem; text-transform: none; letter-spacing: 0;">50% ของฐานค่าจ้างสูงสุด (6 เดือน)</span>
+                        </div>
+                        <div class="metric-card" style="border-left: 4px solid var(--yellow); grid-column: span 2;">
+                            <span class="lbl">ระยะเวลารอดชีวิตทางการเงิน (Runway)</span>
+                            <span class="val yellow" id="res-runway">-</span>
+                            <span class="lbl" style="font-size: 0.7rem; text-transform: none; letter-spacing: 0; line-height: 1.4;" id="res-runway-extended">-</span>
+                        </div>
+                    </div>
+
+                    <div class="info-alert success" id="safety-message">
+                        <!-- Populated by Javascript -->
+                    </div>
+                </div>
+
+                <!-- Card 4: Insurance Shield Details -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">🛡️ กองทุนประกันภัย: ป้องกันการพังทลายของแผนการเงิน</span>
+                    </div>
+                    <div class="info-alert" style="background: hsla(190, 95%, 50%, 0.03); border-color: var(--cyan); margin-bottom: 1.5rem; font-size: 0.9rem;">
+                        <strong>ข้อสำคัญ:</strong> ประกันสุขภาพกลุ่มของที่ทำงานจะสิ้นสุดลงทันทีเมื่อคุณออกจากการเป็นพนักงาน การมีประกันสุขภาพ/โรคร้ายแรงส่วนตัวแยกต่างหากจะช่วยค้ำจุนเงินสดก้อนสุดท้ายไม่ให้ละลายหายไปกับการรักษาพยาบาลยามเจ็บป่วยฉุกเฉินครับ
+                    </div>
+
+                    <div class="shield-list">
+                        <div class="shield-item">
+                            <div class="shield-icon">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                            </div>
+                            <div class="shield-text">
+                                <h4>สัญญาหลัก: สุขภาพปลดล็อค ดับเบิล แคร์</h4>
+                                <p>เหมาจ่ายค่ารักษาพยาบาลกรณีคนไข้ใน (IPD) ด้วยวงเงินมั่นคงระดับพรีเมียม (เบี้ยเฉลี่ยปีละ 18,326 บาท)</p>
+                            </div>
+                        </div>
+                        <div class="shield-item">
+                            <div class="shield-icon" style="color: var(--rose); background: hsla(345, 90%, 55%, 0.1);">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                            </div>
+                            <div class="shield-text">
+                                <h4>สัญญาคุ้มครองโรคร้ายแรง: 48 บียอนด์</h4>
+                                <p>เตรียมวงเงินสดก้อนใหญ่ทันทีหากตรวจพบโรคร้ายแรง 48 โรคตามเงื่อนไข (เบี้ยเฉลี่ยปีละ 1,800 บาท)</p>
+                            </div>
+                        </div>
+                        <div class="shield-item" style="border-color: rgba(255, 255, 255, 0.02); background: transparent;">
+                            <div class="shield-icon" style="color: var(--text-muted); background: rgba(255, 255, 255, 0.03);">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            </div>
+                            <div class="shield-text">
+                                <h4>กองทุนสะสมประกัน (ประกันรวม kept)</h4>
+                                <p>สะสมเงินสดสมทบ 2,000 บาท/เดือน (รวมปีละ 24,000 บาท) ซึ่งครอบคลุมยอดเบี้ยประกันภัยรายปี 20,616 บาทได้อย่างสมบูรณ์แบบ</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: Webull Portfolio Restructuring (Level 3 Preview) -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">📈 พอร์ตลงทุนหลักทรัพย์ Webull (130,000 บาท)</span>
+                    </div>
+                    <div class="info-alert" style="background: hsla(270, 75%, 65%, 0.03); border-color: var(--primary-light); margin-bottom: 1.5rem; font-size: 0.9rem;">
+                        รายชื่อหลักทรัพย์ลงทุนของคุณประกอบด้วยหุ้นไอที หุ้นปันผลสูง และหุ้นคุณค่า ในช่วงวิกฤตความมั่นคงเรื่องงาน แนะนำให้ชะลอการซื้อถัวเฉลี่ยสะสม และเตรียมพิจารณา Rebalancing หุ้นผันผวนเมื่อสถานการณ์เหมาะสมครับ
+                    </div>
+
+                    <div class="portfolio-list">
+                        <div class="portfolio-tag"><span class="ticker">MSFT</span><span class="type">Tech Giant</span></div>
+                        <div class="portfolio-tag"><span class="ticker">ORCL</span><span class="type">Cloud Tech</span></div>
+                        <div class="portfolio-tag"><span class="ticker">ISRG</span><span class="type">Medical Tech</span></div>
+                        <div class="portfolio-tag"><span class="ticker">AXON</span><span class="type">Defense Tech</span></div>
+                        <div class="portfolio-tag"><span class="ticker">OBDC</span><span class="type">BDC / Div</span></div>
+                        <div class="portfolio-tag"><span class="ticker">MCD</span><span class="type">Consumer Value</span></div>
+                        <div class="portfolio-tag"><span class="ticker">GRAB</span><span class="type">Platform</span></div>
+                        <div class="portfolio-tag"><span class="ticker">VST</span><span class="type">Biotech</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Layoff Survival & Debt Runway Simulator • คำนวณเบื้องต้นตาม พรบ. คุ้มครองแรงงานไทยและข้อมูลผู้ใช้จริง 💜</p>
+        </footer>
+    </div>
+
+    <!-- Simulator Logic Script -->
     <script>
-      function runSimulation() {
-        // Get user inputs
-        const salary =
-          parseFloat(document.getElementById("param-salary").value) || 0;
-        const tenure =
-          parseFloat(document.getElementById("param-tenure").value) || 0;
-        const currentCash =
-          parseFloat(document.getElementById("param-cash").value) || 0;
-        const baseExpenses =
-          parseFloat(document.getElementById("param-expenses").value) || 0;
-        const insurance =
-          parseFloat(document.getElementById("param-insurance").value) || 0;
-        const webullVal =
-          parseFloat(document.getElementById("param-webull").value) || 0;
-
-        const carPay =
-          parseFloat(document.getElementById("debt-car-pay").value) || 0;
-        const carMonths =
-          parseInt(document.getElementById("debt-car-months").value) || 0;
-        const phonePay =
-          parseFloat(document.getElementById("debt-phone-pay").value) || 0;
-        const phoneMonths =
-          parseInt(document.getElementById("debt-phone-months").value) || 0;
-        const momPay =
-          parseFloat(document.getElementById("debt-mom-pay").value) || 0;
-        const momMonths =
-          parseInt(document.getElementById("debt-mom-months").value) || 0;
-
-        // 1. Calculate Severance Pay according to Thai Labor Law
-        let severanceDays = 0;
-        let severanceMonthsText = "";
-        if (tenure >= 20) {
-          severanceDays = 400;
-          severanceMonthsText = "400 วัน (13.3 เดือน)";
-        } else if (tenure >= 10) {
-          severanceDays = 300;
-          severanceMonthsText = "300 วัน (10 เดือน)";
-        } else if (tenure >= 6) {
-          severanceDays = 240;
-          severanceMonthsText = "240 วัน (8 เดือน)";
-        } else if (tenure >= 3) {
-          severanceDays = 120;
-          severanceMonthsText = "120 วัน (4 เดือน)";
-        } else if (tenure >= 1) {
-          severanceDays = 90;
-          severanceMonthsText = "90 วัน (3 เดือน)";
-        } else if (tenure >= 0.33) {
-          severanceDays = 30;
-          severanceMonthsText = "30 วัน (1 เดือน)";
+        // Initialize Theme Mode
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateThemeButton(savedTheme);
         }
-        const severanceVal = (salary / 30) * severanceDays;
 
-        document.getElementById("res-severance").innerText =
-          severanceVal.toLocaleString("th-TH", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          });
-        document.getElementById("res-severance-lbl").innerText =
-          `สิทธิ์ตามอายุงานครบ ${tenure} ปี: ชดเชย ${severanceMonthsText}`;
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeButton(newTheme);
+        }
 
-        // 2. Setup simulation loop
-        let currentFunds = currentCash + severanceVal;
-        const startFunds = currentFunds;
-        let timelineHTML = "";
-        let monthsLeft = 0;
-        let isSurvived = true;
+        function updateThemeButton(theme) {
+            const moon = document.querySelector('.moon-icon');
+            const sun = document.querySelector('.sun-icon');
+            if (theme === 'light') {
+                if (moon) moon.style.display = 'none';
+                if (sun) sun.style.display = 'block';
+            } else {
+                if (moon) moon.style.display = 'block';
+                if (sun) sun.style.display = 'none';
+            }
+        }
 
-        // Limit simulation to 40 months max to prevent infinite loops
-        for (let m = 1; m <= 40; m++) {
-          if (currentFunds <= 0) {
-            isSurvived = false;
-            break;
-          }
-          monthsLeft++;
+        function runSimulation() {
+            // Get user inputs
+            const salary = parseFloat(document.getElementById("param-salary").value) || 0;
+            const tenure = parseFloat(document.getElementById("param-tenure").value) || 0;
+            const currentCash = parseFloat(document.getElementById("param-cash").value) || 0;
+            const baseExpenses = parseFloat(document.getElementById("param-expenses").value) || 0;
+            const insurance = parseFloat(document.getElementById("param-insurance").value) || 0;
+            const webullVal = parseFloat(document.getElementById("param-webull").value) || 0;
 
-          // Income / Help
-          let incomeHelp = 0;
-          let events = [];
+            const carPay = parseFloat(document.getElementById("debt-car-pay").value) || 0;
+            const carMonths = parseInt(document.getElementById("debt-car-months").value) || 0;
+            const phonePay = parseFloat(document.getElementById("debt-phone-pay").value) || 0;
+            const phoneMonths = parseInt(document.getElementById("debt-phone-months").value) || 0;
+            const momPay = parseFloat(document.getElementById("debt-mom-pay").value) || 0;
+            const momMonths = parseInt(document.getElementById("debt-mom-months").value) || 0;
 
-          // Social Security Unemployment Compensation (50% of salary capped at 15000) for 6 months
-          if (m <= 6) {
-            incomeHelp = 7500;
-            events.push("สิทธิ์ประกันสังคม +7,500");
-          }
+            // 1. Calculate Severance Pay according to Thai Labor Law
+            let severanceDays = 0;
+            let severanceMonthsText = "";
+            if (tenure >= 20) {
+                severanceDays = 400;
+                severanceMonthsText = "400 วัน (13.3 เดือน)";
+            } else if (tenure >= 10) {
+                severanceDays = 300;
+                severanceMonthsText = "300 วัน (10 เดือน)";
+            } else if (tenure >= 6) {
+                severanceDays = 240;
+                severanceMonthsText = "240 วัน (8 เดือน)";
+            } else if (tenure >= 3) {
+                severanceDays = 120;
+                severanceMonthsText = "120 วัน (4 เดือน)";
+            } else if (tenure >= 1) {
+                severanceDays = 90;
+                severanceMonthsText = "90 วัน (3 เดือน)";
+            } else if (tenure >= 0.33) {
+                severanceDays = 30;
+                severanceMonthsText = "30 วัน (1 เดือน)";
+            }
+            const severanceVal = (salary / 30) * severanceDays;
 
-          // Debts calculation
-          let activeCar = m <= carMonths ? carPay : 0;
-          let activePhone = m <= phoneMonths ? phonePay : 0;
-          let activeMom = m <= momMonths ? momPay : 0;
+            document.getElementById("res-severance").innerText = severanceVal.toLocaleString("th-TH", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+            }) + " บาท";
+            document.getElementById("res-severance-lbl").innerText = `อายุงานสิทธิ์ครบ ${tenure} ปี: ชดเชย ${severanceMonthsText}`;
 
-          // Event logs
-          if (m === phoneMonths) events.push("📱 โทรศัพท์ผ่อนหมดแล้ว!");
-          if (m === momMonths) events.push("👩 ซ่อมรถช่วยแม่หมดแล้ว!");
-          if (m === carMonths) events.push("🚗 งวดรถผ่อนหมดแล้ว!");
-          if (m === 6) events.push("🛑 สิ้นสุดเงินประกันสังคม");
+            // 2. Setup simulation loop
+            let currentFunds = currentCash + severanceVal;
+            let timelineHTML = "";
+            let monthsLeft = 0;
+            let maxLoop = 40; // Prevent infinite loops
 
-          let totalOutflow =
-            baseExpenses + insurance + activeCar + activePhone + activeMom;
-          let diff = incomeHelp - totalOutflow;
-          let oldFunds = currentFunds;
-          currentFunds += diff;
+            for (let m = 1; m <= maxLoop; m++) {
+                if (currentFunds <= 0) {
+                    break;
+                }
+                monthsLeft++;
 
-          timelineHTML += `
+                let incomeHelp = 0;
+                let events = [];
+
+                // Social Security Unemployment Compensation (50% of salary capped at 15000 max base) for 6 months
+                if (m <= 6) {
+                    incomeHelp = 7500;
+                    events.push("สิทธิ์ประกันสังคม +7,500");
+                }
+
+                // Calculate active debts for current month
+                let activeCar = m <= carMonths ? carPay : 0;
+                let activePhone = m <= phoneMonths ? phonePay : 0;
+                let activeMom = m <= momMonths ? momPay : 0;
+
+                // Event checks
+                if (m === phoneMonths) events.push("📱 โทรศัพท์ผ่อนหมดแล้ว!");
+                if (m === momMonths) events.push("👩 ซ่อมรถช่วยแม่หมดแล้ว!");
+                if (m === carMonths) events.push("🚗 งวดรถผ่อนหมดแล้ว!");
+                if (m === 6) events.push("🛑 สิ้นสุดเงินช่วยเหลือว่างงาน");
+
+                let totalOutflow = baseExpenses + insurance + activeCar + activePhone + activeMom;
+                let diff = incomeHelp - totalOutflow;
+                currentFunds += diff;
+
+                timelineHTML += `
                     <tr class="${currentFunds <= 0 ? "warning-row" : ""}">
-                        <td style="font-weight: 600;">เดือนที่ ${m}</td>
+                        <td style="font-weight: 700; color: var(--text-main);">เดือนที่ ${m}</td>
                         <td style="color: var(--green); font-weight: 600;">+${incomeHelp.toLocaleString("th-TH")} บาท</td>
                         <td style="color: var(--rose); font-weight: 600;">-${totalOutflow.toLocaleString("th-TH")} บาท</td>
                         <td style="font-weight: 600; color: ${diff >= 0 ? "var(--green)" : "var(--rose)"}">${diff >= 0 ? "+" : ""}${diff.toLocaleString("th-TH")} บาท</td>
-                        <td style="text-align: right; font-weight: bold; color: var(--cyan);">${Math.max(0, currentFunds).toLocaleString("th-TH", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} บาท</td>
+                        <td style="text-align: right; font-weight: 700; color: var(--cyan);">${Math.max(0, currentFunds).toLocaleString("th-TH", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} บาท</td>
                         <td>
-                            ${events
-                              .map((ev) => {
-                                if (
-                                  ev.includes("หมด") ||
-                                  ev.includes("สิ้นสุด")
-                                ) {
-                                  return `<span class="event-badge success">${ev}</span>`;
-                                } else if (ev.includes("ประกันสังคม")) {
-                                  return `<span class="event-badge">${ev}</span>`;
+                            ${events.map((ev) => {
+                                if (ev.includes("หมด") || ev.includes("สิ้นสุด")) {
+                                    return `<span class="event-badge success">${ev}</span>`;
                                 }
                                 return `<span class="event-badge">${ev}</span>`;
-                              })
-                              .join(" ")}
+                            }).join(" ")}
                         </td>
                     </tr>
                 `;
+            }
+
+            document.getElementById("timeline-body").innerHTML = timelineHTML;
+
+            // 3. Update summary metrics
+            document.getElementById("res-runway").innerText = `${monthsLeft.toFixed(1)} เดือน`;
+
+            // Extended runway if liquidate Webull portfolio
+            const estMonthlyOutflow = baseExpenses + insurance + carPay;
+            const extendedMonths = estMonthlyOutflow > 0 ? (webullVal / estMonthlyOutflow) : 0;
+            const totalWithWebull = monthsLeft + extendedMonths;
+            document.getElementById("res-runway-extended").innerText = `หากรวมการ liquidate ขายพอร์ต Webull จะช่วยยืดระยะเวลารอดชีวิตเพิ่มขึ้นเป็นประมาณ ${totalWithWebull.toFixed(1)} เดือนครับ`;
+
+            // 4. Update Advice Box
+            const safetyBox = document.getElementById("safety-message");
+            if (monthsLeft >= 12) {
+                safetyBox.className = "info-alert success";
+                safetyBox.innerHTML = `
+                    <span style="color: var(--green); font-weight: 700; font-size: 1.1rem; display: block; margin-bottom: 0.4rem;">✨ ความมั่นคงทางการเงินระดับยอดเยี่ยม (Runway เกิน 1 ปี)</span>
+                    จากเงินชดเชยเลิกจ้างตามกฎหมาย <strong>${severanceVal.toLocaleString("th-TH")} บาท</strong> ร่วมกับเงินกองทุนสำรองฉุกเฉินเดิมและประกันสังคม ทำให้คุณต้านทานวิกฤตได้นานถึง <strong>${monthsLeft.toFixed(1)} เดือน</strong> โดยไม่ต้องห่วงหน้าพะวงหลังและยังไม่จำเป็นต้องรีบตัดขายสินทรัพย์หลักทรัพย์ลงทุนครับ สามารถใช้โอกาสนี้วิเคราะห์หางานใหม่หรือยกระดับทักษะได้อย่างสบายใจครับ!
+                `;
+            } else if (monthsLeft >= 6) {
+                safetyBox.className = "info-alert warning";
+                safetyBox.innerHTML = `
+                    <span style="color: var(--yellow); font-weight: 700; font-size: 1.1rem; display: block; margin-bottom: 0.4rem;">🟡 ความมั่นคงทางการเงินระดับปลอดภัยตามมาตรฐาน (6 - 12 เดือน)</span>
+                    มีเงินสดกองสำรองครอบคลุมค่าใช้จ่ายจำเป็นได้นาน <strong>${monthsLeft.toFixed(1)} เดือน</strong> เพียงพอต่อการหางานใหม่มาทดแทนโดยไม่ขัดสนครับ แนะนำให้ระมัดระวังการใช้จ่ายและควบคุมงบ Wants ให้อยู่ในกรอบ 10%
+                `;
+            } else {
+                safetyBox.className = "info-alert danger";
+                safetyBox.innerHTML = `
+                    <span style="color: var(--rose); font-weight: 700; font-size: 1.1rem; display: block; margin-bottom: 0.4rem;">⚠️ ความมั่นคงทางการเงินระดับเฝ้าระวัง (Runway ต่ำกว่า 6 เดือน)</span>
+                    เงินทุนสำรองของคุุณครอบคลุมได้ไม่เกิน 6 เดือน แนะนำให้เข้าสู่ <strong>Defensive Mode ขั้นสูงสุด</strong> ทันที: ตัดลดรายจ่ายผันแปรทั้งหมด และเตรียมพิจารณาถอนเงินลงทุนพอร์ต Webull บางส่วนมาเป็นเงินสดเสริมทัพล่วงหน้าเพื่อความปลอดภัยของครอบครัวครับ
+                `;
+            }
         }
 
-        document.getElementById("timeline-body").innerHTML = timelineHTML;
-
-        // 3. Update summary metrics
-        document.getElementById("res-runway").innerText =
-          `${monthsLeft.toFixed(1)} เดือน`;
-
-        const totalWithWebull =
-          monthsLeft + webullVal / (baseExpenses + insurance + carPay); // simplified extended calculation
-        document.getElementById("res-runway-extended").innerText =
-          `หากรวมขายพอร์ต Webull จะช่วยเพิ่มระยะเวลาปลอดภัยเป็นประมาณ ${totalWithWebull.toFixed(1)} เดือน`;
-
-        // 4. Update Safety Advice Box
-        const safetyBox = document.getElementById("safety-message");
-        if (monthsLeft >= 12) {
-          safetyBox.className = "info-alert success";
-          safetyBox.innerHTML = `
-                    <span style="color: var(--green); font-weight: 700; font-size: 1.1rem; display: block; margin-bottom: 0.4rem;">✨ สถานะทางการเงินปลอดภัยสูงมาก (Runway เกิน 1 ปี)</span>
-                    ด้วยเงินชดเชยกฎหมาย <strong>${severanceVal.toLocaleString("th-TH")} บาท</strong> ร่วมกับเงินประกันสังคมและเงินสะสมเดิม ทำให้คุณมีกระแสเงินสดต้านทานวิกฤตเลิกจ้างได้นานถึง <strong>${monthsLeft.toFixed(1)} เดือน</strong> โดยไม่ต้องรีบขายสินทรัพย์ลงทุน หรือประหยัดจนอึดอัดใจครับ สามารถใช้เวลานี้พัฒนาทักษะการเทรดหรือหางานใหม่ที่รักได้อย่างมีความสุขครับ!
-                `;
-        } else if (monthsLeft >= 6) {
-          safetyBox.className = "info-alert success";
-          safetyBox.style.borderColor = "var(--yellow)";
-          safetyBox.innerHTML = `
-                    <span style="color: var(--yellow); font-weight: 700; font-size: 1.1rem; display: block; margin-bottom: 0.4rem;">🟡 สถานะทางการเงินปลอดภัยในเกณฑ์มาตรฐาน (6 - 12 เดือน)</span>
-                    คุณมีเงินสดสำรองรวมเงินชดเชยเพียงพอครอบคลุมวิกฤตได้นาน <strong>${monthsLeft.toFixed(1)} เดือน</strong> ซึ่งผ่านเกณฑ์มาตรฐานการสร้างตัว และถือเป็นระยะปลอดภัยในการหางานทดแทนได้ไม่ขัดสนครับ
-                `;
-        } else {
-          safetyBox.className = "info-alert";
-          safetyBox.style.borderColor = "var(--rose)";
-          safetyBox.innerHTML = `
-                    <span style="color: var(--rose); font-weight: 700; font-size: 1.1rem; display: block; margin-bottom: 0.4rem;">⚠️ สถานะทางการเงินควรเฝ้าระวัง (Runway ต่ำกว่า 6 เดือน)</span>
-                    แนะนำให้คุณเพิ่มสภาพคล่องด้วยการปรับลดรายจ่ายที่ไม่จำเป็น ตัดกองเงินท่องเที่ยว หรือพิจารณา liquidate หุ้นบางส่วนในพอร์ต Webull มาเสริมความปลอดภัยให้ผ่านวิกฤตนี้ครับ
-                `;
-        }
-      }
-
-      // Run on load
-      window.onload = function () {
-        runSimulation();
-      };
+        window.onload = function () {
+            initTheme();
+            runSimulation();
+        };
     </script>
-  </body>
+</body>
 </html>
