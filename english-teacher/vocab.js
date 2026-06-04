@@ -47,5 +47,41 @@ const vocabularyData = [
         thai: "ริมตลิ่ง, ริมฝั่งน้ำ",
         example: "Monkeys were sitting on the river bank looking for food.",
         note: "บริเวณชายฝั่งหรือริมฝั่งแม่น้ำ"
+    },
+    {
+        english: "Reps",
+        pos: "(n.)",
+        thai: "จำนวนครั้งที่ยก/ทำซ้ำ (ย่อมาจาก repetitions)",
+        example: "I managed 2 sets of 6 to 7 reps for each leg.",
+        note: "ใช้ในการออกกำลังกายแทนคำว่า laps (ที่แปลว่ารอบ)"
+    },
+    {
+        english: "Rest",
+        pos: "(n./v.)",
+        thai: "การพัก, พักผ่อน",
+        example: "Take a short rest between sets.",
+        note: "ระวังออกเสียงสับสนกับคำว่า less (ที่แปลว่าน้อยกว่า)"
+    },
+    {
+        english: "Core",
+        pos: "(n.)",
+        thai: "แกนกลาง, กล้ามเนื้อแกนกลางลำตัว",
+        example: "Tomorrow my workout will focus on endurance and core.",
+        note: "ออกเสียงลงท้ายให้ต่างจากคำว่า call"
+    },
+    {
+        english: "Endurance",
+        pos: "(n.)",
+        thai: "ความทนทาน, ความอึดของร่างกาย",
+        example: "Running long distances builds your endurance.",
+        note: "ความสามารถในการทนต่อความเหนื่อยล้าเป็นเวลานาน"
+    },
+    {
+        english: "Challenge",
+        pos: "(n./v.)",
+        thai: "ความท้าทาย, ท้าทาย",
+        example: "The new workout routine was a big challenge.",
+        note: "สิ่งที่มีความยากแต่สนุกและคุ้มค่าที่จะลองทำ"
     }
 ];
+
