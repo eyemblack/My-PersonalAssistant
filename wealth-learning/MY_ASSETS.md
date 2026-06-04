@@ -20,7 +20,7 @@ Summary of personal financial status, bank balances, liabilities, insurance, and
 ## 🏦 2. Asset Balances (As of 2026)
 
 ### 🔴 Contingency Reserve (Emergency Fund Cash)
-Target Goal: **150,000.00 THB** (Covers 6 months of necessary living expenses)
+Target Goal: **150,000.00 THB** (Covers 6 months of necessary living expenses - *Note: Plan to accumulate beyond 150k to enhance safety buffer due to job uncertainty and outstanding debts*)
 *   **Total Emergency Cash across all accounts:** **`119,380.12 THB`** *(79.6% of goal)*
     *   *Krungsri Kept (Contingency Pocket):* `108,380.12 THB`
     *   *Dime (High-yield savings):* `10,000.00 THB`
@@ -33,7 +33,7 @@ Total mixed cash in Kept tracked by categories: **`93,378.28 THB`**
 *   *Travel:* `21,530.72 THB`
 *   *Tax:* `13,008.06 THB` (For annual personal income tax)
 *   *Insurance (Insure):* `11,964.00 THB` (For annual health insurance premium)
-*   *Student Loan (Studentloan):* `8,000.00 THB` *(Note: Target payoff of Grol loan in Jan 2028)*
+*   *Student Loan (Studentloan):* `8,000.00 THB` *(Note: Saving an additional 1,000 - 3,000 THB/month in Kept to fully close later)*
 *   *App Subscriptions (Subscribe):* `7,500.00 THB` (For Gemini and other yearly apps)
 *   *Buy Big Thing:* `3,494.18 THB` *(Note: To be used for installment payment in August)*
 *   *Self-Learning (Learn):* `284.00 THB`
@@ -61,7 +61,7 @@ Total mixed cash in Kept tracked by categories: **`93,378.28 THB`**
         *   Year 2571 (2028): `9,531.27 THB`
         *   Year 2572 (2029): `10,336.95 THB`
         *   Year 2573 (2030): `12,029.42 THB`
-    *   *Strategy:* Pay minimum annual amount, do not prepay. Keep cash in high-yield bank accounts and target full payoff in **January 2028** (Jan 2571).
+    *   *Strategy:* Pay minimum annual amount to avoid penalties. Accumulate an additional 1,000 - 3,000 THB/month in a dedicated Kept pocket. Once the accumulated savings in this pocket equal the outstanding loan balance, execute a full payoff (Target: January 2028 or sooner).
 
 ---
 
