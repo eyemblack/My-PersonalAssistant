@@ -302,6 +302,189 @@
             color: #e2e8f0;
         }
 
+        /* Mode Selector */
+        .mode-selector {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            width: 100%;
+            max-width: 480px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .btn-mode {
+            flex: 1;
+            font-size: 0.9rem;
+            padding: 0.6rem 1rem;
+            border-radius: 12px;
+        }
+
+        .btn-mode.active {
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            border-color: transparent;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+            color: #fff;
+        }
+
+        /* SRS Stats Bar */
+        .srs-stats {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .srs-badge {
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.3rem 0.75rem;
+            border-radius: 99px;
+            border: 1px solid currentColor;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .badge-new {
+            color: #38bdf8;
+            background: rgba(56, 189, 248, 0.15);
+        }
+
+        .badge-learning {
+            color: #f87171;
+            background: rgba(248, 113, 113, 0.15);
+        }
+
+        .badge-due {
+            color: #4ade80;
+            background: rgba(74, 222, 128, 0.15);
+        }
+
+        /* SRS Response Buttons on Card Back */
+        .srs-btn-row {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .srs-btn {
+            flex: 1;
+            border: none;
+            border-radius: 8px;
+            padding: 0.6rem 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.1s, filter 0.2s;
+            font-family: 'Outfit', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .srs-btn:hover {
+            filter: brightness(1.2);
+            transform: translateY(-2px);
+        }
+
+        .srs-btn:active {
+            transform: translateY(1px);
+        }
+
+        .btn-again {
+            background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-hard {
+            background: linear-gradient(135deg, #f97316 0%, #c2410c 100%);
+            box-shadow: 0 4px 10px rgba(249, 115, 22, 0.3);
+        }
+
+        .btn-good {
+            background: linear-gradient(135deg, #22c55e 0%, #15803d 100%);
+            box-shadow: 0 4px 10px rgba(34, 197, 94, 0.3);
+        }
+
+        .btn-easy {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Caught Up Screen */
+        .caught-up-container {
+            width: 100%;
+            max-width: 480px;
+            height: 320px;
+            background: var(--card-front-bg);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+            margin: auto;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .success-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .caught-up-container h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: #4ade80;
+            font-family: 'Sarabun', sans-serif;
+        }
+
+        .caught-up-container p {
+            font-family: 'Sarabun', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+        }
+
+        .srs-stats-summary {
+            font-family: 'Sarabun', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Debug & Settings Panel */
+        .debug-panel {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            justify-content: space-between;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .btn-debug {
+            flex: 1;
+            font-size: 0.75rem;
+            padding: 0.5rem 0.25rem;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
         /* Animations */
         @keyframes fadeInDown {
             from {
@@ -359,8 +542,21 @@
 
     <header>
         <h1>English Flashcards</h1>
-        <p>คลิกที่บัตรเพื่อสลับการ์ดคำศัพท์ภาษาอังกฤษ-ภาษาไทย</p>
+        <p>เรียนรู้และทวนคำศัพท์ภาษาอังกฤษระดับ A1-A2</p>
     </header>
+
+    <!-- Mode Selector -->
+    <div class="mode-selector">
+        <button class="btn btn-mode active" id="modeSrsBtn">🧠 SRS Study Mode</button>
+        <button class="btn btn-mode" id="modeBrowseBtn">📖 Free Browse Mode</button>
+    </div>
+
+    <!-- SRS Stats Bar -->
+    <div class="srs-stats" id="srsStatsBar">
+        <span class="srs-badge badge-new" id="srsNewCount">New: 0</span>
+        <span class="srs-badge badge-learning" id="srsLearningCount">Learning: 0</span>
+        <span class="srs-badge badge-due" id="srsDueCount">Due: 0</span>
+    </div>
 
     <!-- Main Flashcard -->
     <div class="flashcard-container" id="cardContainer" aria-label="คลิกเพื่อสลับคำแปล" tabindex="0">
@@ -377,20 +573,38 @@
             <!-- Back Face (Thai & Context) -->
             <div class="card-face card-back">
                 <div class="card-badge" id="cardBadgeTh">THAI & USAGE</div>
-                <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem; margin: auto 0; width: 100%;">
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.8rem; margin: auto 0; width: 100%;">
                     <div class="word-translation" id="wordTh">ทางเข้า</div>
                     <div class="word-example" id="wordEx">"We met at the park entrance."</div>
                     <div class="word-note" id="wordNote">ใช้แทน entry ในบริบททางเข้าอุทยาน</div>
+                    
+                    <!-- SRS response buttons -->
+                    <div class="srs-btn-row" id="srsBtnRow">
+                        <button class="srs-btn btn-again" id="btnAgain">Again</button>
+                        <button class="srs-btn btn-hard" id="btnHard">Hard</button>
+                        <button class="srs-btn btn-good" id="btnGood">Good</button>
+                        <button class="srs-btn btn-easy" id="btnEasy">Easy</button>
+                    </div>
                 </div>
-                <div class="click-hint">แตะเพื่อสลับหน้า / Click to Flip</div>
+                <div class="click-hint" id="backClickHint">แตะเพื่อสลับหน้า / Click to Flip</div>
             </div>
+        </div>
+    </div>
+
+    <!-- Caught Up Container -->
+    <div class="caught-up-container" id="caughtUpContainer" style="display: none;">
+        <div class="success-icon">🎉</div>
+        <h2>ทบทวนครบหมดแล้ว!</h2>
+        <p id="caughtUpMsg">คุณได้ทบทวนคำศัพท์สำหรับวันนี้หมดแล้ว สมองต้องการเวลาในการจดจำคำศัพท์เหล่านี้นะครับ</p>
+        <div class="srs-stats-summary" id="statsSummary">
+            คำศัพท์ที่บันทึกไว้จะทยอยกลับมาให้ทบทวนใหม่ในวันถัดไป
         </div>
     </div>
 
     <!-- Controls Panel -->
     <div class="controls">
         <!-- Progress Bar and Numbers -->
-        <div>
+        <div id="progressSection">
             <div class="stats-row">
                 <span id="currentStatus">Card 1 of 7</span>
                 <span id="percentStatus">14% Complete</span>
@@ -400,15 +614,22 @@
             </div>
         </div>
 
-        <!-- Action Buttons -->
-        <div class="buttons-row">
+        <!-- Action Buttons (Browse Mode) -->
+        <div class="buttons-row" id="browseButtonsRow">
             <button class="btn btn-nav" id="prevBtn" title="ปุ่มลูกศรซ้าย ◀">◀ Prev</button>
             <button class="btn btn-secondary" id="shuffleBtn" title="สุ่มสลับการ์ด">🔀 Shuffle</button>
             <button class="btn btn-nav" id="nextBtn" title="ปุ่มลูกศรขวา ▶">Next ▶</button>
         </div>
 
+        <!-- Debug / Settings Panel (SRS Mode) -->
+        <div class="debug-panel" id="srsDebugPanel">
+            <button class="btn btn-secondary btn-debug" id="simulateDayBtn" title="จำลองเวลาผ่านไป 1 วัน">⏰ Simulate +1 Day</button>
+            <button class="btn btn-secondary btn-debug" id="studyAheadBtn" title="เรียนรู้การ์ดล่วงหน้า">📖 Study Ahead</button>
+            <button class="btn btn-secondary btn-debug" id="resetSrsBtn" style="border-color: rgba(239, 68, 68, 0.3); color: #f87171;" title="เริ่มการเรียนรู้ใหม่ทั้งหมด">🔄 Reset Progress</button>
+        </div>
+
         <!-- Keyboard Guide -->
-        <div class="kbd-guide">
+        <div class="kbd-guide" id="keyboardGuide">
             ใช้คีย์บอร์ดลัด: 
             <span class="kbd">←</span> ย้อนกลับ | 
             <span class="kbd">Space</span> พลิกการ์ด | 
@@ -418,11 +639,13 @@
 
     <script src="vocab.js"></script>
     <script>
-        // Vocabulary dataset is now loaded from vocab.js
-
-
-        let currentIndex = 0;
-        let activeData = [...vocabularyData];
+        // Global States
+        let mode = 'srs'; // 'srs' or 'browse'
+        let currentIndex = 0; // used for browse mode
+        let activeData = []; // study list
+        let cardStates = {}; // SRS states dictionary
+        let sessionInitialLength = 0; // total due at start
+        let studyAheadMode = false;
 
         // Element references
         const cardContainer = document.getElementById('cardContainer');
@@ -441,28 +664,202 @@
         const nextBtn = document.getElementById('nextBtn');
         const shuffleBtn = document.getElementById('shuffleBtn');
 
-        // Functions
-        function updateCardContent() {
-            const item = activeData[currentIndex];
-            
-            // Wait for flip back if card is currently flipped
-            if (flashcard.classList.contains('is-flipped')) {
-                flashcard.classList.remove('is-flipped');
-                setTimeout(() => {
-                    setCardText(item);
-                }, 300); // Wait for rotation animation to hide text before replacing
-            } else {
-                setCardText(item);
-            }
+        // SRS Elements
+        const modeSrsBtn = document.getElementById('modeSrsBtn');
+        const modeBrowseBtn = document.getElementById('modeBrowseBtn');
+        const srsStatsBar = document.getElementById('srsStatsBar');
+        const browseButtonsRow = document.getElementById('browseButtonsRow');
+        const srsDebugPanel = document.getElementById('srsDebugPanel');
+        const progressSection = document.getElementById('progressSection');
+        const keyboardGuide = document.getElementById('keyboardGuide');
+        const caughtUpContainer = document.getElementById('caughtUpContainer');
+        const srsBtnRow = document.getElementById('srsBtnRow');
+        const backClickHint = document.getElementById('backClickHint');
 
-            // Update Progress UI
-            const total = activeData.length;
-            const currentNum = currentIndex + 1;
-            const percentage = Math.round((currentNum / total) * 100);
+        // Debug buttons
+        const simulateDayBtn = document.getElementById('simulateDayBtn');
+        const studyAheadBtn = document.getElementById('studyAheadBtn');
+        const resetSrsBtn = document.getElementById('resetSrsBtn');
+
+        // Toast Notification Function
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.style.position = 'fixed';
+            toast.style.bottom = '2rem';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%) translateY(100px)';
+            toast.style.background = 'rgba(15, 23, 42, 0.95)';
+            toast.style.border = '1px solid var(--accent-primary)';
+            toast.style.color = '#fff';
+            toast.style.padding = '0.75rem 1.5rem';
+            toast.style.borderRadius = '12px';
+            toast.style.boxShadow = '0 10px 25px rgba(0,0,0,0.5)';
+            toast.style.zIndex = '9999';
+            toast.style.fontFamily = 'Sarabun, sans-serif';
+            toast.style.fontSize = '0.9rem';
+            toast.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s';
+            toast.style.opacity = '0';
+            toast.innerText = message;
             
-            currentStatus.innerText = `Card ${currentNum} of ${total}`;
-            percentStatus.innerText = `${percentage}% Complete`;
-            progressBar.style.width = `${percentage}%`;
+            document.body.appendChild(toast);
+            
+            // Trigger reflow
+            toast.offsetHeight;
+            
+            toast.style.transform = 'translateX(-50%) translateY(0)';
+            toast.style.opacity = '1';
+            
+            setTimeout(() => {
+                toast.style.transform = 'translateX(-50%) translateY(100px)';
+                toast.style.opacity = '0';
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 2500);
+        }
+
+        // Time helper
+        function getNow() {
+            return Date.now() + Number(localStorage.getItem('srs_time_offset') || 0);
+        }
+
+        // Load card states
+        function loadCardStates() {
+            cardStates = JSON.parse(localStorage.getItem('srs_card_states') || '{}');
+        }
+
+        // Save card states
+        function saveCardStates() {
+            localStorage.setItem('srs_card_states', JSON.stringify(cardStates));
+        }
+
+        // Build SRS Queue
+        function buildSrsQueue() {
+            loadCardStates();
+            const now = getNow();
+            
+            // Calculate stats for badges
+            let newCount = 0;
+            let learningCount = 0;
+            let dueCount = 0;
+
+            vocabularyData.forEach(card => {
+                const state = cardStates[card.english];
+                if (!state) {
+                    newCount++;
+                } else if (state.interval === 0) {
+                    learningCount++;
+                } else if (state.nextReview <= now) {
+                    dueCount++;
+                }
+            });
+
+            document.getElementById('srsNewCount').innerText = `New: ${newCount}`;
+            document.getElementById('srsLearningCount').innerText = `Learning: ${learningCount}`;
+            document.getElementById('srsDueCount').innerText = `Due: ${dueCount}`;
+
+            if (studyAheadMode) {
+                // In study ahead, show everything
+                activeData = [...vocabularyData];
+            } else {
+                // Only show New or Due cards
+                activeData = vocabularyData.filter(card => {
+                    const state = cardStates[card.english];
+                    if (!state) return true; // New
+                    if (state.nextReview <= now) return true; // Due
+                    return false;
+                });
+            }
+        }
+
+        // Initialize Mode
+        function initMode(newMode) {
+            mode = newMode;
+            
+            if (mode === 'srs') {
+                modeSrsBtn.classList.add('active');
+                modeBrowseBtn.classList.remove('active');
+                
+                srsStatsBar.style.display = 'flex';
+                srsDebugPanel.style.display = 'flex';
+                browseButtonsRow.style.display = 'none';
+                srsBtnRow.style.display = 'flex';
+                backClickHint.innerText = 'แตะคำหลัก/เว้นด้านล่างเพื่อพลิกการ์ดกลับ';
+                
+                keyboardGuide.innerHTML = 'ใช้คีย์บอร์ดลัด: <span class="kbd">Space</span> พลิกการ์ด | <span class="kbd">1</span> Again | <span class="kbd">2</span> Hard | <span class="kbd">3</span> Good | <span class="kbd">4</span> Easy';
+                
+                studyAheadMode = false;
+                buildSrsQueue();
+                sessionInitialLength = activeData.length;
+                currentIndex = 0;
+            } else {
+                modeSrsBtn.classList.remove('active');
+                modeBrowseBtn.classList.add('active');
+                
+                srsStatsBar.style.display = 'none';
+                srsDebugPanel.style.display = 'none';
+                browseButtonsRow.style.display = 'flex';
+                srsBtnRow.style.display = 'none';
+                backClickHint.innerText = 'แตะเพื่อสลับหน้า / Click to Flip';
+                
+                keyboardGuide.innerHTML = 'ใช้คีย์บอร์ดลัด: <span class="kbd">←</span> ย้อนกลับ | <span class="kbd">Space</span> พลิกการ์ด | <span class="kbd">→</span> ถัดไป';
+                
+                activeData = [...vocabularyData];
+                currentIndex = 0;
+            }
+            
+            // Unflip card
+            flashcard.classList.remove('is-flipped');
+            updateCardContent();
+        }
+
+        // Update Card Content & Progress Bar
+        function updateCardContent() {
+            if (mode === 'browse') {
+                caughtUpContainer.style.display = 'none';
+                cardContainer.style.display = 'block';
+                progressSection.style.display = 'block';
+                
+                if (activeData.length === 0) return;
+                const item = activeData[currentIndex];
+                setCardText(item);
+
+                // Update Progress UI
+                const total = activeData.length;
+                const currentNum = currentIndex + 1;
+                const percentage = Math.round((currentNum / total) * 100);
+                
+                currentStatus.innerText = `Card ${currentNum} of ${total}`;
+                percentStatus.innerText = `${percentage}% Complete`;
+                progressBar.style.width = `${percentage}%`;
+            } else { // srs mode
+                if (activeData.length === 0) {
+                    cardContainer.style.display = 'none';
+                    progressSection.style.display = 'none';
+                    caughtUpContainer.style.display = 'flex';
+                    
+                    if (studyAheadMode) {
+                        document.getElementById('caughtUpMsg').innerText = "คุณทบทวนการ์ดล่วงหน้าเสร็จเรียบร้อยหมดแล้ว!";
+                    } else {
+                        document.getElementById('caughtUpMsg').innerText = "คุณได้ทบทวนคำศัพท์สำหรับวันนี้หมดแล้ว สมองต้องการเวลาในการจดจำคำศัพท์เหล่านี้นะครับ";
+                    }
+                } else {
+                    caughtUpContainer.style.display = 'none';
+                    cardContainer.style.display = 'block';
+                    progressSection.style.display = 'block';
+
+                    const item = activeData[0]; // Always study the first due card
+                    setCardText(item);
+
+                    // Update Progress UI
+                    const completed = sessionInitialLength - activeData.length;
+                    const percentage = sessionInitialLength > 0 ? Math.round((completed / sessionInitialLength) * 100) : 100;
+                    
+                    currentStatus.innerText = `Card ${completed + 1} of ${sessionInitialLength}`;
+                    percentStatus.innerText = `${percentage}% Complete`;
+                    progressBar.style.width = `${percentage}%`;
+                }
+            }
         }
 
         function setCardText(item) {
@@ -483,6 +880,7 @@
             updateCardContent();
         }
 
+        // Prev card in browse mode
         function prevCard() {
             if (activeData.length === 0) return;
             currentIndex = (currentIndex - 1 + activeData.length) % activeData.length;
@@ -490,7 +888,6 @@
         }
 
         function shuffleCards() {
-            // Fisher-Yates Shuffle
             for (let i = activeData.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [activeData[i], activeData[j]] = [activeData[j], activeData[i]];
@@ -498,31 +895,178 @@
             currentIndex = 0;
             updateCardContent();
             
-            // Briefly scale effect on click
             shuffleBtn.style.transform = "scale(0.95)";
             setTimeout(() => { shuffleBtn.style.transform = ""; }, 100);
+            showToast("🔀 สลับการ์ดในชุดปัจจุบันเรียบร้อยแล้ว!");
+        }
+
+        // SRS Rating Logic
+        function rateCard(rating, event) {
+            if (event) event.stopPropagation();
+            
+            if (activeData.length === 0) return;
+            const card = activeData[0];
+            const now = getNow();
+            
+            // Initialize card state if empty
+            if (!cardStates[card.english]) {
+                cardStates[card.english] = {
+                    easeFactor: 2.5,
+                    interval: 0,
+                    repetition: 0,
+                    nextReview: 0
+                };
+            }
+            
+            const state = cardStates[card.english];
+            
+            if (rating === 'again') {
+                state.repetition = 0;
+                state.interval = 0; // learning
+                state.nextReview = now + 1 * 60 * 1000; // 1 minute
+                
+                // Add back to activeData queue for current session repetition
+                activeData.push(card);
+                sessionInitialLength++;
+                showToast("🟥 จะนำการ์ดกลับมาให้ทบทวนซ้ำอีกครั้งในรอบนี้");
+            } else if (rating === 'hard') {
+                state.repetition = Math.max(0, state.repetition - 1);
+                state.interval = 0; // learning
+                state.nextReview = now + 5 * 60 * 1000; // 5 minutes
+                
+                activeData.push(card);
+                sessionInitialLength++;
+                showToast("🟨 จะสุ่มการ์ดนี้กลับมาอีกครั้งในช่วงท้าย");
+            } else if (rating === 'good') {
+                if (state.repetition === 0) {
+                    state.interval = 1; // 1 day
+                } else if (state.repetition === 1) {
+                    state.interval = 3; // 3 days
+                } else {
+                    state.interval = Math.round(state.interval * state.easeFactor);
+                }
+                state.repetition += 1;
+                state.nextReview = now + state.interval * 24 * 60 * 60 * 1000;
+                showToast(`🟩 ดีมาก! เว้นระยะทบทวนการ์ดนี้อีก ${state.interval} วัน`);
+            } else if (rating === 'easy') {
+                state.easeFactor = Math.min(3.0, state.easeFactor + 0.15);
+                if (state.repetition === 0) {
+                    state.interval = 3; // 3 days
+                } else {
+                    state.interval = Math.round(state.interval * state.easeFactor * 1.3);
+                }
+                state.repetition += 1;
+                state.nextReview = now + state.interval * 24 * 60 * 60 * 1000;
+                showToast(`🟦 ง่ายมาก! เว้นระยะทบทวนการ์ดนี้อีก ${state.interval} วัน`);
+            }
+            
+            saveCardStates();
+            
+            // Smooth transition to next card
+            if (flashcard.classList.contains('is-flipped')) {
+                flashcard.classList.remove('is-flipped');
+                setTimeout(() => {
+                    activeData.shift(); // Remove completed first card
+                    buildSrsQueue(); // Update counts in background
+                    updateCardContent();
+                }, 300);
+            } else {
+                activeData.shift();
+                buildSrsQueue();
+                updateCardContent();
+            }
         }
 
         // Event Listeners
         cardContainer.addEventListener('click', flipCard);
+        
+        // Mode switching
+        modeSrsBtn.addEventListener('click', () => initMode('srs'));
+        modeBrowseBtn.addEventListener('click', () => initMode('browse'));
+
+        // Browse buttons
         nextBtn.addEventListener('click', nextCard);
         prevBtn.addEventListener('click', prevCard);
         shuffleBtn.addEventListener('click', shuffleCards);
 
-        // Keyboard Support
-        document.addEventListener('keydown', (e) => {
-            if (e.code === 'ArrowRight') {
-                nextCard();
-            } else if (e.code === 'ArrowLeft') {
-                prevCard();
-            } else if (e.code === 'Space') {
-                e.preventDefault(); // Stop page scrolling
-                flipCard();
+        // SRS Rating Buttons
+        document.getElementById('btnAgain').addEventListener('click', (e) => rateCard('again', e));
+        document.getElementById('btnHard').addEventListener('click', (e) => rateCard('hard', e));
+        document.getElementById('btnGood').addEventListener('click', (e) => rateCard('good', e));
+        document.getElementById('btnEasy').addEventListener('click', (e) => rateCard('easy', e));
+
+        // Debug buttons
+        simulateDayBtn.addEventListener('click', () => {
+            const currentOffset = Number(localStorage.getItem('srs_time_offset') || 0);
+            localStorage.setItem('srs_time_offset', currentOffset + 24 * 60 * 60 * 1000);
+            studyAheadMode = false;
+            
+            buildSrsQueue();
+            sessionInitialLength = activeData.length;
+            flashcard.classList.remove('is-flipped');
+            currentIndex = 0;
+            updateCardContent();
+            
+            const hours = Math.round(Number(localStorage.getItem('srs_time_offset') || 0) / (1000 * 60 * 60));
+            showToast(`⏰ จำลองเวลาผ่านไป 1 วันแล้ว! (เวลาสะสม: +${Math.round(hours / 24)} วัน)`);
+        });
+
+        studyAheadBtn.addEventListener('click', () => {
+            studyAheadMode = true;
+            buildSrsQueue();
+            sessionInitialLength = activeData.length;
+            flashcard.classList.remove('is-flipped');
+            currentIndex = 0;
+            updateCardContent();
+            showToast("📖 เข้าสู่โหมดเรียนล่วงหน้า! ทบทวนการ์ดคำศัพท์ทั้งหมด");
+        });
+
+        resetSrsBtn.addEventListener('click', () => {
+            if (confirm("ต้องการเริ่มการเรียนรู้ใหม่ทั้งหมดหรือไม่? ประวัติการจำจะถูกลบออกทั้งหมด")) {
+                localStorage.removeItem('srs_card_states');
+                localStorage.removeItem('srs_time_offset');
+                studyAheadMode = false;
+                cardStates = {};
+                buildSrsQueue();
+                sessionInitialLength = activeData.length;
+                flashcard.classList.remove('is-flipped');
+                currentIndex = 0;
+                updateCardContent();
+                showToast("🔄 เริ่มเรียนรู้ใหม่ทั้งหมดเรียบร้อยแล้ว!");
             }
         });
 
-        // Initialize First Card
-        updateCardContent();
+        // Keyboard Support
+        document.addEventListener('keydown', (e) => {
+            if (mode === 'browse') {
+                if (e.code === 'ArrowRight') {
+                    nextCard();
+                } else if (e.code === 'ArrowLeft') {
+                    prevCard();
+                } else if (e.code === 'Space') {
+                    e.preventDefault();
+                    flipCard();
+                }
+            } else if (mode === 'srs' && activeData.length > 0) {
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    flipCard();
+                } else if (flashcard.classList.contains('is-flipped')) {
+                    if (e.key === '1') {
+                        rateCard('again');
+                    } else if (e.key === '2') {
+                        rateCard('hard');
+                    } else if (e.key === '3') {
+                        rateCard('good');
+                    } else if (e.key === '4') {
+                        rateCard('easy');
+                    }
+                }
+            }
+        });
+
+        // Initialize SRS mode on load
+        initMode('srs');
     </script>
 </body>
 </html>

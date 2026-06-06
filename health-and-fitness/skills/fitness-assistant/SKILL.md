@@ -17,8 +17,9 @@
 เมื่อผู้ใช้โยนไฟล์บันทึกผลการออกกำลังกายย้อนหลังใหม่ (เช่น `.tcx` หรือ `.gpx`) เข้ามาในโฟลเดอร์ `workout_logs/` ให้ผู้ช่วย AI ทำตามขั้นตอนดังนี้:
 
 ### 1. ทำการประมวลผลและสรุปสถิติ
-*   รันสคริปต์ประมวลผลไฟล์ TCX ที่ตำแหน่ง `skills/fitness-assistant/scripts/parse_logs.py` เพื่อดึงข้อมูลสรุป
-*   คำสั่งรัน: `python3 skills/fitness-assistant/scripts/parse_logs.py`
+*   เพื่อเป็นการประหยัด Token ควรถามผู้ใช้ก่อนว่าต้องการให้ดึงเฉพาะไฟล์ไหน หากผู้ใช้ระบุไฟล์ใหม่มา ให้ดึงเฉพาะไฟล์นั้น
+*   คำสั่งรันแบบระบุไฟล์: `python3 skills/fitness-assistant/scripts/parse_logs.py --files ชื่อไฟล์.tcx`
+*   คำสั่งรันทั้งหมด: `python3 skills/fitness-assistant/scripts/parse_logs.py`
 
 ### 2. วิเคราะห์และประเมินผลชีพจร (Heart Rate Analysis)
 *   ตรวจสอบค่า **Average Heart Rate (Avg HR)** ของการวิ่งล่าสุด

@@ -1,11 +1,23 @@
 import os
 import glob
 import xml.etree.ElementTree as ET
+import argparse
 
 # หาตำแหน่งโฟลเดอร์เก็บไฟล์ log แบบสัมพัทธ์กับที่ตั้งของสคริปต์
 script_dir = os.path.dirname(os.path.abspath(__file__))
 logs_dir = os.path.abspath(os.path.join(script_dir, "../../../workout_logs"))
-tcx_files = glob.glob(os.path.join(logs_dir, "*.tcx"))
+
+parser = argparse.ArgumentParser(description="Parse workout TCX logs.")
+parser.add_argument("--files", nargs="*", help="ระบุชื่อไฟล์ .tcx ที่ต้องการให้ดึงข้อมูล (เช่น Zepp123.tcx) หากไม่ระบุจะดึงทั้งหมด")
+args = parser.parse_args()
+
+if args.files:
+    tcx_files = []
+    for f in args.files:
+        basename = os.path.basename(f)
+        tcx_files.append(os.path.join(logs_dir, basename))
+else:
+    tcx_files = glob.glob(os.path.join(logs_dir, "*.tcx"))
 
 workouts = []
 
