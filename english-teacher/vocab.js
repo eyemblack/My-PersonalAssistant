@@ -82,6 +82,48 @@ const vocabularyData = [
         thai: "ความท้าทาย, ท้าทาย",
         example: "The new workout routine was a big challenge.",
         note: "สิ่งที่มีความยากแต่สนุกและคุ้มค่าที่จะลองทำ"
+    },
+    {
+        english: "Express",
+        pos: "(v.)",
+        thai: "แสดงความรู้สึกหรือความคิดออกมา",
+        example: "It is good to express your feelings when you are stressed.",
+        note: "การแสดงออกทางอารมณ์ ความคิด หรือความรู้สึก"
+    },
+    {
+        english: "Overwhelmed",
+        pos: "(adj.)",
+        thai: "รู้สึกท่วมท้น, รู้สึกว่าหนักหนาเกินรับมือไหว",
+        example: "I felt overwhelmed by the amount of work today.",
+        note: "ใช้อธิบายความรู้สึกเวลาเจอเรื่องหนักๆ หรือข้อมูลเยอะเกินไป"
+    },
+    {
+        english: "Stranger",
+        pos: "(n.)",
+        thai: "คนแปลกหน้า",
+        example: "A kind stranger helped me find the way.",
+        note: "คนที่เราไม่รู้จักมาก่อน"
+    },
+    {
+        english: "Reached",
+        pos: "(v.)",
+        thai: "ไปถึง, มาถึง (กริยาช่อง 2/3 ของ reach)",
+        example: "We finally reached our destination after a long walk.",
+        note: "ใช้เมื่อเราเดินทางไปถึงสถานที่ใดที่หนึ่ง"
+    },
+    {
+        english: "Parking lot",
+        pos: "(n.)",
+        thai: "ลานจอดรถ",
+        example: "The shopping mall has a large parking lot.",
+        note: "พื้นที่หรือบริเวณที่จัดไว้สำหรับจอดรถ"
+    },
+    {
+        english: "Raising",
+        pos: "(v.)",
+        thai: "การยกขึ้น, การเลี้ยงดู",
+        example: "Raising weights is a good way to build strength.",
+        note: "มาจากคำว่า raise แปลว่ายกขึ้น หรือเลี้ยงดู (เช่น เลี้ยงลูก/สัตว์)"
     }
 ];
 
