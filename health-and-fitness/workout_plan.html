@@ -1,684 +1,766 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="th" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🏋️ ตารางออกกำลังกาย 4 วันต่อสัปดาห์ (Workout Plan)</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="ตารางออกกำลังกาย 4 วันต่อสัปดาห์ เน้น V-Shape และเตรียมเดินป่า">
+    <title>Workout Plan - V-Shape & Hiking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            /* Premium Light Mode */
-            --bg-color: #f4f4f9;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --card-bg: rgba(255, 255, 255, 0.7);
+        :root, [data-theme="light"] {
+            --bg-color: #f8fafc;
+            --bg-gradient: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --card-bg: rgba(255, 255, 255, 0.6);
             --card-border: rgba(255, 255, 255, 0.8);
-            --card-border-hover: rgba(59, 130, 246, 0.4);
+            --primary: #6366f1;
+            --accent-green: #059669;
+            --accent-blue: #2563eb;
+            --accent-yellow: #d97706;
+            --accent-red: #dc2626;
+            --glass-blur: blur(20px);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --glow-opacity: 0.4;
+            --table-header-bg: rgba(0, 0, 0, 0.03);
+            --table-row-hover: rgba(0, 0, 0, 0.02);
+            --title-color: #1e293b;
+            --label-color: #334155;
+            --shadow-color: rgba(0, 0, 0, 0.05);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #09090b;
+            --bg-gradient: linear-gradient(135deg, #09090b 0%, #171717 100%);
+            --text-main: #f8fafc;
+            --text-muted: #a1a1aa;
+            --card-bg: rgba(255, 255, 255, 0.04);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --primary: #8b5cf6;
             --accent-green: #10b981;
             --accent-blue: #3b82f6;
             --accent-yellow: #f59e0b;
             --accent-red: #ef4444;
-            --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            --radial-1: rgba(59, 130, 246, 0.1);
-            --radial-2: rgba(139, 92, 246, 0.1);
-            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            --shadow-md: 0 10px 25px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
-            --shadow-lg: 0 20px 40px -5px rgba(59, 130, 246, 0.1);
-            --badge-green-bg: rgba(16, 185, 129, 0.15);
-            --badge-blue-bg: rgba(59, 130, 246, 0.15);
-            --badge-yellow-bg: rgba(245, 158, 11, 0.15);
-            --badge-red-bg: rgba(239, 68, 68, 0.15);
-            --table-border: rgba(0, 0, 0, 0.05);
-            --table-header-bg: rgba(248, 250, 252, 0.8);
-            --table-row-hover: rgba(241, 245, 249, 0.6);
-            --list-bg: rgba(255, 255, 255, 0.5);
-            --list-border: rgba(0, 0, 0, 0.05);
-            --timeline-bg: rgba(255, 255, 255, 0.5);
-            --timeline-border: rgba(0, 0, 0, 0.05);
-            --timeline-month-color: #7c3aed;
-            --timeline-purple-border: #8b5cf6;
-            --goal-badge-bg: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
-            --goal-badge-border: rgba(99, 102, 241, 0.2);
-            --goal-badge-color: #4f46e5;
-            --glass-blur: 16px;
+            --glow-opacity: 0.15;
+            --table-header-bg: rgba(255, 255, 255, 0.02);
+            --table-row-hover: rgba(255, 255, 255, 0.05);
+            --title-color: #ffffff;
+            --label-color: #f1f5f9;
+            --shadow-color: rgba(0, 0, 0, 0.4);
         }
 
-        body.dark-mode {
-            /* Premium Dark Mode */
-            --bg-color: #09090b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --card-bg: rgba(24, 24, 27, 0.6);
-            --card-border: rgba(255, 255, 255, 0.08);
-            --card-border-hover: rgba(99, 102, 241, 0.5);
-            --accent-green: #34d399;
-            --accent-blue: #60a5fa;
-            --accent-yellow: #fbbf24;
-            --accent-red: #f87171;
-            --gradient-primary: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
-            --radial-1: rgba(59, 130, 246, 0.12);
-            --radial-2: rgba(139, 92, 246, 0.12);
-            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-            --shadow-md: 0 10px 25px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
-            --shadow-lg: 0 20px 40px -5px rgba(99, 102, 241, 0.25);
-            --badge-green-bg: rgba(52, 211, 153, 0.15);
-            --badge-blue-bg: rgba(96, 165, 250, 0.15);
-            --badge-yellow-bg: rgba(251, 191, 36, 0.15);
-            --badge-red-bg: rgba(248, 113, 113, 0.15);
-            --table-border: rgba(255, 255, 255, 0.05);
-            --table-header-bg: rgba(39, 39, 42, 0.8);
-            --table-row-hover: rgba(63, 63, 70, 0.4);
-            --list-bg: rgba(39, 39, 42, 0.4);
-            --list-border: rgba(255, 255, 255, 0.03);
-            --timeline-bg: rgba(39, 39, 42, 0.4);
-            --timeline-border: rgba(255, 255, 255, 0.03);
-            --timeline-month-color: #a78bfa;
-            --timeline-purple-border: #8b5cf6;
-            --goal-badge-bg: linear-gradient(135deg, rgba(96, 165, 250, 0.1), rgba(167, 139, 250, 0.1));
-            --goal-badge-border: rgba(167, 139, 250, 0.2);
-            --goal-badge-color: #a78bfa;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Prompt', 'Inter', sans-serif;
-            background-color: var(--bg-color);
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
             color: var(--text-main);
             line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-image: 
-                radial-gradient(circle at 15% 50%, var(--radial-1) 0%, transparent 40%),
-                radial-gradient(circle at 85% 30%, var(--radial-2) 0%, transparent 40%);
-            background-attachment: fixed;
-            transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s ease;
-            position: relative;
+            min-height: 100vh;
+            padding-bottom: 4rem;
+            overflow-x: hidden;
+            transition: background 0.3s ease;
         }
-        
-        body::before {
-            content: '';
+
+        h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; font-weight: 600; }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 1.5rem; position: relative; z-index: 1; }
+
+        .bg-glow {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>');
-            opacity: 0.03;
-            z-index: -1;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80vw;
+            height: 80vw;
+            background: radial-gradient(circle, rgba(139,92,246,var(--glow-opacity)) 0%, rgba(0,0,0,0) 60%);
+            z-index: 0;
             pointer-events: none;
+            transition: var(--transition);
         }
 
-        .container {
-            max-width: 1024px;
-            margin: 0 auto;
-            padding: 60px 20px;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 60px;
-            animation: fadeInDown 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-            opacity: 0;
-        }
-
-        h1 {
-            font-size: clamp(2rem, 5vw, 3rem);
-            margin-bottom: 16px;
-            font-weight: 700;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-            letter-spacing: -0.02em;
-        }
-
-        .goal-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--goal-badge-bg);
-            border: 1px solid var(--goal-badge-border);
-            color: var(--goal-badge-color);
-            padding: 10px 20px;
-            border-radius: 999px;
-            font-size: 0.95rem;
-            font-weight: 500;
-            margin-top: 10px;
-            box-shadow: var(--shadow-sm);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .goal-badge:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .section-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--text-main);
-            position: relative;
-            padding-bottom: 16px;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            border-radius: 2px;
-            background: var(--gradient-primary);
-        }
-
-        .card {
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 24px;
-            padding: 32px;
-            margin-bottom: 32px;
-            backdrop-filter: blur(var(--glass-blur));
-            -webkit-backdrop-filter: blur(var(--glass-blur));
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: var(--shadow-md);
-            opacity: 0;
-            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            opacity: 0.5;
-        }
-
-        .card:hover {
-            transform: translateY(-4px) scale(1.005);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--card-border-hover);
-        }
-
-        .day-header {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 100;
             display: flex;
             align-items: center;
-            gap: 16px;
-            margin-bottom: 16px;
-        }
-
-        .day-badge {
-            padding: 8px 16px;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
-
-        .badge-green { background: var(--badge-green-bg); color: var(--accent-green); }
-        .badge-blue { background: var(--badge-blue-bg); color: var(--accent-blue); }
-        .badge-yellow { background: var(--badge-yellow-bg); color: var(--accent-yellow); }
-        .badge-red { background: var(--badge-red-bg); color: var(--accent-red); }
-
-        .day-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin: 0;
+            justify-content: center;
             color: var(--text-main);
+            box-shadow: 0 4px 15px var(--shadow-color);
+            transition: var(--transition);
         }
+        .theme-toggle:hover { transform: scale(1.1); }
+        .theme-toggle svg { width: 1.25rem; height: 1.25rem; fill: currentColor; }
+        [data-theme="dark"] .sun-icon { display: block; }
+        [data-theme="dark"] .moon-icon { display: none; }
+        [data-theme="light"] .sun-icon { display: none; }
+        [data-theme="light"] .moon-icon { display: block; }
 
-        .day-desc {
+        .hero { text-align: center; padding: 5rem 1rem 3rem; animation: fadeInDown 0.8s ease-out; }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        .hero p {
+            font-size: 1.125rem;
             color: var(--text-muted);
-            font-size: 1rem;
-            margin-bottom: 24px;
-            padding-bottom: 24px;
-            border-bottom: 1px solid var(--table-border);
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            margin-top: 15px;
-            font-size: 0.95rem;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--table-border);
+        .animated-gradient-text {
+            background: linear-gradient(to right, #10b981, #3b82f6, #8b5cf6, #10b981);
+            background-size: 300% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientMove 5s linear infinite;
+        }
+        
+        @keyframes gradientMove {
+            0% { background-position: 0% center; }
+            100% { background-position: 300% center; }
         }
 
-        th, td {
-            padding: 16px;
-            text-align: left;
-            border-bottom: 1px solid var(--table-border);
-            transition: all 0.2s ease;
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--card-border);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .glass-card.revealed { opacity: 1; transform: translateY(0); }
+        .glass-card:hover {
+            border-color: rgba(139, 92, 246, 0.3);
+            box-shadow: 0 15px 40px var(--shadow-color);
         }
 
+        .card-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--card-border);
+            color: var(--title-color);
+        }
+        .title-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .clear-btn {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--accent-red);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            padding: 0.35rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.85rem;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .clear-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            transform: scale(1.05);
+        }
+        .clear-btn svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            gap: 0.5rem;
+            background: var(--card-bg);
+        }
+        .badge-green { color: var(--accent-green); border: 1px solid rgba(16, 185, 129, 0.3); }
+        .badge-blue { color: var(--accent-blue); border: 1px solid rgba(59, 130, 246, 0.3); }
+        .badge-yellow { color: var(--accent-yellow); border: 1px solid rgba(245, 158, 11, 0.3); }
+        .badge-red { color: var(--accent-red); border: 1px solid rgba(239, 68, 68, 0.3); }
+
+        .table-container { overflow-x: auto; margin-top: 1.5rem; border-radius: 0.75rem; border: 1px solid var(--card-border); }
+        table { width: 100%; border-collapse: collapse; text-align: left; min-width: 700px; }
+        th, td { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--card-border); }
         th {
             background: var(--table-header-bg);
+            font-family: 'Outfit', sans-serif;
             color: var(--text-muted);
             font-weight: 600;
             text-transform: uppercase;
             font-size: 0.8rem;
             letter-spacing: 0.05em;
-            backdrop-filter: blur(4px);
         }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        tbody tr {
-            transition: all 0.3s ease;
-        }
-
-        tbody tr:hover td {
-            background: var(--table-row-hover);
-        }
+        tbody tr { transition: var(--transition); }
+        tbody tr:hover { background: var(--table-row-hover); }
+        tbody tr:last-child td { border-bottom: none; }
+        td { font-size: 0.95rem; color: var(--text-main); }
         
-        tbody tr:hover td:first-child {
-            color: var(--accent-blue);
-            font-weight: 500;
-        }
+        .highlight { color: var(--primary); font-weight: 600; }
 
-        .list-items {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .list-items li {
-            padding: 20px;
-            background: var(--list-bg);
-            border: 1px solid var(--list-border);
-            margin-bottom: 12px;
-            border-radius: 16px;
-            border-left: 4px solid var(--accent-blue);
-            transition: all 0.3s ease;
-        }
-        
-        .list-items li:hover {
-            transform: translateX(4px);
-            background: var(--table-row-hover);
-            border-color: var(--card-border-hover);
-        }
-
-        .list-items li strong {
-            color: var(--text-main);
-            display: block;
-            margin-bottom: 8px;
-            font-size: 1.1rem;
-        }
-
-        .timeline {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        .timeline-item {
-            display: flex;
-            gap: 24px;
-            background: var(--timeline-bg);
-            border: 1px solid var(--timeline-border);
-            padding: 24px;
-            border-radius: 16px;
-            border-left: 4px solid var(--timeline-purple-border);
-            transition: all 0.3s ease;
+        ul.custom-list { list-style: none; margin-top: 1rem; }
+        ul.custom-list li {
             position: relative;
+            padding-left: 1.75rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-muted);
         }
+        ul.custom-list li::before { content: '✨'; position: absolute; left: 0; top: 2px; font-size: 0.9rem; }
+        ul.custom-list li.has-checkbox::before { content: none; }
+        ul.custom-list li.has-checkbox { padding-left: 0; }
         
-        .timeline-item:hover {
-            transform: translateX(4px);
-            background: var(--table-row-hover);
-            border-color: var(--card-border-hover);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .timeline-month {
-            font-weight: 700;
-            color: var(--timeline-month-color);
-            min-width: 100px;
-            font-size: 1.1rem;
-        }
-
-        /* Floating Toggle Button */
-        .theme-toggle {
-            position: fixed;
-            top: 24px;
-            right: 24px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            color: var(--text-main);
-            padding: 12px 20px;
-            border-radius: 999px;
-            cursor: pointer;
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            font-family: 'Prompt', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 600;
-            box-shadow: var(--shadow-md);
-            z-index: 1000;
+        ul.schedule-list { list-style: none; }
+        ul.schedule-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--card-border);
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: var(--transition);
         }
+        ul.schedule-list li:hover { padding-left: 0.5rem; }
+        ul.schedule-list li:last-child { border-bottom: none; }
+        .day-label { font-weight: 600; color: var(--label-color); display: flex; align-items: center; gap: 0.75rem; }
+        .day-desc { color: var(--text-muted); font-size: 0.95rem; text-align: right; }
 
-        .theme-toggle:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--accent-blue);
+        .alert {
+            background: rgba(239, 68, 68, 0.05);
+            border-left: 4px solid var(--accent-red);
+            padding: 1.5rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin: 1.5rem 0;
         }
+        .alert-title { color: var(--accent-red); font-weight: 600; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .alert p, .alert ul { color: var(--text-muted); font-size: 0.95rem; margin-top: 0.5rem; }
+
+        .tip-alert {
+            background: rgba(59, 130, 246, 0.05);
+            border-left: 4px solid var(--accent-blue);
+            padding: 1.5rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin: 1.5rem 0;
+        }
+        .tip-alert .alert-title { color: var(--accent-blue); }
+
+        .timeline { position: relative; padding-left: 2rem; margin-top: 2rem; }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0.4rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), var(--accent-blue));
+        }
+        .timeline-item { position: relative; margin-bottom: 2.5rem; }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.05rem;
+            top: 0.25rem;
+            width: 1.1rem;
+            height: 1.1rem;
+            border-radius: 50%;
+            background: var(--bg-color);
+            border: 3px solid var(--primary);
+            box-shadow: 0 0 10px rgba(139,92,246,0.3);
+            transition: var(--transition);
+        }
+        .timeline-item:hover::before { transform: scale(1.3); background: var(--primary); }
+        .timeline-item h4 { color: var(--title-color); margin-bottom: 0.5rem; font-size: 1.1rem; }
+        .timeline-item p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+
+        /* Custom Checkboxes */
+        .checkbox-container {
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            padding-left: 2.25rem;
+            min-height: 1.5rem;
+        }
+        .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+        .checkmark {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            height: 1.4rem;
+            width: 1.4rem;
+            background-color: transparent;
+            border: 2px solid var(--text-muted);
+            border-radius: 0.35rem;
+            transition: var(--transition);
+        }
+        .checkbox-container:hover input ~ .checkmark { border-color: var(--primary); }
+        .checkbox-container input:checked ~ .checkmark {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            animation: pop 0.3s ease-out forwards;
+        }
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 0.35rem;
+            top: 0.1rem;
+            width: 0.35rem;
+            height: 0.65rem;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .checkbox-container input:checked ~ .checkmark:after { display: block; }
+        .task-text { transition: var(--transition); color: var(--text-main); }
+        .completed-row { opacity: 0.45; transition: var(--transition); }
+        .completed-row .task-text, .completed-row td:not(:first-child) { text-decoration: line-through; }
         
-        .theme-toggle:active {
-            transform: scale(0.98);
+        @keyframes pop {
+            0% { transform: translateY(-50%) scale(1); }
+            50% { transform: translateY(-50%) scale(1.15); }
+            100% { transform: translateY(-50%) scale(1); }
         }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Staggered animation delays */
-        section:nth-of-type(1) .card:nth-child(2) { animation-delay: 0.1s; }
-        section:nth-of-type(1) .card:nth-child(3) { animation-delay: 0.2s; }
-        section:nth-of-type(2) .card:nth-child(1) { animation-delay: 0.3s; }
-        section:nth-of-type(2) .card:nth-child(2) { animation-delay: 0.4s; }
-        section:nth-of-type(2) .card:nth-child(3) { animation-delay: 0.5s; }
-        section:nth-of-type(2) .card:nth-child(4) { animation-delay: 0.6s; }
-        section:nth-of-type(3) .card { animation-delay: 0.7s; }
 
         @media (max-width: 768px) {
-            .container {
-                padding: 80px 16px 40px;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .card {
-                padding: 24px;
-                border-radius: 20px;
-            }
-            
-            .theme-toggle {
-                top: auto;
-                bottom: 24px;
-                right: 24px;
-            }
-            
-            table, thead, tbody, th, td, tr {
-                display: block;
-            }
-            thead tr {
-                position: absolute;
-                top: -9999px;
-                left: -9999px;
-            }
-            tr { 
-                background: var(--list-bg);
-                border: 1px solid var(--table-border); 
-                border-radius: 12px; 
-                margin-bottom: 16px; 
-                padding: 12px; 
-                transition: all 0.3s ease;
-            }
-            tr:hover {
-                transform: translateY(-2px);
-                box-shadow: var(--shadow-sm);
-                border-color: var(--card-border-hover);
-            }
-            td {
-                border: none;
-                border-bottom: 1px solid rgba(0,0,0,0.04);
-                position: relative;
-                padding-left: 50%;
-                padding-top: 12px;
-                padding-bottom: 12px;
-            }
-            body.dark-mode td { border-bottom: 1px solid rgba(255,255,255,0.05); }
-            td:last-child {
-                border-bottom: none;
-            }
-            td:before {
-                position: absolute;
-                top: 12px;
-                left: 12px;
-                width: 45%;
-                padding-right: 10px;
-                white-space: nowrap;
-                font-weight: 600;
-                color: var(--text-muted);
-                font-size: 0.85rem;
-                text-transform: uppercase;
-                letter-spacing: 0.05em;
-            }
-            td:nth-of-type(1):before { content: "ท่าออกกำลังกาย"; }
-            td:nth-of-type(2):before { content: "อุปกรณ์"; }
-            td:nth-of-type(3):before { content: "เซต"; }
-            td:nth-of-type(4):before { content: "จำนวนครั้ง"; }
-            td:nth-of-type(5):before { content: "พัก (Rest)"; }
-            td:nth-of-type(6):before { content: "คำแนะนำ"; }
-            
-            .timeline-item { flex-direction: column; gap: 8px; }
-            .timeline-month { min-width: auto; }
+            .hero h1 { font-size: 2.25rem; }
+            ul.schedule-list li { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+            .day-desc { text-align: left; }
+            .glass-card { padding: 1.5rem; }
         }
     </style>
 </head>
 <body>
+    <div class="bg-glow"></div>
 
-    <button class="theme-toggle" id="themeToggle">
-        <span id="themeIcon">☀️</span> <span id="themeText">Light Mode</span>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <!-- Sun icon -->
+        <svg class="sun-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18.75a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75zM6.166 17.834a.75.75 0 00-1.06 1.06l1.59 1.591a.75.75 0 101.06-1.061l-1.59-1.59zM4.5 12a.75.75 0 01-.75.75H1.5a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM6.166 6.166a.75.75 0 011.06-1.06l1.59 1.591a.75.75 0 11-1.061 1.06l-1.59-1.59z"/>
+        </svg>
+        <!-- Moon icon -->
+        <svg class="moon-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"/>
+        </svg>
     </button>
 
     <div class="container">
-        <header>
-            <h1>ตารางออกกำลังกาย 4 วันต่อสัปดาห์</h1>
-            <div class="goal-badge">🎯 เป้าหมาย: สร้างกล้ามเนื้อสไตล์ Athletic ทรง V-Shape + เพิ่มความทนทานเตรียมเดินป่า (4-5 เดือน)</div>
+        <header class="hero">
+            <h1 class="animated-gradient-text">🏋️ Workout Plan</h1>
+            <p>เป้าหมาย: สร้างกล้ามเนื้อสไตล์ Athletic ทรง V-Shape + เพิ่มความทนทานแกนกลางและหัวใจเพื่อเตรียมเดินป่า (4-5 เดือนข้างหน้า)</p>
         </header>
 
-        <section>
-            <h2 class="section-title">📅 ภาพรวมตารางใน 1 สัปดาห์</h2>
-            <div class="card">
-                <p>คุณสามารถเลือกวันออกกำลังกาย 4 วันในหนึ่งสัปดาห์ตามตารางชีวิตของคุณ โดยแนะนำให้มีวันพักแทรกระหว่างวันฝึกหนัก เช่น:</p>
-                <ul style="color: var(--text-muted);">
-                    <li><strong style="color:var(--text-main)">จันทร์:</strong> Day 1: Upper Body Strength</li>
-                    <li><strong style="color:var(--text-main)">อังคาร:</strong> Day 2: Hiking Conditioning (Cardio & Core)</li>
-                    <li><strong style="color:var(--text-main)">พุธ:</strong> พัก (Rest)</li>
-                    <li><strong style="color:var(--text-main)">พฤหัสบดี:</strong> Day 3: Lower Body & Core</li>
-                    <li><strong style="color:var(--text-main)">ศุกร์:</strong> Day 4: Endurance & Core (Rucking/Tempo)</li>
-                    <li><strong style="color:var(--text-main)">เสาร์-อาทิตย์:</strong> พัก (Rest) หรือ กิจกรรมเบาๆ (Active Recovery)</li>
+        <!-- ภาพรวมตาราง -->
+        <article class="glass-card scroll-reveal">
+            <h2 class="card-title">📅 ภาพรวมตารางใน 1 สัปดาห์</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">ยืดหยุ่นวันได้ แนะนำให้มีวันพักแทรกระหว่างวันฝึกหนัก</p>
+            <ul class="schedule-list">
+                <li><span class="day-label">จันทร์</span> <span class="day-desc highlight">Day 1: Upper Body Strength</span></li>
+                <li><span class="day-label">อังคาร</span> <span class="day-desc highlight">Day 2: Hiking Conditioning (Cardio & Core)</span></li>
+                <li><span class="day-label">พุธ</span> <span class="day-desc" style="color: var(--text-muted);">พัก (Rest)</span></li>
+                <li><span class="day-label">พฤหัสบดี</span> <span class="day-desc highlight">Day 3: Lower Body & Core</span></li>
+                <li><span class="day-label">ศุกร์</span> <span class="day-desc highlight">Day 4: Endurance & Core (Rucking/Tempo)</span></li>
+                <li><span class="day-label">เสาร์-อาทิตย์</span> <span class="day-desc" style="color: var(--text-muted);">พัก (Rest) หรือ กิจกรรมเบาๆ (Active Recovery)</span></li>
+            </ul>
+
+            <div class="tip-alert">
+                <div class="alert-title">💡 เทคนิคการจัดตารางสำหรับคนทำงานออฟฟิศ</div>
+                <ul class="custom-list">
+                    <li><strong>วิ่งตามโอกาส (Flexi-Cardio):</strong> วันไหนเลิกงานตรงเวลา รีบไปทำ Day 2 หรือ Day 4 ก่อนเลย</li>
+                    <li><strong>บอดี้เวทตอนเช้า (Morning Strength):</strong> แนะนำทำ Day 1 และ Day 3 ช่วงเช้า (เช่น 07:00-08:00) จะได้ออกกำลังกายครบแน่ๆ</li>
+                    <li><strong>สลับวันพักผ่อนอย่างยืดหยุ่น:</strong> ถ้าร่างกายล้าสะสม หรือนอนไม่พอ ให้เลื่อนไปวันถัดไปทันที</li>
+                    <li><strong>ใช้วันหยุด:</strong> เลื่อนคาร์ดิโอนอกบ้านมาลงช่วงเช้าวันเสาร์หรืออาทิตย์ เพื่อลดภาระวันทำงาน</li>
                 </ul>
             </div>
-            
-            <div class="card" style="border-left: 4px solid var(--accent-blue);">
-                <h3 style="margin-top: 0; color: var(--accent-blue);">💡 เทคนิคการจัดตารางเวลาสำหรับคนทำงานออฟฟิศ (ยืดหยุ่น & ปลอดภัย)</h3>
-                <p>เนื่องจากตารางเวลางานเข้า 09:00 AM เลิก 18:00 PM ของคุณอาจจะมีทั้งเลิกตรงเวลาและเลิกดึก แนะนำให้ใช้กลยุทธ์ต่อไปนี้:</p>
-                <ul style="padding-left: 20px; color: var(--text-muted);">
-                    <li style="margin-bottom: 10px;"><strong style="color: var(--text-main);">กลยุทธ์ "วิ่งตามโอกาส" (Flexi-Cardio):</strong> วันธรรมดาวันไหนเลิกงานตรงเวลา/เลิกไว ให้ตัดสินใจสลับไปทำ <strong>Day 2 (วิ่ง)</strong> หรือ <strong>Day 4 (เดินเร็ว)</strong> ก่อนเลยทันที เพื่อป้องกันปัญหาลานวิ่งปิดในวันถัดๆ ไปหากติดงานดึก</li>
-                    <li style="margin-bottom: 10px;"><strong style="color: var(--text-main);">กลยุทธ์ "บอดี้เวทตอนเช้า" (Morning Strength):</strong> แนะนำให้ฝึก <strong>Day 1</strong> และ <strong>Day 3 (บอดี้เวทที่บ้าน)</strong> ในช่วงเช้าก่อนไปทำงาน (เช่น 07:00 - 08:00 AM) วิธีนี้จะช่วยรับประกันว่าคุณจะได้ฝึกความแข็งแรงกล้ามเนื้อสำเร็จอย่างแน่นอน ไม่ว่างานเย็นวันนั้นจะยุ่งขนาดไหนก็ตาม</li>
-                    <li style="margin-bottom: 10px;"><strong style="color: var(--text-main);">สลับวันพักผ่อนอย่างชาญฉลาด (Listen to your body):</strong> วันไหนที่ร่างกายล้าสะสม นอนไม่พอ หรือมีอาการเสียวที่ข้อต่อ ให้สลับเอาการออกกำลังกายของวันนั้นไปไว้ในวันถัดไปทันที การพักผ่อนให้ฟื้นตัวสำคัญกว่าการทำตามตารางแบบหักโหม</li>
-                    <li style="margin-bottom: 10px;"><strong style="color: var(--text-main);">ดึงวันหยุดสุดสัปดาห์มาช่วย:</strong> ลองดึงกิจกรรมประเภทคาร์ดิโอหรือ Rucking 1 วันมาไว้เช้าวันเสาร์หรืออาทิตย์ เพื่อที่ในวันทำงานปกติคุณจะเหนื่อยน้อยลงและจัดตารางชีวิตง่ายขึ้นครับ</li>
-                </ul>
-            </div>
-        </section>
+        </article>
 
-        <section>
-            <h2 class="section-title">🏃‍♀️ รายละเอียดตารางออกกำลังกายรายวัน</h2>
-
-            <!-- Day 1 -->
-            <div class="card">
-                <div class="day-header">
-                    <span class="day-badge badge-green">Day 1</span>
-                    <h3 class="day-title">Upper Body Strength & Hypertrophy</h3>
+        <!-- Morning Routine -->
+        <article class="glass-card scroll-reveal">
+            <div class="card-title">
+                <div class="title-left">
+                    <h2>🌅 รูทีนยามเช้า (Daily Morning Active Recovery)</h2>
                 </div>
-                <p class="day-desc">เน้นสร้างกล้ามเนื้อ อก, หลัง, ไหล่, แขน ด้วยบาร์โหน ยางยืด และบอดี้เวท (ปรับเพิ่มโฟกัส V-Shape)</p>
-                
+                <button class="clear-btn" aria-label="Clear Checkboxes">
+                    <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+                    รีเซ็ต
+                </button>
+            </div>
+            <p style="color: var(--text-muted); margin-bottom: 1rem;">เพื่อกระตุ้นร่างกาย ยืดเหยียดข้อต่อ และสร้างนิสัย (Greasing the Groove)</p>
+            <div class="table-container">
                 <table>
                     <thead>
                         <tr>
-                            <th>ท่าออกกำลังกาย (Exercise)</th>
-                            <th>อุปกรณ์</th>
-                            <th>เซต (Sets)</th>
-                            <th>จำนวนครั้ง (Reps)</th>
-                            <th>พัก (Rest)</th>
-                            <th>คำแนะนำเพิ่มเติม</th>
+                            <th>ท่าออกกำลังกาย</th>
+                            <th>จำนวนเซต x ครั้ง</th>
+                            <th>คำแนะนำ (Golden Rules)</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>1. Dynamic Warm-up</strong></td>
-                            <td>-</td>
-                            <td>1</td>
-                            <td>5-10 นาที</td>
-                            <td>-</td>
-                            <td>บริหารข้อมือ หัวไหล่ และแกนกลาง</td>
+                            <td>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" data-id="morning-1">
+                                    <span class="checkmark"></span>
+                                    <span class="task-text"><strong>Bodyweight Squats</strong></span>
+                                </label>
+                            </td>
+                            <td>1 เซต x 10-15 ครั้ง</td>
+                            <td>ทำช้าๆ เน้นยืดเหยียดข้อต่อสะโพกและเข่า</td>
                         </tr>
                         <tr>
-                            <td><strong>2. Pull-ups (โหนบาร์)</strong></td>
+                            <td>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" data-id="morning-2">
+                                    <span class="checkmark"></span>
+                                    <span class="task-text"><strong>Push-ups</strong></span>
+                                </label>
+                            </td>
+                            <td>1 เซต x 5-10 ครั้ง</td>
+                            <td>เน้นยืดกล้ามเนื้อหน้าอกให้เปิดกว้าง</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" data-id="morning-3">
+                                    <span class="checkmark"></span>
+                                    <span class="task-text"><strong>Ab Roll</strong></span>
+                                </label>
+                            </td>
+                            <td>1 เซต x 3-5 ครั้ง</td>
+                            <td>กลิ้งไปเท่าที่ควบคุมได้ ห้ามไปสุดจนปวดหลังล่าง</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert">
+                <div class="alert-title">🚨 กฎเหล็กสำหรับการทำทุกวัน</div>
+                <ul class="custom-list" style="margin-top:0;">
+                    <li><strong>ห้ามทำจนหมดแรง (Never to failure):</strong> ทำเสร็จต้องรู้สึกชิลๆ เหมือนยังทำต่อได้อีก 10 ครั้ง</li>
+                    <li><strong>ต้องไม่ปวดกล้ามเนื้อ:</strong> ถ้าปวดตึง แสดงว่าทำหนักไป ให้ลดจำนวนครั้งลง</li>
+                    <li>ใช้เวลาแค่ 2-3 นาที จะช่วยให้สดชื่นไปทั้งวัน!</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Day 1 -->
+        <article class="glass-card scroll-reveal">
+            <span class="badge badge-green">Day 1</span>
+            <div class="card-title">
+                <div class="title-left">
+                    <h2>Upper Body Strength & Hypertrophy</h2>
+                </div>
+                <button class="clear-btn" aria-label="Clear Checkboxes">
+                    <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+                    รีเซ็ต
+                </button>
+            </div>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">เน้นสร้างกล้ามเนื้อ อก, หลัง, ไหล่, แขน ด้วยบาร์โหน ยางยืด และบอดี้เวท (ปรับเพิ่มโฟกัส V-Shape)</p>
+            <p><strong>🔥 Warm-up (5-10 นาที):</strong> Arm Circles, Band Pull-Aparts, Cat-Cow Stretch, Walkouts, Wrist Rolls</p>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ท่าออกกำลังกาย</th>
+                            <th>อุปกรณ์</th>
+                            <th>เซต</th>
+                            <th>จำนวนครั้ง</th>
+                            <th>พัก</th>
+                            <th>คำแนะนำ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" data-id="day1-1">
+                                    <span class="checkmark"></span>
+                                    <span class="task-text"><strong>1. Pull-ups</strong></span>
+                                </label>
+                            </td>
                             <td>บาร์โหน</td>
                             <td>3-4</td>
                             <td>6-12 ครั้ง</td>
                             <td>2 นาที</td>
-                            <td>เน้นดึงข้อและบีบสะบักด้านหลัง (เน้นปีกหลังให้กว้างเพื่อ V-Shape)</td>
+                            <td>ดึงข้อบีบสะบักหลัง (เน้นปีกหลังให้กว้าง)</td>
                         </tr>
                         <tr>
-                            <td><strong>3. Decline Push-ups</strong></td>
-                            <td>ร่างกาย + เก้าอี้</td>
+                            <td>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" data-id="day1-2">
+                                    <span class="checkmark"></span>
+                                    <span class="task-text"><strong>2. Decline Push-ups</strong></span>
+                                </label>
+                            </td>
+                            <td>ตัวเอง + เก้าอี้</td>
                             <td>3</td>
                             <td>10-15 ครั้ง</td>
                             <td>1.5 นาที</td>
                             <td>วางเท้าบนเก้าอี้เพื่อเน้นหน้าอกส่วนบน</td>
                         </tr>
                         <tr>
-                            <td><strong>4. Resistance Band Single-Arm Row</strong></td>
+                            <td>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" data-id="day1-3">
+                                    <span class="checkmark"></span>
+                                    <span class="task-text"><strong>3. Seated Band Row</strong></span>
+                                </label>
+                            </td>
                             <td>ยางยืด</td>
                             <td>3</td>
-                            <td>12-15 ครั้ง/ข้าง</td>
+                            <td>12-15 ครั้ง</td>
                             <td>1 นาที</td>
-                            <td>ดึงยางยืดเข้าหาเอว เน้นกล้ามเนื้อปีกและหลัง</td>
+                            <td>นั่งดึงยางยืดเข้าหาลำตัว เน้นกล้ามเนื้อปีกและหลัง</td>
                         </tr>
                         <tr>
-                            <td><strong>5. Resistance Band Overhead Press</strong></td>
+                            <td>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" data-id="day1-4">
+                                    <span class="checkmark"></span>
+                                    <span class="task-text"><strong>4. Band Overhead Press</strong></span>
+                                </label>
+                            </td>
                             <td>ยางยืด</td>
                             <td>3</td>
                             <td>12-15 ครั้ง</td>
                             <td>1.5 นาที</td>
-                            <td>ยืนเหยียบสายยางยืด ดันมือขึ้นเหนือศีรษะ (หน้าไหล่/ไหล่รวม)</td>
+                            <td>ดันมือขึ้นเหนือศีรษะ (หน้าไหล่/ไหล่รวม)</td>
                         </tr>
                         <tr>
-                            <td><strong>6. Resistance Band Lateral Raises</strong></td>
+                            <td>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" data-id="day1-5">
+                                    <span class="checkmark"></span>
+                                    <span class="task-text"><strong>5. Single-Arm Banded Lateral Raise</strong></span>
+                                </label>
+                            </td>
                             <td>ยางยืด</td>
                             <td>3</td>
-                            <td>15-20 ครั้ง</td>
+                            <td>15-20 ครั้ง/ข้าง</td>
                             <td>1 นาที</td>
-                            <td>กางแขนด้านข้าง (เน้นไหล่ข้างให้กว้างคือหัวใจของ V-Shape)</td>
+                            <td>กางแขนด้านข้างทีละข้าง (หัวใจของ V-Shape)</td>
                         </tr>
                         <tr>
-                            <td><strong>7. Band Bicep Curls Super-set กับ Tricep Ext.</strong></td>
-                            <td>ยางยืด</td>
+                            <td>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" data-id="day1-6">
+                                    <span class="checkmark"></span>
+                                    <span class="task-text"><strong>6. Banded Barbell Curl</strong></span>
+                                </label>
+                            </td>
+                            <td>ยางยืด (หรือบาร์เบล)</td>
                             <td>3</td>
-                            <td>15 ครั้งต่อท่า</td>
+                            <td>12-15 ครั้ง</td>
                             <td>1 นาที</td>
-                            <td>ฝึกต้นแขนหน้าและหลังสลับกันโดยไม่พัก</td>
+                            <td>ม้วนแขนดึงยางยืดหรือบาร์เบล (เน้นหน้าแขน)</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" data-id="day1-7">
+                                    <span class="checkmark"></span>
+                                    <span class="task-text"><strong>7. Chair Dip</strong></span>
+                                </label>
+                            </td>
+                            <td>เก้าอี้</td>
+                            <td>3</td>
+                            <td>10-15 ครั้ง</td>
+                            <td>1 นาที</td>
+                            <td>ดันตัวขึ้นลงที่ขอบเก้าอี้ (เน้นหลังแขน)</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+        </article>
 
-            <!-- Day 2 -->
-            <div class="card">
-                <div class="day-header">
-                    <span class="day-badge badge-blue">Day 2</span>
-                    <h3 class="day-title">Hiking Conditioning (Cardio & Core)</h3>
+        <!-- Day 2 -->
+        <article class="glass-card scroll-reveal">
+            <span class="badge badge-blue">Day 2</span>
+            <div class="card-title">
+                <div class="title-left">
+                    <h2>Hiking Conditioning (Cardio & Core)</h2>
                 </div>
-                <p class="day-desc">เน้นความอึดของระบบไหลเวียนโลหิตและเพิ่มความแข็งแรงของแกนกลาง ป้องกันอาการปวดหลังเวลาเดินป่า <br><strong style="color: var(--text-main); font-style: normal;">(ควบคุมเวลาการฝึกทั้งหมดให้อยู่ใน 60 นาที)</strong></p>
-                
-                <ul class="list-items">
-                    <li>
-                        <strong>1. Jump Rope (กระโดดเชือก)</strong>
-                        กระโดด 1 นาที สลับพัก 30 วินาที ทำทั้งหมด 5-8 รอบ (~7-12 นาที) เพื่อฝึกน่อง/ข้อเท้าและวอร์มอัพร่างกาย
-                    </li>
-                    <li>
-                        <strong>2. Zone 2 Running (วิ่งควบคุมชีพจร)</strong>
-                        วิ่งจ็อกกิ้งเบาๆ ระดับ Zone 2 เป็นเวลา 30 นาที (เน้นสร้างความทนทานระบบแอโรบิก)
-                    </li>
-                    <li>
-                        <strong>3. Core Routine (แกนกลางลำตัว)</strong> (ทำ 2 เซตเพื่อควบคุมเวลาให้อยู่ใน ~10-15 นาที)<br>
-                        - Ab Wheel: 2 เซต / 8-12 ครั้ง (เน้นเกร็งท้อง ไม่ให้หลังแอ่น)<br>
-                        - Hanging Knee Raises: 2 เซต / 10-12 ครั้ง (ฝึกแกนกลางส่วนล่างและแรงจับ)<br>
-                        - Plank: 2 เซต / 45-60 วินาที
-                    </li>
-                </ul>
+                <button class="clear-btn" aria-label="Clear Checkboxes">
+                    <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+                    รีเซ็ต
+                </button>
             </div>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">เน้นความอึดระบบไหลเวียนโลหิตและเพิ่มความแข็งแรงของแกนกลาง (คุมเวลาใน 60 นาที)</p>
+            <p><strong>🔥 Warm-up (5-10 นาที):</strong> Ankle Rolls, Leg Swings, High Knees & Butt Kicks, Bird-Dog</p>
+            
+            <ul class="custom-list" style="margin-top: 1.5rem;">
+                <li class="has-checkbox">
+                    <label class="checkbox-container">
+                        <input type="checkbox" data-id="day2-1">
+                        <span class="checkmark"></span>
+                        <span class="task-text"><strong>1. Jump Rope (กระโดดเชือก):</strong> กระโดด 1 นาที พัก 30 วิ ทั้งหมด 5-8 รอบ (~7-12 นาที)</span>
+                    </label>
+                </li>
+                <li class="has-checkbox">
+                    <label class="checkbox-container">
+                        <input type="checkbox" data-id="day2-2">
+                        <span class="checkmark"></span>
+                        <span class="task-text"><strong>2. Zone 2 Running:</strong> วิ่งจ็อกกิ้งเบาๆ ความเหนื่อย Zone 2 เป็นเวลา 30 นาที</span>
+                    </label>
+                </li>
+                <li><strong>3. Core Routine:</strong> (ทำ 2 เซต คุมเวลา 10-15 นาที)
+                    <ul style="padding-left: 2rem; margin-top: 0.5rem; list-style:none;">
+                        <li class="has-checkbox">
+                            <label class="checkbox-container">
+                                <input type="checkbox" data-id="day2-3a">
+                                <span class="checkmark"></span>
+                                <span class="task-text">- Ab Wheel: 2 เซต x 8-12 ครั้ง</span>
+                            </label>
+                        </li>
+                        <li class="has-checkbox">
+                            <label class="checkbox-container">
+                                <input type="checkbox" data-id="day2-3b">
+                                <span class="checkmark"></span>
+                                <span class="task-text">- Hanging Knee Raises: 2 เซต x 10-12 ครั้ง</span>
+                            </label>
+                        </li>
+                        <li class="has-checkbox">
+                            <label class="checkbox-container">
+                                <input type="checkbox" data-id="day2-3c">
+                                <span class="checkmark"></span>
+                                <span class="task-text">- Plank: 2 เซต x 45-60 วินาที</span>
+                            </label>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </article>
 
-            <!-- Day 3 -->
-            <div class="card">
-                <div class="day-header">
-                    <span class="day-badge badge-yellow">Day 3</span>
-                    <h3 class="day-title">Lower Body & Core</h3>
+        <!-- Day 3 -->
+        <article class="glass-card scroll-reveal">
+            <span class="badge badge-yellow">Day 3</span>
+            <div class="card-title">
+                <div class="title-left">
+                    <h2>Lower Body & Core</h2>
                 </div>
-                <p class="day-desc">สร้างฐานรากที่แข็งแกร่งสำหรับการปีนเขา ลุยทางชัน และพยุงน้ำหนักตัว (ใช้เวลาประมาณ 45-50 นาที)</p>
-                
+                <button class="clear-btn" aria-label="Clear Checkboxes">
+                    <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+                    รีเซ็ต
+                </button>
+            </div>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">สร้างฐานรากที่แข็งแกร่งสำหรับการปีนเขา ลุยทางชัน และพยุงน้ำหนักตัว (ใช้เวลา 45-50 นาที)</p>
+            <p><strong>🔥 Warm-up (5-10 นาที):</strong> Bodyweight Squats, Glute Bridges, Hip Openers, World's Greatest Stretch, Lunges with a Twist</p>
+            <div class="table-container">
                 <table>
                     <thead>
                         <tr>
-                            <th>ท่าออกกำลังกาย (Exercise)</th>
+                            <th>ท่าออกกำลังกาย</th>
                             <th>อุปกรณ์</th>
-                            <th>เซต (Sets)</th>
-                            <th>จำนวนครั้ง (Reps)</th>
-                            <th>พัก (Rest)</th>
-                            <th>คำแนะนำเพิ่มเติม</th>
+                            <th>เซต</th>
+                            <th>จำนวนครั้ง</th>
+                            <th>พัก</th>
+                            <th>คำแนะนำ</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>1. Goblet Squat (Banded)</strong></td>
+                            <td>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" data-id="day3-1">
+                                    <span class="checkmark"></span>
+                                    <span class="task-text"><strong>1. Goblet Squat (Banded)</strong></span>
+                                </label>
+                            </td>
                             <td>ยางยืด</td>
                             <td>4</td>
                             <td>15-20 ครั้ง</td>
                             <td>1.5 นาที</td>
-                            <td>คล้องยางยืดใต้ฝ่าเท้าและอ้อมผ่านบ่า ย่อตัวลงลึก</td>
+                            <td>คล้องยางยืดใต้ฝ่าเท้าอ้อมผ่านบ่า ย่อตัวลงลึก</td>
                         </tr>
                         <tr>
-                            <td><strong>2. Bulgarian Split Squat</strong></td>
-                            <td>ร่างกาย + เก้าอี้</td>
+                            <td>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" data-id="day3-2">
+                                    <span class="checkmark"></span>
+                                    <span class="task-text"><strong>2. Bulgarian Split Squat</strong></span>
+                                </label>
+                            </td>
+                            <td>ตัวเอง + เก้าอี้</td>
                             <td>3</td>
-                            <td>10-12 ครั้ง/ข้าง</td>
+                            <td>10-12 /ข้าง</td>
                             <td>1.5 นาที</td>
-                            <td>วางเท้าข้างหนึ่งไว้บนเก้าอี้ด้านหลัง แล้วย่อขาลง</td>
+                            <td>วางเท้าบนเก้าอี้ด้านหลัง แล้วย่อขาลง</td>
                         </tr>
                         <tr>
-                            <td><strong>3. Banded Romanian Deadlift</strong></td>
+                            <td>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" data-id="day3-3">
+                                    <span class="checkmark"></span>
+                                    <span class="task-text"><strong>3. Banded Romanian Deadlift</strong></span>
+                                </label>
+                            </td>
                             <td>ยางยืด</td>
                             <td>3</td>
                             <td>15-20 ครั้ง</td>
                             <td>1 นาที</td>
-                            <td>เน้นพับสะโพกตึงต้นขาด้านหลังและก้น (ลดแรงกระแทกเข่า)</td>
+                            <td>เน้นพับสะโพกตึงต้นขาด้านหลังและก้น</td>
                         </tr>
                         <tr>
-                            <td><strong>4. Calf Raises (เขย่งปลายเท้า)</strong></td>
-                            <td>บันได</td>
+                            <td>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" data-id="day3-4">
+                                    <span class="checkmark"></span>
+                                    <span class="task-text"><strong>4. Calf Raises</strong></span>
+                                </label>
+                            </td>
+                            <td>ตัวเอง/บันได</td>
                             <td>4</td>
                             <td>20-25 ครั้ง</td>
                             <td>1 นาที</td>
-                            <td>ยืนปลายเท้าบนขอบบันได กดส้นลงต่ำแล้วเขย่งขึ้นสุด</td>
+                            <td>ยืนปลายเท้าบนขอบบันได กดส้นลงต่ำเขย่งขึ้นสุด</td>
                         </tr>
                         <tr>
-                            <td><strong>5. Ab Wheel (ลูกกลิ้งหน้าท้อง)</strong></td>
+                            <td>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" data-id="day3-5">
+                                    <span class="checkmark"></span>
+                                    <span class="task-text"><strong>5. Ab Wheel</strong></span>
+                                </label>
+                            </td>
                             <td>ลูกกลิ้ง</td>
                             <td>3</td>
                             <td>8-12 ครั้ง</td>
@@ -686,93 +768,192 @@
                             <td>ยืดตัวไปข้างหน้าช้าๆ แล้วดึงกลับด้วยแรงท้อง</td>
                         </tr>
                         <tr>
-                            <td><strong>6. Russian Twists (Banded)</strong></td>
-                            <td>ยางยืด/ตัวเปล่า</td>
+                            <td>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" data-id="day3-6">
+                                    <span class="checkmark"></span>
+                                    <span class="task-text"><strong>6. Russian Twists</strong></span>
+                                </label>
+                            </td>
+                            <td>ยางยืด/เปล่า</td>
                             <td>3</td>
                             <td>20 ครั้ง (ข้างละ 10)</td>
                             <td>1 นาที</td>
-                            <td>ฝึกกล้ามเนื้อท้องด้านข้าง (ใช้ตัวเปล่า/ยางยืดเบาๆ เลี่ยงน้ำหนักมากเพื่อไม่ให้เอวหนา)</td>
+                            <td>เลี่ยงน้ำหนักมากเพื่อไม่ให้เอวหนา</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+        </article>
 
-            <!-- Day 4 -->
-            <div class="card">
-                <div class="day-header">
-                    <span class="day-badge badge-red">Day 4</span>
-                    <h3 class="day-title">Endurance & Core (คาร์ดิโอสร้างความอึด / Rucking ช่วง 2 เดือนสุดท้าย)</h3>
+        <!-- Day 4 -->
+        <article class="glass-card scroll-reveal">
+            <span class="badge badge-red">Day 4</span>
+            <div class="card-title">
+                <div class="title-left">
+                    <h2>Endurance & Core (Rucking)</h2>
                 </div>
-                <p class="day-desc">ฝึกความทนทานแกนกลางและหัวใจ (ควบคุมเวลาการฝึกทั้งหมดให้อยู่ใน 60 นาที)</p>
-                
-                <ul class="list-items">
-                    <li style="border-left-color: var(--accent-red);">
-                        <strong>1. Cardio Walk / Rucking (เดินเร็วตัวเปล่า หรือสะพายเป้ถ่วงน้ำหนัก)</strong> (เน้นคุมเวลา 40-45 นาที)<br>
-                        - สัปดาห์ที่ 1-12 (เดือนที่ 1-3): เดินเร็วตัวเปล่า (หรือวิ่งเหยาะๆ) ระยะเวลา 40-45 นาที (ประมาณ 4 กิโลเมตร) เพื่อฝึกข้อต่อและหัวใจโดยไม่มีน้ำหนักทับ<br>
-                        - สัปดาห์ที่ 13 เป็นต้นไป (เดือนที่ 4-5): เริ่มสะพายเป้ถ่วงน้ำหนัก (Rucking) เริ่มต้นเป้หนัก 3 กก. แล้วค่อยๆ เพิ่มขึ้นทีละ 1 กก. (สูงสุด 6-8 กก.) โดยคุมเวลาที่ 45 นาทีเท่าเดิม
-                    </li>
-                    <li style="border-left-color: var(--accent-red);">
-                        <strong>2. Core & Lower Back (แกนกลางและหลังส่วนล่าง)</strong> (ทำ 2 เซต เพื่อให้อยู่ในเวลา ~10 นาที)<br>
-                        - Superman Hold: 2 เซต / 30 วินาที (เสริมความแข็งแรงของหลังส่วนล่างที่ต้องรับเป้)<br>
-                        - Resistance Band Pallof Press: 2 เซต / 12 ครั้งต่อข้าง (ฝึกต้านการหมุนตัว)<br>
-                        - Plank: 2 เซต / 60 วินาที
-                    </li>
-                </ul>
+                <button class="clear-btn" aria-label="Clear Checkboxes">
+                    <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+                    รีเซ็ต
+                </button>
             </div>
-        </section>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">ฝึกความทนทานแกนกลางและหัวใจ (ควบคุมเวลาการฝึกทั้งหมดให้อยู่ใน 60 นาที)</p>
+            <p><strong>🔥 Warm-up (5-10 นาที):</strong> Shoulder Rolls, Torso Twists, Dynamic Calf Stretches, High Steps</p>
+            
+            <ul class="custom-list" style="margin-top: 1.5rem;">
+                <li><strong>1. Cardio Walk / Rucking (40-45 นาที):</strong>
+                    <ul style="padding-left: 2rem; margin-top: 0.5rem; list-style:none;">
+                        <li class="has-checkbox">
+                            <label class="checkbox-container">
+                                <input type="checkbox" data-id="day4-1a">
+                                <span class="checkmark"></span>
+                                <span class="task-text">- สัปดาห์ที่ 1-12: เดินเร็วตัวเปล่า (หรือวิ่งเหยาะๆ) 40-45 นาที (~4 กม.)</span>
+                            </label>
+                        </li>
+                        <li class="has-checkbox">
+                            <label class="checkbox-container">
+                                <input type="checkbox" data-id="day4-1b">
+                                <span class="checkmark"></span>
+                                <span class="task-text">- สัปดาห์ที่ 13 เป็นต้นไป: ฝึก Rucking เริ่มต้นใส่เป้ 3 กก. (สูงสุด 6-8 กก.)</span>
+                            </label>
+                        </li>
+                    </ul>
+                </li>
+                <li><strong>2. Core & Lower Back (ทำ 2 เซต คุมเวลา 10 นาที):</strong>
+                    <ul style="padding-left: 2rem; margin-top: 0.5rem; list-style:none;">
+                        <li class="has-checkbox">
+                            <label class="checkbox-container">
+                                <input type="checkbox" data-id="day4-2a">
+                                <span class="checkmark"></span>
+                                <span class="task-text">- Superman Hold: 2 เซต x 30 วินาที</span>
+                            </label>
+                        </li>
+                        <li class="has-checkbox">
+                            <label class="checkbox-container">
+                                <input type="checkbox" data-id="day4-2b">
+                                <span class="checkmark"></span>
+                                <span class="task-text">- Band Pallof Press: 2 เซต x 12 ครั้ง/ข้าง</span>
+                            </label>
+                        </li>
+                        <li class="has-checkbox">
+                            <label class="checkbox-container">
+                                <input type="checkbox" data-id="day4-2c">
+                                <span class="checkmark"></span>
+                                <span class="task-text">- Plank: 2 เซต x 60 วินาที</span>
+                            </label>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </article>
 
-        <section>
-            <h2 class="section-title">📈 แผนการพัฒนาความยากใน 4-5 เดือน</h2>
-            <div class="card">
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-month">เดือนที่ 1-2</div>
-                        <div><strong>ปรับสภาพร่างกายและข้อต่อ:</strong> ฝึกฟอร์มการออกกำลังกายให้ถูกต้อง วิ่ง Zone 2 และเดินเร็วตัวเปล่าเพื่อสร้างความอึดของระบบปอด หัวใจ และข้อต่อโดยไม่มีน้ำหนักกดทับ</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-month">เดือนที่ 3</div>
-                        <div><strong>เพิ่มแรงต้าน:</strong> เพิ่มความท้าทายด้วยยางยืดที่แรงต้านมากขึ้น เพิ่มความเร็วในการวิ่ง และเพิ่มความแข็งแรงของแกนกลางแกนหลัง</div>
-                    </div>
-                    <div class="timeline-item" style="border-left-color: var(--accent-green);">
-                        <div class="timeline-month">เดือนที่ 4-5</div>
-                        <div><strong>ฝึกสะพายเป้จริง (2 เดือนสุดท้ายก่อนเดินทาง):</strong> เริ่มสะพายเป้ถ่วงน้ำหนัก (Rucking) ในวัน Day 4 เริ่มต้นที่ 3 กก. ไต่ระดับสัปดาห์ละ 1 กก. ไปจนถึง 6-8 กก. เพื่อปรับตัวกับการรับแรงของหลังและเข่า</div>
-                    </div>
+        <!-- Timeline -->
+        <article class="glass-card scroll-reveal">
+            <h2 class="card-title">📈 แผนการพัฒนาความยากใน 4-5 เดือน</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>เดือนที่ 1-2: ปรับพื้นฐานร่างกาย & ข้อต่อ</h4>
+                    <p>ฝึกฟอร์มการออกกำลังกายให้ถูกต้อง วิ่ง Zone 2 และเดินเร็วตัวเปล่าเพื่อสร้างหัวใจ ปอด และระบบเส้นเอ็นข้อต่อให้แข็งแรงโดยไม่มีแรงกดทับ</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>เดือนที่ 3: เพิ่มแรงต้านยางยืด & วิ่งทนทาน</h4>
+                    <p>เพิ่มความท้าทายด้วยยางยืดที่แรงต้านมากขึ้น เน้นเพิ่มระดับความเร็วในการวิ่งและจำนวนรอบกระโดดเชือก</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>เดือนที่ 4-5: เริ่มฝึก Rucking (สะพายเป้ถ่วงน้ำหนัก)</h4>
+                    <p>เริ่มฝึกสะพายเป้ถ่วงน้ำหนักในวัน Day 4 เริ่มต้นที่ 3 กก. ไต่ระดับสัปดาห์ละ 1 กก. ไปจนถึง 6-8 กก. เพื่อความคุ้นเคยกับการรับแรงของหลังและแกนกลาง</p>
                 </div>
             </div>
-        </section>
+        </article>
+
     </div>
 
+    <!-- JavaScript -->
     <script>
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-        const themeText = document.getElementById('themeText');
-        const body = document.body;
-
-        // Check for saved theme preference or default to light mode
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            body.classList.add('dark-mode');
-            themeIcon.textContent = '🌙';
-            themeText.textContent = 'Dark Mode';
-        } else {
-            body.classList.remove('dark-mode');
-            themeIcon.textContent = '☀️';
-            themeText.textContent = 'Light Mode';
-        }
-
-        themeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            const isDark = body.classList.contains('dark-mode');
+        document.addEventListener('DOMContentLoaded', () => {
+            // Theme Toggle Logic
+            const toggleBtn = document.getElementById('theme-toggle');
+            const root = document.documentElement;
             
-            if (isDark) {
-                localStorage.setItem('theme', 'dark');
-                themeIcon.textContent = '🌙';
-                themeText.textContent = 'Dark Mode';
-            } else {
-                localStorage.setItem('theme', 'light');
-                themeIcon.textContent = '☀️';
-                themeText.textContent = 'Light Mode';
+            const savedTheme = localStorage.getItem('workout-theme');
+            if (savedTheme) {
+                root.setAttribute('data-theme', savedTheme);
             }
+
+            toggleBtn.addEventListener('click', () => {
+                const currentTheme = root.getAttribute('data-theme');
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                root.setAttribute('data-theme', newTheme);
+                localStorage.setItem('workout-theme', newTheme);
+            });
+
+            // Checkbox tracking logic
+            const checkboxes = document.querySelectorAll('.checkbox-container input[type="checkbox"]');
+            
+            function updateRowState(checkbox) {
+                const row = checkbox.closest('tr');
+                if(row) {
+                    if(checkbox.checked) row.classList.add('completed-row');
+                    else row.classList.remove('completed-row');
+                } else {
+                    const li = checkbox.closest('li');
+                    if(li) {
+                        if(checkbox.checked) li.classList.add('completed-row');
+                        else li.classList.remove('completed-row');
+                    }
+                }
+            }
+
+            checkboxes.forEach(checkbox => {
+                const checkboxId = checkbox.getAttribute('data-id');
+                if (checkboxId && localStorage.getItem('workout-' + checkboxId) === 'true') {
+                    checkbox.checked = true;
+                    updateRowState(checkbox);
+                }
+
+                checkbox.addEventListener('change', function() {
+                    updateRowState(this);
+                    if (checkboxId) {
+                        localStorage.setItem('workout-' + checkboxId, this.checked);
+                    }
+                });
+            });
+
+            // Clear Checkboxes Logic
+            document.querySelectorAll('.clear-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const card = this.closest('article');
+                    const cardCheckboxes = card.querySelectorAll('input[type="checkbox"]');
+                    cardCheckboxes.forEach(cb => {
+                        cb.checked = false;
+                        updateRowState(cb);
+                        const checkboxId = cb.getAttribute('data-id');
+                        if (checkboxId) {
+                            localStorage.removeItem('workout-' + checkboxId);
+                        }
+                    });
+                });
+            });
+
+            // Scroll Reveal Animation
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('revealed');
+                        }, index * 100);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            });
+
+            document.querySelectorAll('.scroll-reveal').forEach((el) => {
+                observer.observe(el);
+            });
         });
     </script>
 </body>
