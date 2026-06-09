@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive English Flashcards for A1-A2 language learning. Practice and review vocabulary daily.">
+    <title>Interactive English Flashcards - My Personal Assistant</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="flashcards.css">
+</head>
+<body>
+
+    <div class="theme-toggle" id="themeToggle" title="สลับโหมด Light/Dark">
+        ☀️
+    </div>
+
+    <header>
+        <h1>English Flashcards</h1>
+        <p>เรียนรู้และทวนคำศัพท์ภาษาอังกฤษระดับ A1-A2</p>
+    </header>
+
+    <!-- Mode Selector -->
+    <div class="mode-selector">
+        <button class="btn btn-mode active" id="modeSrsBtn">🧠 SRS Study Mode</button>
+        <button class="btn btn-mode" id="modeBrowseBtn">📖 Free Browse Mode</button>
+    </div>
+
+    <!-- SRS Stats Bar -->
+    <div class="srs-stats" id="srsStatsBar">
+        <span class="srs-badge badge-new" id="srsNewCount">New: 0</span>
+        <span class="srs-badge badge-learning" id="srsLearningCount">Learning: 0</span>
+        <span class="srs-badge badge-due" id="srsDueCount">Due: 0</span>
+    </div>
+
+    <!-- Main Flashcard -->
+    <div class="flashcard-container" id="cardContainer" aria-label="คลิกเพื่อสลับคำแปล" tabindex="0">
+        <div class="flashcard" id="flashcard">
+            <!-- Front Face (English) -->
+            <div class="card-face card-front">
+                <div class="card-badge" id="cardBadgeEng">ENGLISH</div>
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem; margin: auto 0;">
+                    <div class="word-main" id="wordEng">Entrance</div>
+                    <div class="word-part-of-speech" id="wordPos">(n.)</div>
+                    <button class="tts-btn" id="ttsBtn" title="ฟังเสียงอ่าน" aria-label="Listen to pronunciation">🔊</button>
+                </div>
+                <div class="click-hint">แตะเพื่อดูคำแปล / Click to Flip</div>
+            </div>
+            <!-- Back Face (Thai & Context) -->
+            <div class="card-face card-back">
+                <div class="card-badge" id="cardBadgeTh">THAI & USAGE</div>
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.8rem; margin: auto 0; width: 100%;">
+                    <div class="word-translation" id="wordTh">ทางเข้า</div>
+                    <div class="word-example" id="wordEx">"We met at the park entrance."</div>
+                    <div class="word-note" id="wordNote">ใช้แทน entry ในบริบททางเข้าอุทยาน</div>
+                    
+                    <!-- SRS response buttons -->
+                    <div class="srs-btn-row" id="srsBtnRow">
+                        <button class="srs-btn btn-again" id="btnAgain">Again</button>
+                        <button class="srs-btn btn-hard" id="btnHard">Hard</button>
+                        <button class="srs-btn btn-good" id="btnGood">Good</button>
+                        <button class="srs-btn btn-easy" id="btnEasy">Easy</button>
+                    </div>
+                </div>
+                <div class="click-hint" id="backClickHint">แตะเพื่อสลับหน้า / Click to Flip</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Caught Up Container -->
+    <div class="caught-up-container" id="caughtUpContainer" style="display: none;">
+        <div class="success-icon">🎉</div>
+        <h2>ทบทวนครบหมดแล้ว!</h2>
+        <p id="caughtUpMsg">คุณได้ทบทวนคำศัพท์สำหรับวันนี้หมดแล้ว สมองต้องการเวลาในการจดจำคำศัพท์เหล่านี้นะครับ</p>
+        <div class="srs-stats-summary" id="statsSummary">
+            คำศัพท์ที่บันทึกไว้จะทยอยกลับมาให้ทบทวนใหม่ในวันถัดไป
+        </div>
+    </div>
+
+    <!-- Controls Panel -->
+    <div class="controls">
+        <!-- Progress Bar and Numbers -->
+        <div id="progressSection">
+            <div class="stats-row">
+                <span id="currentStatus">Card 1 of 7</span>
+                <span id="percentStatus">14% Complete</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+
+        <!-- Action Buttons (Browse Mode) -->
+        <div class="buttons-row" id="browseButtonsRow">
+            <button class="btn btn-nav" id="prevBtn" title="ปุ่มลูกศรซ้าย ◀">◀ Prev</button>
+            <button class="btn btn-secondary" id="shuffleBtn" title="สุ่มสลับการ์ด">🔀 Shuffle</button>
+            <button class="btn btn-nav" id="nextBtn" title="ปุ่มลูกศรขวา ▶">Next ▶</button>
+        </div>
+
+        <!-- Debug / Settings Panel (SRS Mode) -->
+        <div class="debug-panel" id="srsDebugPanel">
+            <button class="btn btn-secondary btn-debug" id="simulateDayBtn" title="จำลองเวลาผ่านไป 1 วัน">⏰ Simulate +1 Day</button>
+            <button class="btn btn-secondary btn-debug" id="studyAheadBtn" title="เรียนรู้การ์ดล่วงหน้า">📖 Study Ahead</button>
+            <button class="btn btn-secondary btn-debug" id="resetSrsBtn" style="border-color: rgba(239, 68, 68, 0.3); color: #f87171;" title="เริ่มการเรียนรู้ใหม่ทั้งหมด">🔄 Reset Progress</button>
+        </div>
+
+        <!-- Keyboard Guide -->
+        <div class="kbd-guide" id="keyboardGuide">
+            ใช้คีย์บอร์ดลัด: 
+            <span class="kbd">←</span> ย้อนกลับ | 
+            <span class="kbd">Space</span> พลิกการ์ด | 
+            <span class="kbd">→</span> ถัดไป
+        </div>
+    </div>
+
+    <script src="vocab.js"></script>
+    <script src="flashcards.js"></script>
+</body>
+</html>
