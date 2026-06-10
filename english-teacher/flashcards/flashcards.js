@@ -43,6 +43,9 @@ let activeData = []; // study list
 let cardStates = {}; // SRS states dictionary
 let sessionInitialLength = 0; // total due at start
 let studyAheadMode = false;
+let lastAction = null;
+let currentToastEl = null;
+let currentToastTimeout = null;
 
 // Element references
 const cardContainer = document.getElementById('cardContainer');
@@ -85,8 +88,15 @@ const studyAheadBtn = document.getElementById('studyAheadBtn');
 const resetSrsBtn = document.getElementById('resetSrsBtn');
 
 // Toast Notification Function
-function showToast(message) {
+function showToast(message, onUndo = null) {
+    if (currentToastEl) {
+        currentToastEl.remove();
+        clearTimeout(currentToastTimeout);
+    }
+
     const toast = document.createElement('div');
+    currentToastEl = toast;
+
     toast.style.position = 'fixed';
     toast.style.bottom = '2rem';
     toast.style.left = '50%';
@@ -102,7 +112,26 @@ function showToast(message) {
     toast.style.fontSize = '0.9rem';
     toast.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s';
     toast.style.opacity = '0';
-    toast.innerText = message;
+    toast.style.display = 'flex';
+    toast.style.alignItems = 'center';
+    
+    const msgSpan = document.createElement('span');
+    msgSpan.innerText = message;
+    toast.appendChild(msgSpan);
+
+    if (onUndo) {
+        const undoBtn = document.createElement('button');
+        undoBtn.innerText = 'ย้อนกลับ ↩';
+        undoBtn.className = 'toast-undo-btn';
+        undoBtn.onclick = (e) => {
+            e.stopPropagation();
+            onUndo();
+            toast.style.transform = 'translateX(-50%) translateY(100px)';
+            toast.style.opacity = '0';
+            setTimeout(() => { if(toast.parentNode) toast.remove(); }, 300);
+        };
+        toast.appendChild(undoBtn);
+    }
     
     document.body.appendChild(toast);
     
@@ -111,14 +140,42 @@ function showToast(message) {
     toast.style.transform = 'translateX(-50%) translateY(0)';
     toast.style.opacity = '1';
     
-    setTimeout(() => {
+    currentToastTimeout = setTimeout(() => {
         toast.style.transform = 'translateX(-50%) translateY(100px)';
         toast.style.opacity = '0';
         setTimeout(() => {
-            toast.remove();
+            if (toast.parentNode) toast.remove();
         }, 300);
-    }, 2500);
+    }, onUndo ? 4000 : 2500);
 }
+
+function undoLastAction() {
+    if (!lastAction) return;
+    
+    const { card, previousState, rating } = lastAction;
+    
+    cardStates[card.english] = previousState;
+    saveCardStates();
+    
+    if (rating === 'again' || rating === 'hard') {
+        for (let i = activeData.length - 1; i >= 0; i--) {
+            if (activeData[i].english === card.english) {
+                activeData.splice(i, 1);
+                break;
+            }
+        }
+        sessionInitialLength--;
+    }
+    
+    activeData.unshift(card);
+    updateStats();
+    flashcard.classList.remove('is-flipped');
+    updateCardContent();
+    
+    showToast("↩ ย้อนกลับเรียบร้อยแล้ว");
+    lastAction = null;
+}
+
 
 // Time helper
 function getNow() {
@@ -333,6 +390,13 @@ function rateCard(rating, event) {
     
     const state = cardStates[card.english];
     
+    lastAction = {
+        card: card,
+        previousState: JSON.parse(JSON.stringify(state)),
+        rating: rating
+    };
+
+    
     if (rating === 'again') {
         state.repetition = 0;
         state.interval = 0; 
@@ -340,7 +404,7 @@ function rateCard(rating, event) {
         
         activeData.push(card); // Re-queue at the end
         sessionInitialLength++; // Increment total session size
-        showToast("🟥 จะนำการ์ดกลับมาให้ทบทวนซ้ำอีกครั้งในรอบนี้");
+        showToast("🟥 จะนำการ์ดกลับมาให้ทบทวนซ้ำอีกครั้งในรอบนี้", () => undoLastAction());
     } else if (rating === 'hard') {
         state.repetition = Math.max(0, state.repetition - 1);
         state.interval = 0; 
@@ -348,7 +412,7 @@ function rateCard(rating, event) {
         
         activeData.push(card);
         sessionInitialLength++;
-        showToast("🟨 จะสุ่มการ์ดนี้กลับมาอีกครั้งในช่วงท้าย");
+        showToast("🟨 จะสุ่มการ์ดนี้กลับมาอีกครั้งในช่วงท้าย", () => undoLastAction());
     } else if (rating === 'good') {
         if (state.repetition === 0) {
             state.interval = 1; 
@@ -359,7 +423,7 @@ function rateCard(rating, event) {
         }
         state.repetition += 1;
         state.nextReview = now + state.interval * 24 * 60 * 60 * 1000;
-        showToast(`🟩 ดีมาก! เว้นระยะทบทวนการ์ดนี้อีก ${state.interval} วัน`);
+        showToast(`🟩 ดีมาก! เว้นระยะทบทวนการ์ดนี้อีก ${state.interval} วัน`, () => undoLastAction());
     } else if (rating === 'easy') {
         state.easeFactor = Math.min(3.0, state.easeFactor + 0.15);
         if (state.repetition === 0) {
@@ -369,7 +433,7 @@ function rateCard(rating, event) {
         }
         state.repetition += 1;
         state.nextReview = now + state.interval * 24 * 60 * 60 * 1000;
-        showToast(`🟦 ง่ายมาก! เว้นระยะทบทวนการ์ดนี้อีก ${state.interval} วัน`);
+        showToast(`🟦 ง่ายมาก! เว้นระยะทบทวนการ์ดนี้อีก ${state.interval} วัน`, () => undoLastAction());
     }
     
     saveCardStates();
