@@ -318,7 +318,8 @@
             align-items: center;
         }
 
-        .input-wrap input {
+        .input-wrap input,
+        .input-wrap select {
             width: 100%;
             background: var(--input-bg);
             border: 1px solid var(--border-glass);
@@ -331,7 +332,19 @@
             transition: all 0.3s;
         }
 
-        .input-wrap input:focus {
+        .input-wrap select {
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 1.2rem center;
+            background-size: 1.5rem;
+            padding-right: 3rem;
+            cursor: pointer;
+        }
+
+        .input-wrap input:focus,
+        .input-wrap select:focus {
             border-color: var(--primary-light);
             box-shadow: 0 0 15px hsla(270, 75%, 65%, 0.2);
         }
@@ -677,7 +690,26 @@
                         <div class="input-group">
                             <label>เงินสดสะสม (Kept + e-Savings)</label>
                             <div class="input-wrap">
-                                <input type="number" id="param-cash" value="119380" oninput="runSimulation()">
+                                <input type="number" id="param-cash" value="109380" oninput="runSimulation()">
+                                <span class="input-suffix">บาท</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-group" style="grid-column: span 2;">
+                            <label>สาเหตุที่ออกจากงาน</label>
+                            <div class="input-wrap">
+                                <select id="param-leaving-reason" onchange="runSimulation()">
+                                    <option value="layoff">ถูกเลิกจ้าง (Layoff) - ได้รับค่าชดเชยตามกฎหมาย + เงินช่วยประกันสังคม 50% สูงสุด 6 เดือน</option>
+                                    <option value="resignation">ลาออกเอง/ไม่มีเงินชดเชย (Resignation) - ไม่ได้รับค่าชดเชย + เงินช่วยประกันสังคม 30% สูงสุด 3 เดือน</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label>เงินในกองทุนสำรองเลี้ยงชีพ (PVD)</label>
+                            <div class="input-wrap">
+                                <input type="number" id="param-pvd" value="70000" oninput="runSimulation()">
                                 <span class="input-suffix">บาท</span>
                             </div>
                         </div>
@@ -701,7 +733,7 @@
                         <div class="input-group">
                             <label>มูลค่าสินทรัพย์ลงทุนพอร์ต Webull</label>
                             <div class="input-wrap">
-                                <input type="number" id="param-webull" value="130000" oninput="runSimulation()">
+                                <input type="number" id="param-webull" value="140000" oninput="runSimulation()">
                                 <span class="input-suffix">บาท</span>
                             </div>
                         </div>
@@ -801,8 +833,8 @@
                         </div>
                         <div class="metric-card" style="border-left: 4px solid var(--cyan);">
                             <span class="lbl">สิทธิ์เงินช่วยประกันสังคม</span>
-                            <span class="val cyan">45,000.00</span>
-                            <span class="lbl" style="font-size: 0.65rem; text-transform: none; letter-spacing: 0;">50% ของฐานค่าจ้างสูงสุด (6 เดือน)</span>
+                            <span class="val cyan" id="res-sso-val">45,000.00 บาท</span>
+                            <span class="lbl" style="font-size: 0.65rem; text-transform: none; letter-spacing: 0;" id="res-sso-lbl">50% ของฐานค่าจ้างสูงสุด (6 เดือน)</span>
                         </div>
                         <div class="metric-card" style="border-left: 4px solid var(--yellow); grid-column: span 2;">
                             <span class="lbl">ระยะเวลารอดชีวิตทางการเงิน (Runway)</span>
@@ -859,7 +891,7 @@
                 <!-- Card 5: Webull Portfolio Restructuring (Level 3 Preview) -->
                 <div class="card">
                     <div class="card-header">
-                        <span class="card-title">📈 พอร์ตลงทุนหลักทรัพย์ Webull (130,000 บาท)</span>
+                        <span class="card-title">📈 พอร์ตลงทุนหลักทรัพย์ Webull (140,000 บาท)</span>
                     </div>
                     <div class="info-alert" style="background: hsla(270, 75%, 65%, 0.03); border-color: var(--primary-light); margin-bottom: 1.5rem; font-size: 0.9rem;">
                         รายชื่อหลักทรัพย์ลงทุนของคุณประกอบด้วยหุ้นไอที หุ้นปันผลสูง และหุ้นคุณค่า ในช่วงวิกฤตความมั่นคงเรื่องงาน แนะนำให้ชะลอการซื้อถัวเฉลี่ยสะสม และเตรียมพิจารณา Rebalancing หุ้นผันผวนเมื่อสถานการณ์เหมาะสมครับ
@@ -921,6 +953,8 @@
             const baseExpenses = parseFloat(document.getElementById("param-expenses").value) || 0;
             const insurance = parseFloat(document.getElementById("param-insurance").value) || 0;
             const webullVal = parseFloat(document.getElementById("param-webull").value) || 0;
+            const leavingReason = document.getElementById("param-leaving-reason").value;
+            const pvdVal = parseFloat(document.getElementById("param-pvd").value) || 0;
 
             const carPay = parseFloat(document.getElementById("debt-car-pay").value) || 0;
             const carMonths = parseInt(document.getElementById("debt-car-months").value) || 0;
@@ -930,34 +964,49 @@
             const momMonths = parseInt(document.getElementById("debt-mom-months").value) || 0;
 
             // 1. Calculate Severance Pay according to Thai Labor Law
-            let severanceDays = 0;
+            let severanceVal = 0;
             let severanceMonthsText = "";
-            if (tenure >= 20) {
-                severanceDays = 400;
-                severanceMonthsText = "400 วัน (13.3 เดือน)";
-            } else if (tenure >= 10) {
-                severanceDays = 300;
-                severanceMonthsText = "300 วัน (10 เดือน)";
-            } else if (tenure >= 6) {
-                severanceDays = 240;
-                severanceMonthsText = "240 วัน (8 เดือน)";
-            } else if (tenure >= 3) {
-                severanceDays = 120;
-                severanceMonthsText = "120 วัน (4 เดือน)";
-            } else if (tenure >= 1) {
-                severanceDays = 90;
-                severanceMonthsText = "90 วัน (3 เดือน)";
-            } else if (tenure >= 0.33) {
-                severanceDays = 30;
-                severanceMonthsText = "30 วัน (1 เดือน)";
-            }
-            const severanceVal = (salary / 30) * severanceDays;
 
-            document.getElementById("res-severance").innerText = severanceVal.toLocaleString("th-TH", {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-            }) + " บาท";
-            document.getElementById("res-severance-lbl").innerText = `อายุงานสิทธิ์ครบ ${tenure} ปี: ชดเชย ${severanceMonthsText}`;
+            if (leavingReason === "layoff") {
+                let severanceDays = 0;
+                if (tenure >= 20) {
+                    severanceDays = 400;
+                    severanceMonthsText = "400 วัน (13.3 เดือน)";
+                } else if (tenure >= 10) {
+                    severanceDays = 300;
+                    severanceMonthsText = "300 วัน (10 เดือน)";
+                } else if (tenure >= 6) {
+                    severanceDays = 240;
+                    severanceMonthsText = "240 วัน (8 เดือน)";
+                } else if (tenure >= 3) {
+                    severanceDays = 120;
+                    severanceMonthsText = "120 วัน (4 เดือน)";
+                } else if (tenure >= 1) {
+                    severanceDays = 90;
+                    severanceMonthsText = "90 วัน (3 เดือน)";
+                } else if (tenure >= 0.33) {
+                    severanceDays = 30;
+                    severanceMonthsText = "30 วัน (1 เดือน)";
+                }
+                severanceVal = (salary / 30) * severanceDays;
+                document.getElementById("res-severance").innerText = severanceVal.toLocaleString("th-TH", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                }) + " บาท";
+                document.getElementById("res-severance-lbl").innerText = `อายุงานสิทธิ์ครบ ${tenure} ปี: ชดเชย ${severanceMonthsText}`;
+                
+                // Update SSO metrics display
+                document.getElementById("res-sso-val").innerText = "45,000.00 บาท";
+                document.getElementById("res-sso-lbl").innerText = "50% ของฐานค่าจ้างสูงสุด (6 เดือน)";
+            } else {
+                severanceVal = 0;
+                document.getElementById("res-severance").innerText = "0.00 บาท";
+                document.getElementById("res-severance-lbl").innerText = "ไม่ได้รับเงินชดเชย (ลาออกเอง/ไม่ใช่กรณีเลิกจ้าง)";
+                
+                // Update SSO metrics display
+                document.getElementById("res-sso-val").innerText = "13,500.00 บาท";
+                document.getElementById("res-sso-lbl").innerText = "30% ของฐานค่าจ้างสูงสุด (3 เดือน)";
+            }
 
             // 2. Setup simulation loop
             let currentFunds = currentCash + severanceVal;
@@ -974,10 +1023,17 @@
                 let incomeHelp = 0;
                 let events = [];
 
-                // Social Security Unemployment Compensation (50% of salary capped at 15000 max base) for 6 months
-                if (m <= 6) {
-                    incomeHelp = 7500;
-                    events.push("สิทธิ์ประกันสังคม +7,500");
+                // Social Security Unemployment Compensation
+                if (leavingReason === "layoff") {
+                    if (m <= 6) {
+                        incomeHelp = 7500;
+                        events.push("สิทธิ์ประกันสังคม +7,500 (กรณีถูกเลิกจ้าง)");
+                    }
+                } else {
+                    if (m <= 3) {
+                        incomeHelp = 4500;
+                        events.push("สิทธิ์ประกันสังคม +4,500 (กรณีลาออก)");
+                    }
                 }
 
                 // Calculate active debts for current month
@@ -989,7 +1045,8 @@
                 if (m === phoneMonths) events.push("📱 โทรศัพท์ผ่อนหมดแล้ว!");
                 if (m === momMonths) events.push("👩 ซ่อมรถช่วยแม่หมดแล้ว!");
                 if (m === carMonths) events.push("🚗 งวดรถผ่อนหมดแล้ว!");
-                if (m === 6) events.push("🛑 สิ้นสุดเงินช่วยเหลือว่างงาน");
+                if (leavingReason === "layoff" && m === 6) events.push("🛑 สิ้นสุดเงินช่วยเหลือว่างงาน");
+                if (leavingReason === "resignation" && m === 3) events.push("🛑 สิ้นสุดเงินช่วยเหลือว่างงาน");
 
                 let totalOutflow = baseExpenses + insurance + activeCar + activePhone + activeMom;
                 let diff = incomeHelp - totalOutflow;
@@ -1019,19 +1076,24 @@
             // 3. Update summary metrics
             document.getElementById("res-runway").innerText = `${monthsLeft.toFixed(1)} เดือน`;
 
-            // Extended runway if liquidate Webull portfolio
+            // Extended runway if liquidate Webull and PVD portfolio
             const estMonthlyOutflow = baseExpenses + insurance + carPay;
-            const extendedMonths = estMonthlyOutflow > 0 ? (webullVal / estMonthlyOutflow) : 0;
-            const totalWithWebull = monthsLeft + extendedMonths;
-            document.getElementById("res-runway-extended").innerText = `หากรวมการ liquidate ขายพอร์ต Webull จะช่วยยืดระยะเวลารอดชีวิตเพิ่มขึ้นเป็นประมาณ ${totalWithWebull.toFixed(1)} เดือนครับ`;
+            const extendedMonthsWebull = estMonthlyOutflow > 0 ? (webullVal / estMonthlyOutflow) : 0;
+            const extendedMonthsPvd = estMonthlyOutflow > 0 ? (pvdVal / estMonthlyOutflow) : 0;
+            const totalWithAll = monthsLeft + extendedMonthsWebull + extendedMonthsPvd;
+            document.getElementById("res-runway-extended").innerText = `หากรวมการ liquidate ขายพอร์ต Webull และกองทุน PVD จะช่วยยืดระยะเวลาอยู่รอดรวมเป็นประมาณ ${totalWithAll.toFixed(1)} เดือนครับ (พอร์ต Webull ยืดอีก ${extendedMonthsWebull.toFixed(1)} เดือน, กองทุน PVD ยืดอีก ${extendedMonthsPvd.toFixed(1)} เดือน)`;
 
             // 4. Update Advice Box
             const safetyBox = document.getElementById("safety-message");
+            const sourceText = leavingReason === "layoff"
+                ? `เงินชดเชยเลิกจ้างตามกฎหมาย <strong>${severanceVal.toLocaleString("th-TH")} บาท</strong> ร่วมกับเงินกองทุนสำรองฉุกเฉินเดิมและประกันสังคม`
+                : `เงินสดกองทุนสำรองฉุกเฉินสะสมเดิมร่วมกับเงินช่วยว่างงานจากประกันสังคม`;
+
             if (monthsLeft >= 12) {
                 safetyBox.className = "info-alert success";
                 safetyBox.innerHTML = `
                     <span style="color: var(--green); font-weight: 700; font-size: 1.1rem; display: block; margin-bottom: 0.4rem;">✨ ความมั่นคงทางการเงินระดับยอดเยี่ยม (Runway เกิน 1 ปี)</span>
-                    จากเงินชดเชยเลิกจ้างตามกฎหมาย <strong>${severanceVal.toLocaleString("th-TH")} บาท</strong> ร่วมกับเงินกองทุนสำรองฉุกเฉินเดิมและประกันสังคม ทำให้คุณต้านทานวิกฤตได้นานถึง <strong>${monthsLeft.toFixed(1)} เดือน</strong> โดยไม่ต้องห่วงหน้าพะวงหลังและยังไม่จำเป็นต้องรีบตัดขายสินทรัพย์หลักทรัพย์ลงทุนครับ สามารถใช้โอกาสนี้วิเคราะห์หางานใหม่หรือยกระดับทักษะได้อย่างสบายใจครับ!
+                    จาก${sourceText} ทำให้คุณต้านทานวิกฤตได้นานถึง <strong>${monthsLeft.toFixed(1)} เดือน</strong> โดยไม่ต้องห่วงหน้าพะวงหลังและยังไม่จำเป็นต้องรีบตัดขายสินทรัพย์หลักทรัพย์ลงทุนครับ สามารถใช้โอกาสนี้วิเคราะห์หางานใหม่หรือยกระดับทักษะได้อย่างสบายใจครับ!
                 `;
             } else if (monthsLeft >= 6) {
                 safetyBox.className = "info-alert warning";
@@ -1043,7 +1105,7 @@
                 safetyBox.className = "info-alert danger";
                 safetyBox.innerHTML = `
                     <span style="color: var(--rose); font-weight: 700; font-size: 1.1rem; display: block; margin-bottom: 0.4rem;">⚠️ ความมั่นคงทางการเงินระดับเฝ้าระวัง (Runway ต่ำกว่า 6 เดือน)</span>
-                    เงินทุนสำรองของคุุณครอบคลุมได้ไม่เกิน 6 เดือน แนะนำให้เข้าสู่ <strong>Defensive Mode ขั้นสูงสุด</strong> ทันที: ตัดลดรายจ่ายผันแปรทั้งหมด และเตรียมพิจารณาถอนเงินลงทุนพอร์ต Webull บางส่วนมาเป็นเงินสดเสริมทัพล่วงหน้าเพื่อความปลอดภัยของครอบครัวครับ
+                    เงินทุนสำรองของคุุณครอบคลุมได้ไม่เกิน 6 เดือน แนะนำให้เข้าสู่ <strong>Defensive Mode ขั้นสูงสุด</strong> ทันที: ตัดลดรายจ่ายผันแปรทั้งหมด และเตรียมพิจารณาถอนเงินลงทุนพอร์ต Webull/PVD บางส่วนมาเป็นเงินสดเสริมทัพล่วงหน้าเพื่อความปลอดภัยของครอบครัวครับ
                 `;
             }
         }

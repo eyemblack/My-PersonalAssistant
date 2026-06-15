@@ -21,16 +21,16 @@ Summary of personal financial status, bank balances, liabilities, insurance, and
 
 ### 🔴 Contingency Reserve (Emergency Fund Cash)
 Target Goal: **150,000.00 THB** (Covers 6 months of necessary living expenses - *Note: Plan to accumulate beyond 150k to enhance safety buffer due to job uncertainty and outstanding debts*)
-*   **Total Emergency Cash across all accounts:** **`119,380.12 THB`** *(79.6% of goal)*
-    *   *Krungsri Kept (Contingency Pocket):* `108,380.12 THB`
+*   **Total Emergency Cash across all accounts:** **`109,380.12 THB`** *(72.9% of goal)*
+    *   *Krungsri Kept (Contingency Pocket):* `98,380.12 THB`
     *   *Dime (High-yield savings):* `10,000.00 THB`
     *   *MAKE by KBank:* `1,000.00 THB`
     *   *Bualuang Bank:* `0.00 THB`
 
 ### 🟡 Krungsri Kept Hold-For-Pay Allocation
-Total mixed cash in Kept tracked by categories: **`93,378.28 THB`**
-*   *Car Reserve:* `27,597.32 THB` (For annual insurance, tax, and maintenance)
-*   *Travel:* `21,530.72 THB`
+Total mixed cash in Kept tracked by categories: **`70,404.37 THB`**
+*   *Car Reserve:* `14,789.32 THB` (For annual insurance, tax, and maintenance)
+*   *Travel:* `11,364.81 THB`
 *   *Tax:* `13,008.06 THB` (For annual personal income tax)
 *   *Insurance (Insure):* `11,964.00 THB` (For annual health insurance premium)
 *   *Student Loan (Studentloan):* `8,000.00 THB` *(Note: Saving an additional 1,000 - 3,000 THB/month in Kept to fully close later)*
@@ -39,13 +39,16 @@ Total mixed cash in Kept tracked by categories: **`93,378.28 THB`**
 *   *Self-Learning (Learn):* `284.00 THB`
 
 ### 🔵 Investment Portfolio
-*   **Webull Brokerage Account (Global/US Stocks):** **`130,000.00 THB`** (Overall portfolio in profit, currently not in negative)
+*   **Webull Brokerage Account (Global/US Stocks):** **`140,000.00 THB`** (Overall portfolio in profit, currently not in negative)
     *   *Holdings List:* `MSFT`, `ORCL`, `ISRG`, `AXON`, `OBDC`, `MCD`, `GRAB`, `VST`
 
+### 🟣 Provident Fund (PVD)
+*   **Provident Fund (PVD):** **`70,000.00 THB`** (Considered Level 3 retirement savings, accumulated through salary deductions of 970.78 THB/month + company matching)
+
 ### 📈 Net Worth Summary
-*   **Total Balance in Kept Account:** **`201,758.40 THB`** *(Contingency Kept + Hold-For-Pay)*
-*   **Total Liquid Cash across all banks:** **`212,758.40 THB`** *(Kept + Dime + MAKE)*
-*   **Grand Total Assets (Net Worth):** **`342,758.40 THB`** *(Cash Total + Webull)*
+*   **Total Balance in Kept Account:** **`168,784.49 THB`** *(Contingency Kept + Hold-For-Pay)*
+*   **Total Liquid Cash across all banks:** **`179,784.49 THB`** *(Kept + Dime + MAKE)*
+*   **Grand Total Assets (Net Worth):** **`389,784.49 THB`** *(Cash Total + Webull + PVD)*
 
 ---
 
@@ -81,11 +84,18 @@ Total mixed cash in Kept tracked by categories: **`93,378.28 THB`**
 
 ## 🚨 5. Layoff Preparedness & Survival Runway
 
-Under potential layoff risk, based on **5 years** of service tenure:
+### ⏱️ Survival Runway Projections (Based on 5 years service tenure)
+
+#### 🔴 Case A: ถูกเลิกจ้างโดยไม่มีความผิด (Layoff with statutory severance)
 *   **Statutory Severance Pay (120 days):** **`206,156.00 THB`** (Equivalent to 4 months of gross salary, tax-exempt)
 *   **Social Security Unemployment Benefit:** **`7,500.00 THB/month`** for 6 months (`45,000 THB` total)
-*   **Immediate Cash Buffer upon Layoff:** **`325,536.12 THB`** *(Current cash 119k + Severance 206k)*
+*   **Immediate Cash Buffer upon Layoff:** **`315,536.12 THB`** *(Current cash 109k + Severance 206k)*
+*   **Cash-Only Survival Runway (Webull & PVD untouched):** **`14.0 months`** (approx. 1 year and 2 months)
+*   **Extended Survival Runway (Cash + Webull & PVD liquidation):** **`22.9 months`** (approx. 1 year and 11 months)
 
-### ⏱️ Survival Runway Projection (Without employment income)
-*   **Cash-Only Survival Runway (Webull untouched):** **`14.4 months`** (approx. 1 year and 2 months)
-*   **Extended Survival Runway (Cash + Webull liquidation):** **`20.0 months`** (approx. 1 year and 8 months)
+#### 🟡 Case B: ลาออกเอง / สัญญาจ้างหมดอายุ (Resignation / No Severance)
+*   **Statutory Severance Pay:** **`0.00 THB`**
+*   **Social Security Unemployment Benefit:** **`4,500.00 THB/month`** for 3 months (`13,500 THB` total)
+*   **Immediate Cash Buffer:** **`109,380.12 THB`** *(Only current emergency reserve cash)*
+*   **Cash-Only Survival Runway (Webull & PVD untouched):** **`4.4 months`** (approx. 4 months and 11 days)
+*   **Extended Survival Runway (Cash + Webull & PVD liquidation):** **`12.9 months`** (approx. 1 year and 1 month)
