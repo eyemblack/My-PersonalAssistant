@@ -124,6 +124,111 @@ const vocabularyData = [
         thai: "การยกขึ้น, การเลี้ยงดู",
         example: "Raising weights is a good way to build strength.",
         note: "มาจากคำว่า raise แปลว่ายกขึ้น หรือเลี้ยงดู (เช่น เลี้ยงลูก/สัตว์)"
+    },
+    {
+        english: "Explain",
+        pos: "(v.)",
+        thai: "อธิบาย",
+        example: "Could you please explain what you are doing?",
+        note: "ใช้แทนคำว่า expand ที่แปลว่าขยายขอบเขต"
+    },
+    {
+        english: "Process",
+        pos: "(n.)",
+        thai: "ขั้นตอน, กระบวนการ",
+        example: "Could you tell me more about the process?",
+        note: "ขั้นตอนหรือกระบวนการทำงาน"
+    },
+    {
+        english: "Optical shop",
+        pos: "(n.)",
+        thai: "ร้านแว่นตา",
+        example: "I went to an optical shop.",
+        note: "เช่น ร้าน LensKart"
+    },
+    {
+        english: "Prescription glasses",
+        pos: "(n.)",
+        thai: "แว่นสายตา",
+        example: "I decided to order prescription glasses.",
+        note: "แว่นตาที่สั่งตัดตามค่าสายตาโดยเฉพาะ"
+    },
+    {
+        english: "Try on",
+        pos: "(phrasal v.)",
+        thai: "ลองสวมใส่ (เสื้อผ้า, แว่นตา)",
+        example: "I tried on glasses and I asked the staff about them.",
+        note: "ใช้กับการลองสวมเสื้อผ้า แว่นตา หรือรองเท้า"
+    },
+    {
+        english: "Deposit",
+        pos: "(n./v.)",
+        thai: "เงินมัดจำ, วางเงินมัดจำ",
+        example: "I made a deposit and made the payment.",
+        note: "การจ่ายเงินมัดจำล่วงหน้าเพื่อจองสินค้า"
+    },
+    {
+        english: "Pickled vegetables",
+        pos: "(n.)",
+        thai: "ผักดอง",
+        example: "I like to make pickled vegetables at home.",
+        note: "ผักที่ผ่านกระบวนการดอง (น้ำเกลือหรือน้ำส้มสายชู)"
+    },
+    {
+        english: "Sterilize",
+        pos: "(v.)",
+        thai: "ฆ่าเชื้อโรค (เช่น ขวดโหล)",
+        example: "You need to sterilize the jar.",
+        note: "การลวกน้ำร้อนเพื่อทำความสะอาดและฆ่าเชื้อขวดโหล"
+    },
+    {
+        english: "Brine",
+        pos: "(n.)",
+        thai: "น้ำเกลือสำหรับใช้ดอง",
+        example: "You need to submerge the vegetables in brine.",
+        note: "น้ำผสมเกลือเข้มข้นที่ใช้สำหรับดองอาหาร"
+    },
+    {
+        english: "Homemade yogurt",
+        pos: "(n.)",
+        thai: "โยเกิร์ตทำเอง",
+        example: "I am making homemade yogurt.",
+        note: "โยเกิร์ตที่ทำขึ้นทานเองที่บ้าน"
+    },
+    {
+        english: "Yogurt starter",
+        pos: "(n.)",
+        thai: "หัวเชื้อโยเกิร์ต",
+        example: "You need a yogurt starter to begin.",
+        note: "หัวเชื้อที่มีจุลินทรีย์สำหรับทำโยเกิร์ต"
+    },
+    {
+        english: "Fermentation",
+        pos: "(n.)",
+        thai: "กระบวนการหมัก",
+        example: "Let it ferment for 8 to 12 hours.",
+        note: "ขั้นตอนหรือกระบวนการหมักอาหารด้วยจุลินทรีย์"
+    },
+    {
+        english: "Cover a lot of ground",
+        pos: "(idiom)",
+        thai: "ได้ครอบคลุมเนื้อหาหรือเรื่องราวไปเยอะมาก",
+        example: "We covered a lot of ground in our session.",
+        note: "สำนวนแปลว่าได้เรียนรู้หรือคุยไปหลายประเด็นมากในรอบเดียว"
+    },
+    {
+        english: "Tough",
+        pos: "(adj.)",
+        thai: "ยากลำบาก, โหด, เหนียว (เนื้อ)",
+        example: "Today's workout was very tough!",
+        note: "ใช้พูดถึงงานที่ยาก การออกกำลังกายที่เหนื่อยมาก หรือเนื้อสัตว์ที่เคี้ยวยาก"
+    },
+    {
+        english: "Appointment",
+        pos: "(n.)",
+        thai: "การนัดหมาย (ที่เป็นทางการ เช่น นัดหมอ นัดคุยงาน)",
+        example: "I have a doctor's appointment at 3:00 PM.",
+        note: "การนัดหมายเวลากับบุคคลอื่น ไม่ใช้กับการนัดเที่ยวเล่นทั่วไปกับเพื่อน (มักใช้ hang out หรือ meet up แทน)"
     }
 ];
 
