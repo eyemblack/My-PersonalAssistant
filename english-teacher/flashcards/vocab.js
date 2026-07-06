@@ -229,6 +229,48 @@ const vocabularyData = [
         thai: "การนัดหมาย (ที่เป็นทางการ เช่น นัดหมอ นัดคุยงาน)",
         example: "I have a doctor's appointment at 3:00 PM.",
         note: "การนัดหมายเวลากับบุคคลอื่น ไม่ใช้กับการนัดเที่ยวเล่นทั่วไปกับเพื่อน (มักใช้ hang out หรือ meet up แทน)"
+    },
+    {
+        english: "Approx. (Approximately)",
+        pos: "(adj./adv.)",
+        thai: "โดยประมาณ, ราวๆ, คร่าวๆ",
+        example: "The new workout session will take approx. 45 minutes.",
+        note: "คำย่อของ approximately ใช้บอกจำนวนหรือเวลาคร่าวๆ"
+    },
+    {
+        english: "Exceptional",
+        pos: "(adj.)",
+        thai: "ยอดเยี่ยมเป็นพิเศษ, โดดเด่นมาก",
+        example: "Her progress in learning English is exceptional.",
+        note: "ดีเลิศและโดดเด่นกว่าปกติ (ดีกว่าคำว่า good หรือ excellent)"
+    },
+    {
+        english: "Maintaining",
+        pos: "(v.)",
+        thai: "การรักษาไว้, คงสภาพเดิมไว้",
+        example: "Maintaining a good exercise routine builds strong habits.",
+        note: "มาจากคำว่า maintain แปลว่าดูแล รักษา หรือพยุงระดับเอาไว้ไม่ให้ตก"
+    },
+    {
+        english: "Excessive",
+        pos: "(adj.)",
+        thai: "มากเกินไป, เยอะเกินขอบเขต",
+        example: "Excessive screen time before sleeping can cause insomnia.",
+        note: "มีปริมาณเยอะจนล้นหรือส่งผลเสีย (รุนแรงกว่าคำว่า too much)"
+    },
+    {
+        english: "Fatigue",
+        pos: "(n.)",
+        thai: "ความเหนื่อยล้า, ความอ่อนเพลียสะสม",
+        example: "After a 3-hour run, he felt intense physical fatigue.",
+        note: "ความเหนื่อยล้าอย่างรุนแรง ทั้งทางกายและใจ ดีกว่าคำว่า tiredness หรือ tired ทั่วไป"
+    },
+    {
+        english: "Stimulate",
+        pos: "(v.)",
+        thai: "กระตุ้น",
+        example: "Drinking black coffee stimulates our brain and keeps us awake.",
+        note: "กระตุ้นให้ตื่นตัว ทำงาน หรือตอบสนอง (เติม s/es เมื่อประธานเป็นเอกพจน์ เช่น stimulates)"
     }
 ];
 
